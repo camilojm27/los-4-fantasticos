@@ -1,4 +1,4 @@
-![Ricuritas Logo](https://res.cloudinary.com/kentruri/image/upload/v1615312416/LogoGithub_hwf3yy.png)
+![Logo](https://res.cloudinary.com/kentruri/image/upload/v1615312416/LogoGithub_hwf3yy.png)
 
 Este proyecto es un ecommerce hecho con React, Express, Node y Postgresql
 

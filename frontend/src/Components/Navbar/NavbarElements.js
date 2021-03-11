@@ -4,7 +4,7 @@ import { Link as LinkS} from 'react-scroll'
 
 //LinkR es por Link Router, y Link s es por Link Scroll
 export const Nav = styled.nav`
-   background: #111;
+   background: ${({scrollNav}) => (scrollNav ? '#111' : 'transparent')};
    height:80px;
    margin-top: -80px; 
    display: flex;
@@ -14,12 +14,10 @@ export const Nav = styled.nav`
    position: sticky;
    top: 0;
    z-index: 10;
+   transition: 0.8s all ease;
 
-   @media screen and (max-width: 960px) {
 
-    transition: 0.8s all ease;
-
-   }
+   
 
 
 `;
@@ -28,6 +26,7 @@ export const NavbarContainer = styled.div`
    display: flex;
    justify-content: space-between;
    height: 80px ;
+   
    z-index: 1;
    width: 100%;
    padding: 0 24px;
@@ -82,6 +81,7 @@ export const NavMenu = styled.ul`
 
 export const NavItem = styled.li`
   height: 80px;
+  
 
 `
 
@@ -99,7 +99,7 @@ export const NavLinks = styled(LinkS)`
    /* Esto es pa cuando uno selecciona un item, la rayita */
 
    &.active {
-      border-bottom: 3px solid #01bf71;
+      border-bottom: 3px solid rgb(235, 232, 51);
    }
 `
 export const NavBtn = styled.nav`

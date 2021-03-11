@@ -12,7 +12,7 @@ import {
     ArrowRight
 } from './HeroElements'
 
-import { FaArrowRight } from 'react-icons/fa'
+
 
 const HeroSection = () => {
 
@@ -22,7 +22,7 @@ const HeroSection = () => {
     }
 
     return (
-        <HeroContainer>
+        <HeroContainer id={'/'}>
             <HeroBg>
                 <VideoBg autoPlay loop muted src='https://res.cloudinary.com/kentruri/video/upload/v1615312461/video_eya0yy.mp4' type='video/mp4'/>
             </HeroBg>
@@ -38,7 +38,7 @@ const HeroSection = () => {
                     onMouseLeave={onHover}
                     primary="true"
                     dark="true">
-                        Registrate  {hover ? <ArrowForward /> : <ArrowRight/>}
+                        ¡Registrarse es gratis!  {hover ? <ArrowForward /> : <ArrowRight/>}
                     </Button>
                 </HeroBtnWrapper>
             </HeroContent>
