@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "heroku-postbuild": "tsc && cd frontend && npm install --only=prod  && npm run build",
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
