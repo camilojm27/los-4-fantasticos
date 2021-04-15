@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/camilojm27/los-4-fantasticos.svg?branch=main)](https://travis-ci.com/camilojm27/los-4-fantasticos)
+
 ![Logo](https://res.cloudinary.com/kentruri/image/upload/v1615312416/LogoGithub_hwf3yy.png)
 
 Este proyecto es un ecommerce hecho con React, Express, Node y Postgresql

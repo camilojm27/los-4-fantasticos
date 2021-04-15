@@ -1,0 +1,14 @@
+lenguage: node_js
+node_js:
+  - '14'
+dist: focal
+cache:
+  directrories:
+    - node_modules
+    - frontend/node_modules
+script:
+  - npm run heroku-postbuild
+deploy:
+  provider: heroku
+  api_key: $APIKEYHEROKU
+  app: ricuras
