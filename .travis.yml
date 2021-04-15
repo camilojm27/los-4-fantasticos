@@ -1,9 +1,12 @@
-lenguage: node_js
+os: linux
+language: node_js
 node_js:
   - '14'
+before_install:
+  - npm install -g npm@latest
 dist: focal
 cache:
-  directrories:
+  directories:
     - node_modules
     - frontend/node_modules
 script:
@@ -12,3 +15,6 @@ deploy:
   provider: heroku
   api_key: $APIKEYHEROKU
   app: ricuras
+  target_branch: main
+  on:
+    branch: main
