@@ -5,6 +5,8 @@ import Sidebar from '../Components/Sidebar'
 import HeroSection from '../Components/HeroSection';
 import InfoSection from '../Components/infoSection';
 import ProductsSection from '../Components/Products'
+import RegisterSection  from '../Components/RegisterSection'
+
 const Home = () => {
 
   const [isOpen, setIsOpen] = useState(false)
@@ -12,6 +14,7 @@ const Home = () => {
   const toggle = () => {
     setIsOpen(!isOpen)
   }
+
 
     return (
         <>
@@ -22,6 +25,7 @@ const Home = () => {
          
           <InfoSection/>
           <ProductsSection/>
+          <RegisterSection/>
 
         </>
     )
