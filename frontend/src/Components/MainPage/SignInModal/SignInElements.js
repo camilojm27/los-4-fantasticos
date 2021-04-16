@@ -15,7 +15,7 @@ export const Background = styled.div`
   z-index:5; // si le colocamos 10, superpone al navbar, 5 para no superponerlo
   box-shadow: 10px 5px 5px black;
   @media screen and (max-width: 768px){
-    height: 110%;
+    height: 130%;
   }
 `;
 

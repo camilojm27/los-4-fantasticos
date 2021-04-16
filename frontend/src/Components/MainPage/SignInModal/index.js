@@ -65,7 +65,7 @@ const SignInModal = ({ showSignIn, setShowSignIn }) => {
 
               <BtnLogin>Ingresar</BtnLogin>
 <br/>
-              <H2SignIn>¿Ya tienes cuenta? <ASignIn  onClick={() => setShowSignIn(prev => !prev)}  to="Register"
+              <H2SignIn>¿No tienes cuenta? <ASignIn  onClick={() => setShowSignIn(prev => !prev)}  to="Register"
                             smooth={true}
                             duration={1000}
                             spy={true}
@@ -73,7 +73,7 @@ const SignInModal = ({ showSignIn, setShowSignIn }) => {
                             offset={-80}
                             
                             
-                            >Ingresa</ASignIn></H2SignIn>
+                            >Registrate</ASignIn></H2SignIn>
         
 
 
