@@ -12,6 +12,7 @@ import {
 } from './NavbarElements';
 import {animateScroll as scroll} from 'react-scroll';
 import { FaBars } from 'react-icons/fa';
+import SignInModal from '../SignInModal'
 
 //NavElements es basicamente para las partes del navbar, asi se modula un poco mas
 
@@ -35,6 +36,12 @@ const Navbar = ({ toggle }) => {
 
     const toggleHome = () => {
         scroll.scrollToTop();
+    }
+
+    const [showSignIn,setShowSignIn] = useState(false)
+
+    const openSignIn = () => {
+        setShowSignIn (prev => !prev)
     }
 
     return (
@@ -74,19 +81,26 @@ const Navbar = ({ toggle }) => {
 
 
                         <NavItem>
-                            <NavLinks to="Registro"
+                            <NavLinks to="Register"
+                             smooth={true}
+                             duration={500}
+                             spy={true}
+                             exact='true'
+                             offset={-80}
                             >Registrate</NavLinks>
                         </NavItem>
 
                     </NavMenu>
                     <NavBtn>
-                        <NavBtnLink to="/signin">
+                        <NavBtnLink onClick={openSignIn}>
                             Iniciar Sesion
                              </NavBtnLink>
                     </NavBtn>
                 </NavbarContainer>
 
             </Nav>
+
+            <SignInModal showSignIn={showSignIn} setShowSignIn={setShowSignIn} />
         </>
     )
 }

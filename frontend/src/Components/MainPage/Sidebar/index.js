@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState,useEffect} from 'react';
 import {
     SidebarContainer,
     Icon,
@@ -9,9 +9,20 @@ import {
     SideBtnWrap,
     SidebarRoute
 } from './SidebarElements'
+import SignInModal from '../SignInModal'
 
 const Sidebar = ({ isOpen, toggle }) => {
+
+    
+    const [showSignIn,setShowSignIn] = useState(false)
+
+    const openSignIn = () => {
+        setShowSignIn (prev => !prev)
+    }
+
+
     return (
+        <>
         <SidebarContainer isOpen={isOpen} onClick={toggle}>
             <Icon onClick={toggle}>
                 <CloseIcon />
@@ -41,12 +52,17 @@ const Sidebar = ({ isOpen, toggle }) => {
                   </SidebarLink>
                 </SidebarMenu>
                 <SideBtnWrap>
-                    <SidebarRoute to="/signin">
+                    <SidebarRoute onClick={openSignIn}>
                         Iniciar Sesion
                   </SidebarRoute>
                 </SideBtnWrap>
             </SidebarWrapper>
+            
         </SidebarContainer>
+        
+   <SignInModal showSignIn={showSignIn} setShowSignIn={setShowSignIn} />
+        </>
+        
     )
 }
 
