@@ -16,6 +16,10 @@ export const ProductsContainer = styled.div`
    @media screen and (max-width: 480px){
        height: 1620px;
    }
+
+   @media screen and (max-width: 350px){
+       height: 1720px;
+   }
 `
 
 export const ProductsWrapper = styled.div`
