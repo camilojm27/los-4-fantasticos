@@ -50,7 +50,7 @@ const Navbar = ({ toggle }) => {
                 <NavbarContainer>
                 
                         <NavLogo to="/" onClick={toggleHome}>
-                            <img to="/" src='https://res.cloudinary.com/kentruri/image/upload/v1615312416/Logo_v81kkw.ico' alt="" />
+                            <img to="/" src='https://res.cloudinary.com/kentruri/image/upload/v1615312416/Logo_v81kkw.ico' alt="Logo" />
                         </NavLogo>
                 
 
