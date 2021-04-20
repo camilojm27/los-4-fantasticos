@@ -13,6 +13,6 @@ export const db = new Sequelize("ricuritas", "postgres", "password", {
 });
 
 export async function connectDB() {
-  db.authenticate();
+  await db.authenticate();
   console.log("Database is connected");
 }
