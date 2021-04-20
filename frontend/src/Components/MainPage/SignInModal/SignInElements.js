@@ -7,7 +7,7 @@ import { Link as LinkS} from 'react-scroll'
 export const Background = styled.div`
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.95);
   position: fixed;
   display: flex;
   justify-content: center;

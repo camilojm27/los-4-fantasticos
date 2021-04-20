@@ -5,6 +5,8 @@ const RegisterSection = () => {
   
 
   
+
+  
   return (
     
     <RegisterContainer id="Register">
