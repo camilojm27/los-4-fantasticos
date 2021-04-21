@@ -67,7 +67,7 @@ export const I = styled.i`
 
 export const ASidebar1 = styled(LinkR)`
  text-decoration: none;
-  color: #a5aaad;
+  color: #ddd;
   font-weight: 800;
   font-family: 'RocknRoll One', sans-serif;
 
@@ -77,7 +77,7 @@ export const ASidebar1 = styled(LinkR)`
 
 export const ASidebar2 = styled(LinkR)`
  text-decoration: none;
-  color: #a5aaad;
+  color: #ddd;
   font-weight: 700;
   font-family: 'RocknRoll One', sans-serif;
   margin-left:10px;
@@ -94,8 +94,6 @@ export const SidebarLink = styled.div`
 
   &:active{
 
-    background: rgb(135, 133, 44);
-  color: rgb(235, 232, 51);
   }
   
   
