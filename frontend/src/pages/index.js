@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 
 import Navbar from '../Components/MainPage/Navbar';
 import Sidebar from '../Components/MainPage/Sidebar'
@@ -7,8 +7,6 @@ import InfoSection from '../Components/MainPage/infoSection';
 import ProductsSection from '../Components/MainPage/Products'
 import RegisterSection  from '../Components/MainPage/RegisterSection'
 
-import {useDispatch} from "react-redux";
-import {getProductList} from "../actions/productAction";
 
 const Home = () => {
 
@@ -17,12 +15,6 @@ const Home = () => {
   const toggle = () => {
     setIsOpen(!isOpen)
   }
-
-    const dispatch = useDispatch()
-
-    useEffect(()=> {
-        dispatch(getProductList())
-    }, [dispatch])
 
     return (
         <>
