@@ -1,14 +1,14 @@
 import React from 'react'
 
 import Sidebar from '../../../Components/Management/Sidebar'
-import HeaderSection from '../../../Components/Management/HeaderSection'
+import Navbar from '../../../Components/Management/Navbar'
 
 const CategoriesEdit = () => {
 
    
     return (
         <div className="container">
-          <HeaderSection/>
+           <Navbar/>
           <Sidebar/>
           
         </div> 

@@ -20,36 +20,36 @@ const Sidebar
                     <SidebarLink>
                         
 
-                        <div id={window.location.pathname == '/Management/' || window.location.pathname == '/Management' ? "active":""}><I><HomeIcon /></I><ASidebar1 to="/Management/">Administracion</ASidebar1></div>
+                        <div id={window.location.pathname === '/Management/' || window.location.pathname === '/Management' ? "active":""}><I><HomeIcon /></I><ASidebar1 to="/Management/">Administracion</ASidebar1></div>
                     </SidebarLink>
                     <H2Sidebar>Restaurante</H2Sidebar>
                     <SidebarLink>
-                    <div id={window.location.pathname == '/Management/Categories' || window.location.pathname == '/Management/Categories/Edit' ? "active":""}>
+                    <div id={window.location.pathname === '/Management/Categories' || window.location.pathname === '/Management/Categories/Edit' ? "active":""}>
                         <I><CategoryIcon /></I>
                         <ASidebar2 to="Categories">Categorias</ASidebar2>
                         </div>
                     </SidebarLink>
                     <SidebarLink>
-                    <div id={window.location.pathname == '/Management/Products' || window.location.pathname == '/Management/Products/Edit' ? "active":""}>
+                    <div id={window.location.pathname === '/Management/Products' || window.location.pathname === '/Management/Products/Edit' ? "active":""}>
                         <I><ProductIcon /></I>
                         <ASidebar2 to="Products">Productos</ASidebar2>
                         </div>
                     </SidebarLink>
                     <SidebarLink>
-                    <div id={window.location.pathname == '/Management/Invoices' || window.location.pathname == '/Management/Invoices/Edit' ? "active":""}>
+                    <div id={window.location.pathname === '/Management/Invoices' || window.location.pathname === '/Management/Invoices/Edit' ? "active":""}>
                         <I><InvoiceIcon /></I>
                         <ASidebar2 to="Invoice">Facturas</ASidebar2>
                         </div>
                     </SidebarLink>
                     <H2Sidebar>Usuarios</H2Sidebar>
                     <SidebarLink>
-                    <div id={window.location.pathname == '/Management/Clients' || window.location.pathname == '/Management/Clients/Edit' ? "active":""}>
+                    <div id={window.location.pathname === '/Management/Clients' || window.location.pathname === '/Management/Clients/Edit' ? "active":""}>
                         <I><ClientIcon /></I>
                         <ASidebar2 to="Clients">Clientes</ASidebar2>
                         </div>
                     </SidebarLink>
                     <SidebarLink>
-                    <div id={window.location.pathname == '/Management/Admins' || window.location.pathname == '/Management/Admins/Edit'  ? "active":""}>
+                    <div id={window.location.pathname === '/Management/Admins' || window.location.pathname === '/Management/Admins/Edit'  ? "active":""}>
                         <I><AdminIcon /></I>
                         <ASidebar2 to="Admins">Administradores</ASidebar2>
                         </div>
