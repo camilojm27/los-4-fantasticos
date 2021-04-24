@@ -1,4 +1,4 @@
-import React from 'react';
+import React  from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Radio from '@material-ui/core/Radio';
@@ -85,7 +85,8 @@ const  StyledRadio = (props) => {
       <RadioGroup defaultValue="Id" aria-label="gender" name="customized-radios"  onChange={handleChange}>
         <FormControlLabel value="Id" control={<StyledRadio />} label="Id" />
         <FormControlLabel value="Nombre" control={<StyledRadio />} label="Nombre"  />
-        
+        <FormControlLabel value="Unidad" control={<StyledRadio />} label="Unidad"  />
+        <FormControlLabel value="Categoria" control={<StyledRadio />} label="Categoria"  />
       </RadioGroup>
     </FormControl>
   );

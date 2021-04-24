@@ -1,8 +1,20 @@
 import React from 'react'
-import { RegisterContainer, RegisterWrapper, RegisterImg, RegisterForm, H2Form, Input, RegisterGridInput, RegisterInput, RegisterInputBlock, I, IconUser, IconPassword, IconCalendar, IconEmail, IconId,IconMap,IconPhone } from './RegisterSectionElements'
+import { RegisterContainer, RegisterWrapper, RegisterForm, H2Form, Input, RegisterGridInput, RegisterInput, RegisterInputBlock, I, IconUser, IconPassword, IconCalendar, IconEmail, IconId,IconMap,IconPhone } from './RegisterSectionElements'
+import { useForm } from "react-hook-form"; 
+import { Redirect } from 'react-router-dom'
+
+import axios from 'axios'
+
+
+
 const RegisterSection = () => {
 
+  const {register,errors,handleSubmit} = useForm()
+
+  const onSubmit = (data) => {
+    console.log(data,"hola")
   
+  }
 
   
 
@@ -12,8 +24,9 @@ const RegisterSection = () => {
     <RegisterContainer id="Register">
      
       <RegisterWrapper>
-        
-        <RegisterForm>
+         
+         <form onSubmit={handleSubmit(onSubmit)}>
+        <RegisterForm >
           <H2Form>
             Registrate
               </H2Form>
@@ -22,7 +35,7 @@ const RegisterSection = () => {
               
             <div>
             <I> <IconUser/>  </I> 
-              <Input placeholder="Nombre(s)" type="text" />
+              <Input placeholder="Nombre(s)" type="text" name="nombre" />
               </div>
             </RegisterInput>
 
@@ -30,7 +43,7 @@ const RegisterSection = () => {
               
               <div>
               <I> <IconUser/>  </I> 
-                <Input placeholder="Apellido(s)" type="text" />
+                <Input placeholder="Apellido(s)" type="text" name="apellido" />
                 </div>
               </RegisterInput>
           </RegisterGridInput>
@@ -40,7 +53,7 @@ const RegisterSection = () => {
             <RegisterInputBlock>
               <div>
               <I> <IconEmail/> </I>
-              <Input placeholder="Email" type="text" />
+              <Input placeholder="Email" type="text" name="email" />
               </div>
              
             </RegisterInputBlock>
@@ -51,12 +64,12 @@ const RegisterSection = () => {
           <RegisterGridInput>
             <RegisterInput>
             <I> <IconPassword/></I>
-                <Input placeholder="Contraseña" type="password"/>
+                <Input placeholder="Contraseña" type="password" name="password"/>
             </RegisterInput>
 
             <RegisterInput>
             <I> <IconPassword/></I>
-                <Input placeholder="Repita su contraseña" type="password"/>
+                <Input placeholder="Repita su contraseña" type="password" name="rpassword"/>
             </RegisterInput>
           </RegisterGridInput>
 
@@ -64,7 +77,7 @@ const RegisterSection = () => {
             <RegisterInputBlock>
               <div>
               <I> <IconMap/> </I>
-              <Input placeholder="Direccion de residencia" type="text" />
+              <Input placeholder="Direccion de residencia" type="text" name="direccion" />
               </div>
              
             </RegisterInputBlock>
@@ -77,12 +90,12 @@ const RegisterSection = () => {
             <RegisterInput>
             <I> <IconId/></I>
         
-                <Input placeholder="Tipo de documento" type="tel"/>
+                <Input placeholder="Tipo de documento" type="tel" name="tipoDocumento"/>
             </RegisterInput>
 
             <RegisterInput>
             <I> <IconId/></I>
-                <Input placeholder="Numero de ID" type="text"/>
+                <Input placeholder="Numero de ID" type="text" name="documento"/>
             </RegisterInput>
           </RegisterGridInput>
 
@@ -94,20 +107,22 @@ const RegisterSection = () => {
 
             <RegisterInput>
             <I> <IconPhone/></I>
-                <Input placeholder="Num. celular" type="tel"/>
+                <Input placeholder="Num. celular" type="tel" name="numero"/>
             </RegisterInput>
 
             <RegisterInput>
               <div>
               <I> <IconCalendar/> </I>
-              <Input type="date" placeholder="Año de nacimiento"  />
+              <Input type="date" placeholder="Año de nacimiento" name="fecha"  />
               </div>
              
             </RegisterInput>
 
 
           </RegisterGridInput>
+          <button>enviar</button>
           </RegisterForm>
+          </form>
 
       </RegisterWrapper>
     </RegisterContainer>

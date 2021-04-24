@@ -2,7 +2,7 @@ import React from 'react';
 import Tablas from './Tablas'
 import {Container, WrapperTable } from '../Elements'
 import { HeaderMessage, HeaderTitle, Img, H1Header, PHeader } from '../HeaderSection/HeaderSectionElements'
-const Category = () => {
+const Product = () => {
 
 
   return (
@@ -15,7 +15,7 @@ const Category = () => {
           <H1Header>
             Hola username
        <PHeader>
-              Bienvenido al panel de las Categorias
+              Bienvenido al panel de los productos
             </PHeader>
           </H1Header>
 
@@ -32,4 +32,4 @@ const Category = () => {
   )
 }
 
-export default Category
+export default Product

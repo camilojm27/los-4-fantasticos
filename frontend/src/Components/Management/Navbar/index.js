@@ -5,7 +5,7 @@ const Navbar = ({ sidebarOpen, openSidebar }) => {
       <nav className="navbar">
     
         <div className="navbar__left">
-          <a className="active_link" href="#">
+          <a className="active_link" href="./">
             Username
           </a>
         </div>

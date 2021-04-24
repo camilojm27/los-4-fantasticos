@@ -91,7 +91,7 @@ const Tablas = () => {
     const data = await fetch('https://ricuritas.herokuapp.com/api/category')
     const dataJs = await data.json()
     setDatos(dataJs)
-    console.log(datos)
+    console.log(dataJs)
   }
 
   useEffect(() => {
@@ -155,12 +155,13 @@ const Tablas = () => {
                 <TableBody>
                   {datos.categories && datos.categories.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((item) => {
                    
-                   if(item == undefined || query==""){
+                   if(item === undefined || query===""){
                      return item
-                   }else if (select =="Id" && item.id.toString().toLowerCase().includes(query.toLowerCase())  ){
+                   }else if (select ==="Id" && item.id.toString().toLowerCase().includes(query.toLowerCase())  ){
                      return item
-                   }else if (select == "Nombre" && item.name.toString().toLowerCase().includes(query.toLowerCase())  ){
+                   }else if (select === "Nombre" && item.name.toString().toLowerCase().includes(query.toLowerCase())  ){
                     return item}
+                    else return item
                     
                     
                   }).map(item => (

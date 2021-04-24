@@ -28,17 +28,18 @@ function App() {
         <Route path="/" component={Home} exact />
 
         {/*Paginas de la administracion*/}
-        <Route path="/Management" component={Management} exact/>
-        <Route path="/Management/Categories" component={ManagementCategories} exact/>
+
+        <Route path="/Management/" component={Management} exact/>
+        <Route path="/Management/Categories" component={Categories} exact/>
         <Route path="/Management/Categories/edit" component={CategoriesEdit} exact/>
-        <Route path="/Management/Categories" component={Products} exact/>
-        <Route path="/Management/Categories/edit" component={ProductsEdit} exact/>
-        <Route path="/Management/Categories" component={Invoices} exact/>
-        <Route path="/Management/Categories/edit" component={InvoicesEdit} exact/>
-        <Route path="/Management/Categories" component={Clients} exact/>
-        <Route path="/Management/Categories/edit" component={ClientsEdit} exact/>
-        <Route path="/Management/Categories" component={Admins} exact/>
-        <Route path="/Management/Categories/edit" component={AdminsEdit} exact/>
+        <Route path="/Management/Products" component={Products} exact/>
+        <Route path="/Management/Products/edit" component={ProductsEdit} exact/>
+        <Route path="/Management/Invoices" component={Invoices} exact/>
+        <Route path="/Management/Invoices/edit" component={InvoicesEdit} exact/>
+        <Route path="/Management/Clients" component={Clients} exact/>
+        <Route path="/Management/Clients/edit" component={ClientsEdit} exact/>
+        <Route path="/Management/Admins" component={Admins} exact/>
+        <Route path="/Management/Admins/edit" component={AdminsEdit} exact/>
 
 
         {/*Paginas de la tienda*/}

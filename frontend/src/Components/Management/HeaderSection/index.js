@@ -1,8 +1,9 @@
-import React,{useState} from 'react'
+import React from 'react'
 import {HeaderContainer,HeaderWrapper,HeaderMessage,HeaderTitle,Img,H1Header,PHeader} from './HeaderSectionElements'
+
 function HeaderSection() {
       
-    const[Page,SetPage] = useState()
+
 
     
     return (
@@ -17,7 +18,7 @@ function HeaderSection() {
                 <H1Header>
                    Hola username
                    <PHeader>
-                    Bienvenido al panel de administracion {Page}
+                    Bienvenido al panel de administracion 
                 </PHeader>
                 </H1Header>
                 
