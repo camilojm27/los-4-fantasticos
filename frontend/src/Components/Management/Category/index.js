@@ -1,5 +1,6 @@
-import React from 'react';
+
 import Tablas from './Tablas'
+import React from 'react';
 import {Container, WrapperTable } from '../Elements'
 import { HeaderMessage, HeaderTitle, Img, H1Header, PHeader } from '../HeaderSection/HeaderSectionElements'
 const Category = () => {

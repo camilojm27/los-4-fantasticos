@@ -10,7 +10,7 @@ const Navbar = ({ sidebarOpen, openSidebar }) => {
           </a>
         </div>
         <div className="navbar__right">
-          <a href="#!">
+          <a href="/">
             <img width="30" src="https://res.cloudinary.com/kentruri/image/upload/v1619027635/avatar_h4orl7.svg" alt="avatar" />
           </a>
         </div>

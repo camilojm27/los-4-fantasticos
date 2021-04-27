@@ -1,8 +1,9 @@
-import React, { /*useRef,*/ useEffect, useCallback, useState } from 'react';
+import React, { /*useRef,*/ useEffect, useCallback,useState} from 'react';
 
 import { Background, SignInWrapper, CloseSignInButton, Img, H1SignIn, SignInInput, IconUser, Input, IconPassword, I, BtnLogin, H2SignIn, ASignIn } from './SignInElements'
 
-import { Redirect } from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
+
 
 import axios from 'axios'
 
@@ -45,14 +46,16 @@ const SignInModal = ({ showSignIn, setShowSignIn }) => {
 
 
 const {register,errors,handleSubmit} = useForm()
-
+const [role,SetRole] = useState(-1)
   const onSubmit = (data) => {
 
     console.log(data)
    
-    axios.post("/signin",data).
+    axios.post("https://ricuritas.herokuapp.com/api/auth/signin",data).
     then(res => {
-      console.log(res,"hola, soy el token: ", res.headers.Authorizationz)
+      setShowSignIn(false)
+      SetRole(res.data.user.role)
+      console.log(res,"hola, soy el token: ", res.data.Authorization)
     })
     .catch(err =>{
       console.log(err,"soy un error")
@@ -118,7 +121,7 @@ const {register,errors,handleSubmit} = useForm()
           />
         </Background>
 
-        ) : null
+        ) : role == -1 ? null : role == 1 ? (<Redirect to="/Management/" />) : (<Redirect to="/categories" />)
       }
     </>
   )

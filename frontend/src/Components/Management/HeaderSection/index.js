@@ -2,7 +2,6 @@ import React from 'react'
 import {HeaderContainer,HeaderWrapper,HeaderMessage,HeaderTitle,Img,H1Header,PHeader} from './HeaderSectionElements'
 
 function HeaderSection() {
-      
 
 
     

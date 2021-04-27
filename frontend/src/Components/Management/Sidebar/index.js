@@ -1,6 +1,6 @@
-import React from 'react'
 import { SidebarContainer, SidebarTitle, SidebarImg, Img, SidebarMenu, SidebarLink, I, ASidebar1,ASidebar2, H2Sidebar, HomeIcon, CategoryIcon, ProductIcon, InvoiceIcon, ClientIcon, AdminIcon,SidebarLogout,LogoutIcon} from './SidebarElements'
 import './active.css'
+import React from 'react'
 
 
 const Sidebar
@@ -19,8 +19,7 @@ const Sidebar
                 <SidebarMenu>
                     <SidebarLink>
                         
-
-                        <div id={window.location.pathname === '/Management/' || window.location.pathname === '/Management' ? "active":""}><I><HomeIcon /></I><ASidebar1 to="/Management/">Administracion</ASidebar1></div>
+                   <div id={window.location.pathname === '/Management/' || window.location.pathname === '/Management' ? "active":""}><I><HomeIcon /></I><ASidebar1 to="/Management/">Administracion</ASidebar1></div>
                     </SidebarLink>
                     <H2Sidebar>Restaurante</H2Sidebar>
                     <SidebarLink>

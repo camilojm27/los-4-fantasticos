@@ -24,13 +24,13 @@ function App() {
   
       <Switch>
 
-        {/*Pagina principal*/}
-        <Route path="/" component={Home} exact />
+     
+       
 
         {/*Paginas de la administracion*/}
 
         <Route path="/Management/" component={Management} exact/>
-        <Route path="/Management/Categories" component={Categories} exact/>
+        <Route path="/Management/Categories" component={ManagementCategories} exact/>
         <Route path="/Management/Categories/edit" component={CategoriesEdit} exact/>
         <Route path="/Management/Products" component={Products} exact/>
         <Route path="/Management/Products/edit" component={ProductsEdit} exact/>
@@ -46,6 +46,8 @@ function App() {
 
 
         <Route exact path="/categories/:id?" component={Categories} />
+            {/*Pagina principal*/}
+        <Route path="/" component={Home} exact />
       </Switch>
     </Router>
   );

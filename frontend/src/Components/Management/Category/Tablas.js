@@ -155,7 +155,7 @@ const Tablas = () => {
                 <TableBody>
                   {datos.categories && datos.categories.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((item) => {
                    
-                   if(item === undefined || query===""){
+                   if(item === undefined || query === ""){
                      return item
                    }else if (select ==="Id" && item.id.toString().toLowerCase().includes(query.toLowerCase())  ){
                      return item

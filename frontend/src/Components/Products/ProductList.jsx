@@ -27,8 +27,7 @@ const ProductList = (props) => {
     return(
         <SelfProductList>
             {loading ? <h1>Cargando</h1> : error ? <h1>{error}</h1> :
-
-                products.filter(function (product) {
+                 products.filter(function (product) {
                     if (props.categoriesID){
                         return  product.category_id === Number(props.categoriesID)
                     }
