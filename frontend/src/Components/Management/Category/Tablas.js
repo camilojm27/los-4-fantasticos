@@ -15,8 +15,10 @@ import { Btn, WrapperBtn, BtnEdit, BtnRemove } from '../Btn'
 import SearchBar from "material-ui-search-bar";
 import { SearchbarContainer } from '../Searchbar';
 import CustomizedRadios from './SearchOption'
+import {useDispatch, useSelector} from 'react-redux'
+import {getCategory} from '../../../actions/categoryAction'
 const Tablas = () => {
-    //Estilos de las tablas 
+  //Estilos de las tablas 
 
   const theme = createMuiTheme({
     palette: {
@@ -45,7 +47,7 @@ const Tablas = () => {
   const useStyles = makeStyles({
     root: {
       width: "140vh",
-      
+
     },
     container: {
       maxHeight: 330,
@@ -81,124 +83,119 @@ const Tablas = () => {
 
 
 
-//Solicitando datos
+  //Solicitando datos
 
-
-  const [datos, setDatos] = useState([] || null)
-
-
-  const obtainData = async () => {
-    const data = await fetch('https://ricuritas.herokuapp.com/api/category')
-    const dataJs = await data.json()
-    setDatos(dataJs)
-    console.log(dataJs)
-  }
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    obtainData()
-  }, [])
+    dispatch(getCategory())
+  }, [dispatch])
 
+  const listCategory = useSelector(state => state.categoryList)
+  const {loading,error,categories} = listCategory
 
   //Busqueda
 
-  const [query,setQuery] = useState("");
-  const [select,setSelect] = useState("")
+  const [query, setQuery] = useState("");
+  const [select, setSelect] = useState("Id")
 
   const handleSelect = (option) => {
-     
-      setSelect(option)
 
-      
+    setSelect(option)
+
+
+
   }
-  
-    return (
-        <>
-             <CustomizedRadios  handleSelect={handleSelect} />
-        <SearchbarContainer>
+
+  return (
+    <>
+      <CustomizedRadios handleSelect={handleSelect} />
+      <SearchbarContainer>
 
 
-          <SearchBar
-            onChange={(e) => { setQuery(e) }}
+        <SearchBar
+               onChange={(e) => { setQuery(e) }}
             
-            style={{
-              margin: '0 auto',
-              maxWidth: 800
-            }}
-            placeholder="Buscar..."
+               style={{
+                 margin: '0 auto',
+                 maxWidth: 800
+               }}
+               placeholder="Buscar..."
 
-          />
-
-
+        />
 
 
 
 
-        </SearchbarContainer>
+
+
+      </SearchbarContainer>
+
+      <Paper className={classes.root} elevation={10}>
+        <TableContainer className={classes.container}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <StyledTableCell
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
+                  >
+                    {column.label}
+                  </StyledTableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <ThemeProvider theme={theme}>
+              <TableBody>
+                {loading ? <h1>cargando...</h1> :categories.categories && categories.categories.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((item) => {
        
-        <Paper className={classes.root} elevation={10}>
-          <TableContainer className={classes.container}>
-            <Table stickyHeader aria-label="sticky table">
-              <TableHead>
-                <TableRow>
-                  {columns.map((column) => (
-                    <StyledTableCell
-                      key={column.id}
-                      align={column.align}
-                      style={{ minWidth: column.minWidth }}
-                    >
-                      {column.label}
-                    </StyledTableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <ThemeProvider theme={theme}>
-                <TableBody>
-                  {datos.categories && datos.categories.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((item) => {
-                   
-                   if(item === undefined || query === ""){
-                     return item
-                   }else if (select ==="Id" && item.id.toString().toLowerCase().includes(query.toLowerCase())  ){
-                     return item
-                   }else if (select === "Nombre" && item.name.toString().toLowerCase().includes(query.toLowerCase())  ){
-                    return item}
-                    else return item
-                    
-                    
-                  }).map(item => (
-                    <TableRow>
-                      <StyledTableCell>{item.id}</StyledTableCell>
-                      <StyledTableCell>{item.name}</StyledTableCell>
-                      <StyledTableCell><BtnEdit>
-                        Editar
-                               </BtnEdit></StyledTableCell>
-                      <StyledTableCell><BtnRemove>
-                        Eliminar
- </BtnRemove ></StyledTableCell>
-                    </TableRow>
-
-                  ))
-
+                  if (query === "") {
+                    return item
+                  } else if (select === "Id" && item.id.toString().toLowerCase().includes(query.toLowerCase())) {
+                    return item
+                  } else if (select === "Nombre" && item.name.toString().toLowerCase().includes(query.toLowerCase())) {
+                    return item
                   }
-                </TableBody>
-              </ThemeProvider>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[2, 10, 15]}
-            component="div"
-            count={datos.categories && datos.categories.length }
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-          />
-        </Paper>
+     
 
 
-        <WrapperBtn><Btn> Nueva categoria</Btn> </WrapperBtn>
+                }).map(item => (
+                  <TableRow key={item.id}>
+                    <StyledTableCell>{item.id}</StyledTableCell>
+                    <StyledTableCell>{item.name}</StyledTableCell>
+                    <StyledTableCell><BtnEdit>
+                      Editar
+                               </BtnEdit></StyledTableCell>
+                    <StyledTableCell><BtnRemove>
+                      Eliminar
+ </BtnRemove ></StyledTableCell>
+                  </TableRow>
 
-        </>
-    )
+                ))
+
+                }
+              </TableBody>
+            </ThemeProvider>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[2, 10, 15]}
+          component="div"
+          count={loading ? <h1>cargando...</h1> : categories.categories && categories.categories.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      </Paper>
+
+
+      <WrapperBtn><Btn> Nueva categoria</Btn> </WrapperBtn>
+
+    </>
+  )
 }
 
 export default Tablas

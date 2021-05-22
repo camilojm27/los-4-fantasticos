@@ -9,12 +9,12 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { createMuiTheme } from '@material-ui/core/styles';
 import TablePagination from '@material-ui/core/TablePagination';
-
 import { Btn, WrapperBtn, BtnEdit, BtnRemove } from '../Btn'
-
 import SearchBar from "material-ui-search-bar";
 import { SearchbarContainer } from '../Searchbar';
 import CustomizedRadios from './SearchOption'
+import {useDispatch, useSelector} from 'react-redux'
+import {getProducts} from '../../../actions/productAction'
 const Tablas = () => {
     //Estilos de las tablas 
 
@@ -88,26 +88,19 @@ const Tablas = () => {
 
     //Solicitando datos
 
+    const dispatch = useDispatch()
 
-    const [datos, setDatos] = useState([] || null)
-
-
-    const obtainData = async () => {
-        const data = await fetch('https://ricuritas.herokuapp.com/api/product')
-        const dataJs = await data.json()
-        setDatos(dataJs)
-        console.log(dataJs)
-    }
-
-    useEffect(() => {
-        obtainData()
-    }, [])
+     useEffect(() =>{
+        dispatch(getProducts())
+    },[dispatch])
+    const listProducts = useSelector(state => state.productList)
+    const {loading, error, products} = listProducts
 
 
     //Busqueda
 
     const [query, setQuery] = useState("");
-    const [select, setSelect] = useState("")
+    const [select, setSelect] = useState("Id")
 
     const handleSelect = (option) => {
 
@@ -120,8 +113,6 @@ const Tablas = () => {
         <>
             <CustomizedRadios handleSelect={handleSelect} />
             <SearchbarContainer>
-
-
                 <SearchBar
                     onChange={(e) => { setQuery(e) }}
 
@@ -132,12 +123,6 @@ const Tablas = () => {
                     placeholder="Buscar..."
 
                 />
-
-
-
-
-
-
             </SearchbarContainer>
 
             <Paper className={classes.root} elevation={10}>
@@ -157,8 +142,8 @@ const Tablas = () => {
                             </TableRow>
                         </TableHead>
                         <ThemeProvider theme={theme}>
-                            <TableBody>
-                                {datos.products && datos.products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((item) => {
+                            <TableBody key={item.id}>
+                                {loading ? <h1>cargando...</h1> :products.products && products.products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((item) => {
 
                                     if (item === undefined || query === "") {
                                         return item
@@ -170,9 +155,9 @@ const Tablas = () => {
                                     else if (select === "Unidad" && item.units.toString().toLowerCase().includes(query.toLowerCase())) {
                                         return item
                                     }
-                                    else if (select === "Categoria" && item.category_id.toString().toLowerCase().includes(query.toLowerCase())) {
+                                    else if (select === "Categoria" && item.category_name.toString().toLowerCase().includes(query.toLowerCase())) {
                                         return item
-                                    } else return item
+                                    }
 
 
                                 }).map(item => (
@@ -202,7 +187,7 @@ const Tablas = () => {
                 <TablePagination
                     rowsPerPageOptions={[2, 10, 15]}
                     component="div"
-                    count={datos.categories && datos.categories.length}
+                    count={loading ? <h1>cargando...</h1> : products.categories && products.categories.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onChangePage={handleChangePage}
