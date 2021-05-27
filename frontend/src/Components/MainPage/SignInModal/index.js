@@ -1,26 +1,17 @@
-import React, { /*useRef,*/ useEffect, useCallback,useState} from 'react';
+import React, { /*useRef,*/ useEffect, useCallback, useState } from 'react';
 
 import { Background, SignInWrapper, CloseSignInButton, Img, H1SignIn, SignInInput, IconUser, Input, IconPassword, I, BtnLogin, H2SignIn, ASignIn } from './SignInElements'
 
-import {Redirect} from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 
 
-import axios from 'axios'
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 
-import { useForm } from "react-hook-form"; 
-
+import { login } from "../../../actions/authAction"
 const SignInModal = ({ showSignIn, setShowSignIn }) => {
 
-  //const SignInRef = useRef();
-
-
-
-  // const closeSignIn = e => {
-  //   if (SignInRef.current === e.target) {
-  //    setShowSignIn(false);
-  //  }
-  // };
-
+  const history = useHistory();
 
   const keyPress = useCallback(
     e => {
@@ -39,29 +30,19 @@ const SignInModal = ({ showSignIn, setShowSignIn }) => {
     [keyPress]
   );
 
-
-
   //Auth
-
-
-
-const {register,errors,handleSubmit} = useForm()
-const [role,SetRole] = useState(-1)
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector(state => state.auth);
+  const { register, errors, handleSubmit } = useForm()
+  const { user: currentUser } = useSelector((state) => state.auth);
   const onSubmit = (data) => {
+    dispatch(login(data.email, data.password))
+      .then(() => {
+        window.location.reload();
+      })
 
-    console.log(data)
-   
-    axios.post("https://ricuritas.herokuapp.com/api/auth/signin",data).
-    then(res => {
-      setShowSignIn(false)
-      SetRole(res.data.user.role)
-      console.log(res,"hola, soy el token: ", res.data.Authorization)
-    })
-    .catch(err =>{
-      console.log(err,"soy un error")
-    })
-  
   }
+
 
   return (
     <>
@@ -88,40 +69,23 @@ const [role,SetRole] = useState(-1)
               </SignInInput>
 
               <BtnLogin >Ingresar</BtnLogin>
-              </form>
-              <br />
-              <H2SignIn>¿No tienes cuenta? <ASignIn onClick={() => setShowSignIn(prev => !prev)} to="Register"
-                smooth={true}
-                duration={1000}
-                spy={true}
-                exact='true'
-                offset={-80}
-
-
-              >Registrate</ASignIn></H2SignIn>
-
-
-
-
-
-
-
-
-         
+            </form>
+            <br />
+            <H2SignIn>¿No tienes cuenta? <ASignIn onClick={() => setShowSignIn(prev => !prev)} to="Register"
+              smooth={true}
+              duration={1000}
+              spy={true}
+              exact='true'
+              offset={-80}
+            >Registrate</ASignIn></H2SignIn>
           </SignInWrapper>
-
-
-
-
-
-
           <CloseSignInButton
             aria-label='Close modal'
             onClick={() => setShowSignIn(prev => !prev)}
           />
         </Background>
 
-        ) : role == -1 ? null : role == 1 ? (<Redirect to="/Management/" />) : (<Redirect to="/categories" />)
+        ) : null
       }
     </>
   )

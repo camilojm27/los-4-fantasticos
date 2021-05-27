@@ -1,10 +1,11 @@
 import React from 'react'
 import {HeaderContainer,HeaderWrapper,HeaderMessage,HeaderTitle,Img,H1Header,PHeader} from './HeaderSectionElements'
-
+import { useSelector } from "react-redux";
+import {Redirect} from 'react-router-dom'
 function HeaderSection() {
 
-
-    
+    const { user: currentUser } = useSelector((state) => state.auth);
+ 
     return (
         <HeaderContainer>
             <HeaderWrapper>
@@ -15,7 +16,7 @@ function HeaderSection() {
             <HeaderTitle>
                 <Img src="https://res.cloudinary.com/kentruri/image/upload/v1619027662/hello_pajcbd.svg"/>
                 <H1Header>
-                   Hola username
+                   Hola {currentUser === null ? "user" : currentUser.user.name }
                    <PHeader>
                     Bienvenido al panel de administracion 
                 </PHeader>

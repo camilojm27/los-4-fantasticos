@@ -32,7 +32,7 @@ const RegisterSection = () => {
 
 
   const { register, errors, handleSubmit } = useForm()
-  const [auth,setAuth] = useState(false)
+
   const onSubmit = (data) => {
     data.latitude = coordinates.lat;
     data.longitude = coordinates.lng;
@@ -49,7 +49,7 @@ const RegisterSection = () => {
 
     axios.post("https://ricuritas.herokuapp.com/api/auth/signup",data).
     then(res => {
-      setAuth(true)
+      
       console.log(res,"Funcionó");
 
      
@@ -81,9 +81,7 @@ const RegisterSection = () => {
 
   return (
     <>
-    { !auth ?
-    (
-      <RegisterContainer id="Register">
+    <RegisterContainer id="Register">
 
       <RegisterWrapper>
 
@@ -226,8 +224,7 @@ const RegisterSection = () => {
   
 
   
-    </RegisterContainer>) : <Redirect to ="/categories"/>
-                      }
+    </RegisterContainer>
 
                       </>
   )

@@ -142,7 +142,7 @@ const Tablas = () => {
                             </TableRow>
                         </TableHead>
                         <ThemeProvider theme={theme}>
-                            <TableBody key={item.id}>
+                            <TableBody>
                                 {loading ? <h1>cargando...</h1> :products.products && products.products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((item) => {
 
                                     if (item === undefined || query === "") {
@@ -161,7 +161,7 @@ const Tablas = () => {
 
 
                                 }).map(item => (
-                                    <TableRow>
+                                    <TableRow key={item.id}>
                                         <StyledTableCell>{item.id}</StyledTableCell>
                                         <StyledTableCell>{item.name}</StyledTableCell>
                                         <StyledTableCell>{item.units}</StyledTableCell>

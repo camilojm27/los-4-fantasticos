@@ -3,12 +3,14 @@ import thunk from "redux-thunk";
 import {getProductListReducer} from "./reducers/productReducers";
 import {getCategoryListReducer} from "./reducers/categoryReducer"
 import {getInvoiceListReducer} from "./reducers/invoiceReducer"
+import auth from "./reducers/authReducer"
 const initialState = {}
 
 const reducer = combineReducers({
     productList: getProductListReducer,
     categoryList: getCategoryListReducer,
     invoiceList: getInvoiceListReducer,
+    auth
 
 })
 
