@@ -2,7 +2,6 @@
   "name": "ricuritas",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://ricuritas.herokuapp.com/api",
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/data-grid": "^4.0.0-alpha.25",
@@ -29,6 +28,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:none": " BROWSER=none react-scripts start", 
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

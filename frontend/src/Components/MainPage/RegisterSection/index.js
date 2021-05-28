@@ -27,6 +27,7 @@ import PlacesAutocomplete, {
 import axios from 'axios'
 
 
+const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
 const RegisterSection = () => {
 
@@ -41,22 +42,22 @@ const RegisterSection = () => {
     data.role = 0
     delete data.last_Name
     data.address = address
-    data.doc_num = parseInt(data.doc_num,10)
-    data.phone_num = parseInt(data.phone_num,10)
+    data.doc_num = parseInt(data.doc_num, 10)
+    data.phone_num = parseInt(data.phone_num, 10)
 
 
     console.log(data)
 
-    axios.post("https://ricuritas.herokuapp.com/api/auth/signup",data).
-    then(res => {
-      
-      console.log(res,"Funcionó");
+    axios.post(`${REACT_APP_API_URL}/auth/signup`, data)
+      .then(res => {
 
-     
-    })
-    .catch(err =>{
-      console.log(err,"soy un error");
-    })
+        console.log(res, "Funcionó");
+
+
+      })
+      .catch(err => {
+        console.log(err, "soy un error");
+      })
 
 
 

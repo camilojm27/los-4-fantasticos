@@ -1,7 +1,6 @@
 import React from 'react'
 
 import './App.css'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import  PublicRoutes  from './routes/public.routes';
 
