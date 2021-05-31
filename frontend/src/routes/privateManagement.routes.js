@@ -1,4 +1,3 @@
-import Home from '../pages'
 import { Switch, Redirect,Route } from "react-router-dom"
 import { PrivateRouteManagement} from "./helperRoutes"
 import Management from '../pages/Management/Management'

@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const API_URL = "https://ricuritas.herokuapp.com/api/auth/";
+const REACT_APP_API_URL = process.env.REACT_APP_API_URL + '/auth/';
 
 const register = (nombre,doc_type,doc_num,phone_num,birth,email,password,latitude,longitude,address) =>{
     return axios
-    .post(API_URL + "signup",{
+    .post(REACT_APP_API_URL + "signup",{
         name : nombre,
         doc_type,
         doc_num,
@@ -22,7 +22,7 @@ const register = (nombre,doc_type,doc_num,phone_num,birth,email,password,latitud
 
 const login = (email,password) => {
     return axios
-    .post(API_URL + "signin", {
+    .post(REACT_APP_API_URL + "signin", {
         email,
         password,
     })

@@ -32,6 +32,7 @@ import { REGISTER_FAIL, REGISTER_SUCCESS } from '../../../constants/authConstant
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from "../../../actions/authAction"
 
+const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
 const RegisterSection = () => {
 

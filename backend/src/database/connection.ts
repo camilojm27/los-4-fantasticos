@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 
-export const db = new Sequelize("ricuritas", "postgres", "password", {
+export const db = new Sequelize("ricuritas", "postgres", "postgres", {
   host: "localhost",
   dialect: "postgres",
   pool: {

@@ -1,10 +1,13 @@
 import {PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS } from "../constants/productConstants";
 import axios from "axios";
+
+const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
+
 export const getProductList = () => async (dispatch) => {
     dispatch({ type: PRODUCT_LIST_REQUEST })
 
     try {
-        const { data } = await axios.get('/product')
+        const { data } = await axios.get(`${REACT_APP_API_URL}/product`)
         for (let i = 0; i < 10; i++) {
             data.push(data[0]);
         }
@@ -19,7 +22,7 @@ export const getProducts = () => async (dispatch) => {
     dispatch({ type: PRODUCT_LIST_REQUEST })
     try {
             
-        const res = await axios.get('https://ricuritas.herokuapp.com/api/product')
+        const res = await axios.get(`${REACT_APP_API_URL}/product`)
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
