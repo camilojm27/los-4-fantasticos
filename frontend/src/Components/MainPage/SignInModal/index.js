@@ -36,6 +36,7 @@ const SignInModal = ({ showSignIn, setShowSignIn }) => {
   const { register, errors, handleSubmit } = useForm()
   const { user: currentUser } = useSelector((state) => state.auth);
   const onSubmit = (data) => {
+    console.log(data)
     dispatch(login(data.email, data.password))
       .then(() => {
         window.location.reload();

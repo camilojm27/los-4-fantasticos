@@ -18,7 +18,7 @@ function App() {
   return (
       
     <div>
-       {!isLoggedIn ? <PublicRoutes />:currentUser.user.role === 1 ? <PrivateRoutesManagement /> : currentUser.user.role === 0 ? <PrivateRoutesCustomer />:<PublicRoutes />}
+       {!isLoggedIn ? <PublicRoutes />:currentUser.user.role === 1 ? <PrivateRoutesManagement /> : currentUser.user.role === 0 ? <PrivateRoutesCustomer />:<PublicRoutes />}  
 
     </div>
      

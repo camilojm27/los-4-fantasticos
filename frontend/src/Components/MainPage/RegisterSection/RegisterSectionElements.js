@@ -143,6 +143,7 @@ export const BtnRegister = styled.button`
    white-space: nowrap;
    padding: 10px 40px;
    margin:auto;
+   margin-top:20px;
    color: #010606;
    font-size: 16px;
    outline: none;
@@ -191,6 +192,45 @@ width:85px;
 
 }
 
+
+`
+
+export const ErrorMesage = styled.h3`
+
+ font-size: 15px;
+ color: #CF1212;
+ padding-left:20px;
+ @media screen and (max-width: 530px){
+
+  font-size: 10px;
+
+}
+`
+
+export const ComboBox = styled.select`
+ background: none;
+  outline: none;
+  border: none;
+  line-height: 1;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #666;
+  width:200px;
+  margin-left:10px;
+  margin-top:18px;
+  background:none;
+
+  @media screen and (max-width: 530px){
+
+    font-size: 0.5rem;
+    width:95px;
+
+}
+
+@media screen and (max-width: 345px){
+
+font-size: 0.45rem;
+width:85px;
 
 `
 

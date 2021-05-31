@@ -14,6 +14,8 @@ import {
               type: REGISTER_SUCCESS,
             }
             
+        
+            
       )
 
       return Promise.resolve();
