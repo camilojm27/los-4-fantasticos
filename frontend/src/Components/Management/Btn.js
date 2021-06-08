@@ -31,7 +31,7 @@ export const WrapperBtn = styled.div`
  padding-top:50px;
 `
 
-export const BtnEdit = styled(LinkR)`
+export const BtnRemove = styled.button`
    border-radius: 5px;
    background: #D63434;
    white-space: nowrap;
@@ -54,7 +54,7 @@ export const BtnEdit = styled(LinkR)`
    }
 `
 
-export const BtnRemove = styled(LinkR)`
+export const BtnEdit = styled.button`
    border-radius: 5px;
    background: #A7A7A7;
    white-space: nowrap;
@@ -67,11 +67,36 @@ export const BtnRemove = styled(LinkR)`
    transition: all 0.2s ease-in-out;
    text-decoration: none;
    font-family: 'RocknRoll One', sans-serif;
+   margin-left: 10px;
 
 
    &:hover{
       transition: all 0.2s ease-in-out;
       background: #767676;
+      color: #fff;
+   }
+
+`
+
+export const BtnSend = styled.button`
+   border-radius: 5px;
+   background: #388e3c;
+   white-space: nowrap;
+   padding: 12px 20px;
+   color: #fff;
+   font-size: 13px;
+   outline: none;
+   border: none;
+   cursor: pointer;
+   transition: all 0.2s ease-in-out;
+   text-decoration: none;
+   font-family: 'RocknRoll One', sans-serif;
+   margin-right: 15px;
+
+
+   &:hover{
+      transition: all 0.2s ease-in-out;
+      background: #306632;
       color: #fff;
    }
 

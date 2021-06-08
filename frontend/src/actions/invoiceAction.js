@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { INVOICE_LIST_FAIL,INVOICE_LIST_SUCCESS,INVOICE_LIST_REQUEST } from '../constants/productConstants'
-const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
+const REACT_APP_API_URL = "https://ricuritas.herokuapp.com/api";
 
 export const getInvoice = () => async (dispatch) => {
     dispatch({type:INVOICE_LIST_REQUEST})

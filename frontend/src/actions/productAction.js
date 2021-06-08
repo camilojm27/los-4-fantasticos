@@ -1,7 +1,7 @@
 import {PRODUCT_LIST_FAIL, PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS } from "../constants/productConstants";
 import axios from "axios";
 
-const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
+const REACT_APP_API_URL = "https://ricuritas.herokuapp.com/api";
 
 export const getProductList = () => async (dispatch) => {
     dispatch({ type: PRODUCT_LIST_REQUEST })

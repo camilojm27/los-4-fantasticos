@@ -17,7 +17,9 @@ import { SearchbarContainer } from '../Searchbar';
 import CustomizedRadios from './SearchOption'
 import {useDispatch, useSelector} from 'react-redux'
 import {getCategory} from '../../../actions/categoryAction'
-const Tablas = () => {
+
+
+const Tablas = (props) => {
   //Estilos de las tablas 
 
   const theme = createMuiTheme({
@@ -28,6 +30,7 @@ const Tablas = () => {
 
     },
   });
+
 
   const StyledTableCell = withStyles((theme) => ({
 
@@ -89,6 +92,7 @@ const Tablas = () => {
 
   useEffect(() => {
     dispatch(getCategory())
+
   }, [dispatch])
 
   const listCategory = useSelector(state => state.categoryList)
@@ -107,8 +111,18 @@ const Tablas = () => {
 
   }
 
+  //CRU
+ const handleChange = (object,data) => {
+  props.handleSelect(object,data)
+ }
+ 
+  //Create
+
+  
+
   return (
     <>
+    
       <CustomizedRadios handleSelect={handleSelect} />
       <SearchbarContainer>
 
@@ -165,10 +179,10 @@ const Tablas = () => {
                   <TableRow key={item.id}>
                     <StyledTableCell>{item.id}</StyledTableCell>
                     <StyledTableCell>{item.name}</StyledTableCell>
-                    <StyledTableCell><BtnEdit>
-                      Editar
+                    <StyledTableCell ><BtnEdit onClick={()=>handleChange({remove:false,edit:true,insert:false},item)} >
+                      Editar 
                                </BtnEdit></StyledTableCell>
-                    <StyledTableCell><BtnRemove>
+                    <StyledTableCell ><BtnRemove onClick={()=>handleChange({remove:true,edit:false,insert:false},item)}>
                       Eliminar
  </BtnRemove ></StyledTableCell>
                   </TableRow>
@@ -192,9 +206,13 @@ const Tablas = () => {
       </Paper>
 
 
-      <WrapperBtn><Btn> Nueva categoria</Btn> </WrapperBtn>
+      <WrapperBtn><Btn onClick={()=>handleChange({remove:false,edit:false,insert:true},{})}> Nueva categoria</Btn> </WrapperBtn>
+
+   
 
     </>
+
+
   )
 }
 
