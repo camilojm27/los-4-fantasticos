@@ -9,19 +9,15 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { createMuiTheme } from '@material-ui/core/styles';
 import TablePagination from '@material-ui/core/TablePagination';
-
 import { Btn, WrapperBtn, BtnEdit, BtnRemove } from '../Btn'
-
 import SearchBar from "material-ui-search-bar";
 import { SearchbarContainer } from '../Searchbar';
 import CustomizedRadios from './SearchOption'
-import {useDispatch, useSelector} from 'react-redux'
-import {getCategory} from '../../../actions/categoryAction'
+
 
 
 const Tablas = (props) => {
   //Estilos de las tablas 
-
   const theme = createMuiTheme({
     palette: {
       primary: {
@@ -72,7 +68,7 @@ const Tablas = (props) => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (newPage) => {
     setPage(newPage);
   };
 
@@ -81,22 +77,7 @@ const Tablas = (props) => {
     setPage(0);
   };
 
-
-
-
-
-
-  //Solicitando datos
-
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getCategory())
-
-  }, [dispatch])
-
-  const listCategory = useSelector(state => state.categoryList)
-  const {loading,error,categories} = listCategory
+  const {loading,error,categories} = props.listCategory
 
   //Busqueda
 
@@ -104,21 +85,16 @@ const Tablas = (props) => {
   const [select, setSelect] = useState("Id")
 
   const handleSelect = (option) => {
-
     setSelect(option)
-
-
-
   }
 
   //CRU
  const handleChange = (object,data) => {
   props.handleSelect(object,data)
  }
- 
-  //Create
 
-  
+
+
 
   return (
     <>
@@ -137,12 +113,6 @@ const Tablas = (props) => {
                placeholder="Buscar..."
 
         />
-
-
-
-
-
-
       </SearchbarContainer>
 
       <Paper className={classes.root} elevation={10}>
@@ -208,7 +178,9 @@ const Tablas = (props) => {
 
       <WrapperBtn><Btn onClick={()=>handleChange({remove:false,edit:false,insert:true},{})}> Nueva categoria</Btn> </WrapperBtn>
 
-   
+      <h1 style={{margin : "20px 0  0 0"}}>{error}</h1>
+
+ 
 
     </>
 

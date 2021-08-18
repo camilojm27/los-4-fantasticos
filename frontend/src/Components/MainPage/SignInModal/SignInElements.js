@@ -145,7 +145,7 @@ export const BtnLogin = styled.button`
 `
 
 export const H2SignIn = styled.h2`
-   padding-top:30px;
+   padding-top:10px;
    margin-left:80px;
    font-size:0.9rem;
    display:block;
@@ -164,4 +164,10 @@ color:rgb(201, 198, 56);
    }
 
    
+`
+export const Error = styled.h2`
+ font-size: 1.2rem;
+ text-align: center;
+
+ margin-bottom: 5px;
 `

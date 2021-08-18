@@ -15,23 +15,7 @@ export const Background = styled.div`
   }
 `;
 
-export const Modal = styled.div`
-  max-width: 900rem;
-  min-width:700px;
-  max-height: 600px;
-  min-height:300px;
-  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
-  background: #fff;
-  color: #000;
 
-  position: absolute;
-  z-index: 10;
-  border-radius: 5px;
-  -webkit-box-shadow: inset 0px -5px 15px -4px rgba(0,0,0,0.75);
--moz-box-shadow: inset 0px -5px 15px -4px rgba(0,0,0,0.75);
-box-shadow: inset 0px -5px 15px -4px rgba(0,0,0,0.75);
-
-`;
 
 export const CloseModal = styled(MdClose)`
 cursor: pointer;
