@@ -27,61 +27,44 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from "react-places-autocomplete"
-import axios from 'axios'
-import { REGISTER_FAIL, REGISTER_SUCCESS } from '../../../constants/authConstants'
-import { useDispatch } from 'react-redux'
-import { login } from "../../../actions/authAction"
+import { useDispatch, useSelector } from 'react-redux'
+import { signUp } from "../../../actions/authAction"
+import { useHistory } from 'react-router-dom';
+import { REGISTER_FAIL } from "../../../constants/authConstants"
 
 
 const RegisterSection = () => {
 
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { messageRegister } = useSelector(state => state.auth);
   const { register, formState: { errors }, handleSubmit, watch } = useForm()
-  const [create, setCreate] = useState("")
   const password = useRef({});
   const doc_type = useRef({});
   password.current = watch("password", "");
-  doc_type.current = watch("doc_type","")
+  doc_type.current = watch("doc_type", "")
+
   const onSubmit = (data) => {
 
     data.latitude = coordinates.lat;
     data.longitude = coordinates.lng;
     data.name = data.name + " " + data.last_Name
-
     data.role = 0
     delete data.last_Name
     data.address = address
     data.doc_num = parseInt(data.doc_num, 10)
     data.phone_num = parseInt(data.phone_num, 10)
     delete data.password_repeat
-
-    console.log(data)
-
-    axios.post("https://ricuritas.herokuapp.com/api/auth/signup", data)
-      .then(res => {
-
-
-        dispatch({
-          type: REGISTER_SUCCESS,
-          payload: { user: res.data.user }
-        }
-
-
-
-        ).then(dispatch(login(data.email, data.password)).then(() => {
-          window.location.reload();
-
-        }))
-
-
+    if (data.birth == "Invalid Date") {
+      dispatch({
+        type: REGISTER_FAIL,
+        payload: { messageRegister: "Ingrese la fecha" }
       })
-      .catch(err => {
-        console.log(err.response.data.msg);
-        setCreate(err.response.data.msg)
-        dispatch({
-          type: REGISTER_FAIL,
-        });
-      })
+
+    }
+    else {
+      dispatch(signUp(data)).then(() => { history.push("/") })
+    };
 
 
 
@@ -153,6 +136,7 @@ const RegisterSection = () => {
 
               <RegisterGridInput>
                 <RegisterInput>
+
                   <I> <IconPassword /></I>
                   <Input placeholder="Contraseña" type="password" name="password" {...register("password", { required: "Campo obligatorio" })} />
                   {errors.password && <ErrorMesage> {errors.password.message} </ErrorMesage>}
@@ -182,11 +166,11 @@ const RegisterSection = () => {
                         <InputBlock {...getInputProps({ placeholder: "Direccion de residencia" })} type="text" name="direccion" />
                         <div>
                           {loading && <div>...loading</div>}
-                          {suggestions.map((suggestions) => {
+                          {suggestions.map((suggestions, index) => {
                             const style = suggestions.active
                               ? { backgroundColor: "#ddd", cursor: "pointer" }
                               : { backgroundColor: "#fff", cursor: "pointer" };
-                            return <div {...getSuggestionItemProps(suggestions, { style })}>{suggestions.description}</div>
+                            return <div {...getSuggestionItemProps(suggestions, { style })} key={index}>{suggestions.description}</div>
                           })}
                         </div>
                       </div>
@@ -210,7 +194,7 @@ const RegisterSection = () => {
                 <RegisterInput>
 
                   <ComboBox name="format" id="format"  {...register("doc_type", { required: "Campo obligatorio" })}>
-                    <option value="Cedula">Cedula</option>
+                    <option select value="Cedula">Cedula</option>
                     <option value="Tarjeta de identidad">Tarjeta de identidad</option>
                     <option value="Cedula de extranjeria">Cedula de extranjeria</option>
                     <option value="DNI">DNI</option>
@@ -256,7 +240,7 @@ const RegisterSection = () => {
               </RegisterGridInput>
 
 
-              <ErrorMesage>{create}</ErrorMesage>
+              <ErrorMesage>{messageRegister}</ErrorMesage>
               <BtnRegister >Registrarse</BtnRegister>
 
 

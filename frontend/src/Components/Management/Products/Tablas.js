@@ -13,9 +13,9 @@ import { Btn, WrapperBtn, BtnEdit, BtnRemove } from '../Btn'
 import SearchBar from "material-ui-search-bar";
 import { SearchbarContainer } from '../Searchbar';
 import CustomizedRadios from './SearchOption'
-import {useDispatch, useSelector} from 'react-redux'
-import {getProducts} from '../../../actions/productAction'
-const Tablas = () => {
+import { useDispatch, useSelector } from 'react-redux'
+import { getProducts } from '../../../actions/productAction'
+const Tablas = (props) => {
     //Estilos de las tablas 
 
     const theme = createMuiTheme({
@@ -81,20 +81,14 @@ const Tablas = () => {
         setPage(0);
     };
 
-
-
-
-
-
+    const { loading, error, products } = props.listProduct
     //Solicitando datos
 
     const dispatch = useDispatch()
 
-     useEffect(() =>{
+    useEffect(() => {
         dispatch(getProducts())
-    },[dispatch])
-    const listProducts = useSelector(state => state.productList)
-    const {loading, error, products} = listProducts
+    }, [dispatch])
 
 
     //Busqueda
@@ -106,6 +100,11 @@ const Tablas = () => {
 
         setSelect(option)
 
+
+    }
+
+    const handleChange = (object, data) => {
+        props.handleSelect(object, data)
 
     }
 
@@ -143,7 +142,7 @@ const Tablas = () => {
                         </TableHead>
                         <ThemeProvider theme={theme}>
                             <TableBody>
-                                {loading ? <h1>cargando...</h1> :products.products && products.products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((item) => {
+                                {loading ? <h1>cargando...</h1> : products.products && products.products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((item) => {
 
                                     if (item === undefined || query === "") {
                                         return item
@@ -160,23 +159,25 @@ const Tablas = () => {
                                     }
 
 
-                                }).map(item => (
-                                    <TableRow key={item.id}>
+                                }).filter(item => (
+                                  item.available ?
+                                     <TableRow key={item.id}>
+                                        
                                         <StyledTableCell>{item.id}</StyledTableCell>
                                         <StyledTableCell>{item.name}</StyledTableCell>
                                         <StyledTableCell>{item.units}</StyledTableCell>
                                         <StyledTableCell>{item.category_name}</StyledTableCell>
                                         <StyledTableCell>{item.description}</StyledTableCell>
-
+                     
                                         <StyledTableCell>{item.details}</StyledTableCell>
-                                        <StyledTableCell><BtnEdit>
+                                        <StyledTableCell><BtnEdit onClick={() => handleChange({ remove: false, edit: true, insert: false }, item)}>
                                             Editar
-                               </BtnEdit></StyledTableCell>
-                                        <StyledTableCell><BtnRemove>
+                                        </BtnEdit></StyledTableCell>
+                                        <StyledTableCell><BtnRemove onClick={() => handleChange({ remove: true, edit: false, insert: false }, item)}>
                                             Eliminar
- </BtnRemove ></StyledTableCell>
-                                    </TableRow>
-
+                                        </BtnRemove ></StyledTableCell> 
+                                    </TableRow>  :  null
+                                   
                                 ))
 
                                 }
@@ -196,7 +197,9 @@ const Tablas = () => {
             </Paper>
 
 
-            <WrapperBtn><Btn> Nuevo producto</Btn> </WrapperBtn>
+            <WrapperBtn><Btn onClick={() => handleChange({ remove: false, edit: false, insert: true }, {})}> Nuevo producto</Btn> </WrapperBtn>
+
+            <h1 style={{ margin: "20px 0  0 0" }}>{error}</h1>
 
         </>
     )

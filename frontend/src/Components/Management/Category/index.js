@@ -1,20 +1,38 @@
 
 import Tablas from './Tablas'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, WrapperTable } from '../Elements'
 import { HeaderMessage, HeaderTitle, Img, H1Header, PHeader } from '../HeaderSection/HeaderSectionElements'
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { Background, Modal, CloseModal, Input, ModalInput, ModalInputId, InputId, Options, OptionsRemove, H1, Title } from './modalElements'
+import { Background, CloseModal, Input, ModalInput, ModalInputId, InputId, Options, OptionsRemove, H1, Title } from './modalElements'
 import { BtnRemove, BtnSend, BtnEdit } from '../Btn'
 import { useForm } from "react-hook-form";
-import axios from 'axios';
-import { FaWindows } from 'react-icons/fa';
+import styled from 'styled-components';
+import { addCategory, getCategory, editCategory, deleteCategory } from '../../../actions/categoryAction'
 
+const Modal = styled.div`
+  max-width: 900px;
+  min-width:700px;
+  max-height: 600px;
+  min-height:300px;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  color: #000;
+
+  position: absolute;
+  z-index: 10;
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0px -5px 15px -4px rgba(0,0,0,0.75);
+-moz-box-shadow: inset 0px -5px 15px -4px rgba(0,0,0,0.75);
+box-shadow: inset 0px -5px 15px -4px rgba(0,0,0,0.75);
+
+`;
 
 const Category = () => {
-
+  const dispatch = useDispatch()
   const { user: currentUser } = useSelector((state) => state.auth);
+  const listCategory = useSelector(state => state.categoryList)
   const [modal, setModal] = useState({
     remove: false,
     edit: false,
@@ -41,60 +59,44 @@ const Category = () => {
     if (modal.insert === true) {
 
       delete data.id
-      console.log(data)
-      await axios.post(API_URI, data, {
-        headers: {
-          'Authorization': currentUser.Authorization
-        }
-      }).then(response => {
+      dispatch(addCategory(data, currentUser.Authorization)).then(response => {
         setModal({ remove: false, edit: false, insert: false })
-        window.location.reload();
+        dispatch(getCategory())
 
       }).catch(error => {
-        console.log(error)
+        console.log(error.response)
       })
-
-
     }
-
     else {
       if (modal.edit === true) {
-        const id = data.id
 
-        await axios.put(API_URI + "/" + id, data, {
-          headers: {
-            'Authorization': currentUser.Authorization
-          }
-        }).then(response => {
+        dispatch(editCategory(data, currentUser.Authorization)).then(response => {
           setModal({ remove: false, edit: false, insert: false })
-          window.location.reload();
+          dispatch(getCategory())
         }).catch(error => {
           console.log(error.response.data)
         })
       }
-      
+
     }
-
-
   }
 
   const confirm = async () => {
-    console.log("hola")
     if (modal.remove === true) {
-      const id = edit.id
 
-      await axios.delete(API_URI + "/" + id, {
-        headers: {
-          'Authorization': currentUser.Authorization
-        }
-      }).then(response => {
-        setModal({ remove: false, edit: false, insert: false })
-        window.location.reload();
-      }).catch(error => {
-        console.log(error.response.data)
-      })
+      dispatch(deleteCategory(edit.id, currentUser.Authorization))
+        .then(response => {
+          setModal({ remove: false, edit: false, insert: false })
+          dispatch(getCategory())
+        }).catch(error => {
+          console.log(error.response.data)
+        })
     }
   }
+
+  useEffect(() => {
+    dispatch(getCategory())
+  }, [dispatch])
 
 
 
@@ -145,7 +147,9 @@ const Category = () => {
 
               <Options>
                 <BtnSend>Actualizar</BtnSend>
-                <BtnRemove onClick={() => setModal({ remove: false, edit: false, inser: false })}>Cancelar</BtnRemove>
+                <BtnRemove onClick={() => {
+                  setModal({ remove: false, edit: false, insert: false })
+                }}>Cancelar</BtnRemove>
               </Options>
 
 
@@ -187,7 +191,8 @@ const Category = () => {
       </HeaderMessage>
 
       <WrapperTable>
-        <Tablas handleSelect={handleSelect} />
+
+        <Tablas handleSelect={handleSelect} listCategory={listCategory} />
       </WrapperTable>
 
 

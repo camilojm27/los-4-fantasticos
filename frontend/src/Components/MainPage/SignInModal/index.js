@@ -1,8 +1,8 @@
-import React, { /*useRef,*/ useEffect, useCallback, useState } from 'react';
+import React, {useEffect, useCallback, useState } from 'react';
 
-import { Background, SignInWrapper, CloseSignInButton, Img, H1SignIn, SignInInput, IconUser, Input, IconPassword, I, BtnLogin, H2SignIn, ASignIn } from './SignInElements'
+import { Background, SignInWrapper, CloseSignInButton, Img, H1SignIn, SignInInput, IconUser, Input, IconPassword, I, BtnLogin, H2SignIn, ASignIn,Error } from './SignInElements'
 
-import { Redirect, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 
 import { useForm } from "react-hook-form";
@@ -30,17 +30,16 @@ const SignInModal = ({ showSignIn, setShowSignIn }) => {
     [keyPress]
   );
 
+
   //Auth
   const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector(state => state.auth);
-  const { register, errors, handleSubmit } = useForm()
-  const { user: currentUser } = useSelector((state) => state.auth);
+  const { messageLogin } = useSelector(state => state.auth);
+
+  const { register, handleSubmit } = useForm()
+
+  
   const onSubmit = (data) => {
-    console.log(data)
     dispatch(login(data.email, data.password))
-      .then(() => {
-        window.location.reload();
-      })
 
   }
 
@@ -58,6 +57,7 @@ const SignInModal = ({ showSignIn, setShowSignIn }) => {
 
             <H1SignIn >
               Iniciar sesion
+          
               </H1SignIn>
             <form onSubmit={handleSubmit(onSubmit)}>
               <SignInInput>
@@ -68,7 +68,7 @@ const SignInModal = ({ showSignIn, setShowSignIn }) => {
                 <IconPassword />
                 <Input placeholder="Contraseña" type="password"  {...register("password")} />
               </SignInInput>
-
+               {messageLogin ? <Error>{messageLogin}</Error> : null}
               <BtnLogin >Ingresar</BtnLogin>
             </form>
             <br />
