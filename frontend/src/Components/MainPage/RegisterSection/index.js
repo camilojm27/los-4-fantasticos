@@ -29,10 +29,9 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete"
 import axios from 'axios'
 import { REGISTER_FAIL, REGISTER_SUCCESS } from '../../../constants/authConstants'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { login } from "../../../actions/authAction"
 
-const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 
 const RegisterSection = () => {
 
@@ -58,8 +57,8 @@ const RegisterSection = () => {
 
     console.log(data)
 
-    axios.post("https://ricuritas.herokuapp.com/api/auth/signup", data).
-      then(res => {
+    axios.post("https://ricuritas.herokuapp.com/api/auth/signup", data)
+      .then(res => {
 
 
         dispatch({
@@ -211,13 +210,13 @@ const RegisterSection = () => {
                 <RegisterInput>
 
                   <ComboBox name="format" id="format"  {...register("doc_type", { required: "Campo obligatorio" })}>
-                    <option select value="Cedula">Cedula</option>
+                    <option value="Cedula">Cedula</option>
                     <option value="Tarjeta de identidad">Tarjeta de identidad</option>
                     <option value="Cedula de extranjeria">Cedula de extranjeria</option>
                     <option value="DNI">DNI</option>
                   </ComboBox>
 
-               
+
                 </RegisterInput>
 
                 <RegisterInput>

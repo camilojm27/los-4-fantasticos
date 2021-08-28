@@ -11,11 +11,12 @@ import Clients from '../pages/Management/Clients/Clients'
 import ClientsEdit from '../pages/Management/Clients/EditClients'
 import Admins from '../pages/Management/Admins/Admins'
 import AdminsEdit from '../pages/Management/Admins/EditAdmins'
+import Profile from "../pages/Profile";
 
 const PrivateRoutesManagement = () => {
     return (
         <Switch>
-   
+
             <PrivateRouteManagement path="/Management/" component={Management} exact />
             <PrivateRouteManagement path="/Management/Categories" component={ManagementCategories} exact />
             <PrivateRouteManagement path="/Management/Categories/edit" component={CategoriesEdit} exact />
@@ -27,6 +28,7 @@ const PrivateRoutesManagement = () => {
             <PrivateRouteManagement path="/Management/Clients/edit" component={ClientsEdit} exact />
             <PrivateRouteManagement path="/Management/Admins" component={Admins} exact />
             <PrivateRouteManagement path="/Management/Admins/edit" component={AdminsEdit} exact />
+            <Route exact path="/profile" component={Profile}  />
             <Route exact path="*" render={() => {
                 return <Redirect to ="/Management/"/>
             }} />
