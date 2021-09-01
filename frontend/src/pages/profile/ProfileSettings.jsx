@@ -13,7 +13,6 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import MenuIcon from '@material-ui/icons/Menu';
 import {useDispatch, useSelector} from "react-redux";
-import {getUser} from "../../actions/userActions";
 
 const drawerWidth = 240;
 
