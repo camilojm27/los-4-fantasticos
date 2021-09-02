@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
 
 export const ProductSection = styled.section `
+
 `;
 
 export const HeroProducts = styled.div `
@@ -11,12 +12,14 @@ export const HeroProducts = styled.div `
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
 `;
 export const TitleHero = styled.h2 `
   color: white;
   margin-top: 20px;
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  background-color: rgba(0, 0, 0, 0.27);
   padding: 5px;
 `
 export const SearchBar = styled.div `

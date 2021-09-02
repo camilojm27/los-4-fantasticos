@@ -9,44 +9,53 @@ const CardTitle = styled.h2`
 const CardImage = styled.img`
   max-width: 100px;
   max-height: 100px;
-  transition: all 300ms ease-in-out;
-  &:hover{
-    max-width: 150px;
-    max-height: 150px;
-  }
+  border-radius: 9px;
+  //transition: all 300ms ease-in-out;
+  //&:hover{
+  //  max-width: 150px;
+  //  max-height: 150px;
+  //}
 `
 const SelfProductCard = styled.figure`
   margin-top: 20px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 300px;
-  height: 100px;
-  text-align: center;
-  background-color: rgb(226, 222, 8);
-
+  width: 100%;
+  height: 130px;
+  border: 1px solid gray;
+  border-radius: 9px;
   cursor: pointer;
   padding: 12px;
 `
-const CardDescription = styled.p`
-  font-size: 12px;
-`
 const CardDetails = styled.div`
   display: flex;
-flex-direction: column;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: space-around;
 `
 
+const Price = styled.p `
 
-const ProductCard = ({image, name, price}) => {
+`;
+const Description = styled.p `
+
+`;
+
+
+
+const ProductCard = ({image, name, price, description}) => {
 
 
     return (
         <SelfProductCard>
-            <CardImage src={image} />
+            <div>
+                <CardImage src={image}/>
+            </div>
             <CardDetails>
-            <CardTitle>{name}</CardTitle>
-            <p>{price}</p>
+                <CardTitle>{name}</CardTitle>
+                <div>
+                    <Price>$ {price.toLocaleString("es-CO")}</Price>
+                    <Description>{description}</Description>
+                </div>
+
             </CardDetails>
         </SelfProductCard>
 

@@ -8,6 +8,7 @@ import {
     TitleHero
 } from "./ProductElements";
 import PrimaryAppBar from "../../Components/PrimaryAppBar";
+import ProductList from "../../Components/Products/ProductList";
 
 
 export const Products = () => {
@@ -21,6 +22,7 @@ export const Products = () => {
                     <SearchIconP/>
                 </SearchBar>
             </HeroProducts>
+            <ProductList/>
         </ProductSection>
     )
 }

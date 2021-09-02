@@ -5,12 +5,12 @@ import ProductCard from "./ProductCard";
 import styled from "styled-components";
 
 const SelfProductList = styled.section`
-  width: 90%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  width: 80%;
   margin: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  
+
 `
 
 const ProductList = (props) => {
@@ -36,7 +36,8 @@ const ProductList = (props) => {
                         <ProductCard
                             name={product.name}
                             image={product.image}
-                            price={product.price}
+                            price={product.unit_price}
+                            description={product.description}
                         />
                         )
             }
