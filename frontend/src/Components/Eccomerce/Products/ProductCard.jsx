@@ -69,7 +69,7 @@ const ProductCard = ({image, name, price, description}) => {
             <CardDetails>
                 <CardTitle>{name}</CardTitle>
                 <div>
-                    <Description>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur eligendi in sed sit veniam! A mollitia quasi quia sequi voluptates.</Description>
+                    <Description>{description}</Description>
                     <Price>$ {Number.parseInt(price).toLocaleString("es-CO")}</Price>
                 </div>
 

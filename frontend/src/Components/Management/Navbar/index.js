@@ -5,7 +5,7 @@ const Navbar = ({ sidebarOpen, openSidebar }) => {
   const { user: currentUser } = useSelector((state) => state.auth);
     return (
       <nav className="navbar">
-    
+
         <div className="navbar__left">
           <a className="active_link" href="./">
           {currentUser === null ? "user" : currentUser.user.name }
@@ -19,6 +19,5 @@ const Navbar = ({ sidebarOpen, openSidebar }) => {
       </nav>
     );
   };
-  
+
   export default Navbar;
-  

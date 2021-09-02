@@ -1,5 +1,5 @@
 
-import {Switch,Route} from "react-router-dom"
+import {Switch, Route, Redirect} from "react-router-dom"
 import {PrivateRouteCustomer, PublicRoute} from "./helperRoutes"
 import Categories from "../pages/Categories";
 import ProfileSettings from "../pages/profile/ProfileSettings";
@@ -13,6 +13,7 @@ const PrivateRoutesCustomer = () => {
             <Route exact path="/profile/settings" component={ProfileSettings}  />
             <Route exact path="/profile/order" component={ProfileOrder}  />
             <Route exact path="/profile/privacy" component={ProfileSettings}  />
+            <Redirect path="/**" to="/products" />
         </Switch>
     )
 }

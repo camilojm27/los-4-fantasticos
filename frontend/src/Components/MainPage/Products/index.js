@@ -7,17 +7,18 @@ import {
     ProductsCard,
     ProductsImage,
     ProductsH2,
-    ProductsP
+    ProductsP,
+    ButtonL
 } from './ProductsElements'
 const ProductsSection = () => {
     return (
         <ProductsContainer id='Productos'>
             <ProductsH1>Algunos de nuestros productos</ProductsH1>
             <ProductsWrapper>
-              
+
               <ProductsCard>
                   <ProductsImage src={'https://res.cloudinary.com/kentruri/image/upload/v1615487760/primera_lfo4ae.png'} />
-                  <ProductsH2>Comidas rapidas</ProductsH2>
+                  <ProductsH2>Comidas rápidas</ProductsH2>
                   <ProductsP>Hamburguesas,perros calientes,pizza y muchos adictivos </ProductsP>
               </ProductsCard>
 
@@ -29,10 +30,10 @@ const ProductsSection = () => {
 
               <ProductsCard>
                   <ProductsImage src={'https://res.cloudinary.com/kentruri/image/upload/v1615487844/segunda_lbxf9e.png'} />
-                  <ProductsH2>Platos tipicos y normales</ProductsH2>
+                  <ProductsH2>Platos típicos y normales</ProductsH2>
                   <ProductsP>Distintos tipos de carnes con gran variedad de preparaciones</ProductsP>
               </ProductsCard>
-
+                <ButtonL to="/products">Ver Menú</ButtonL>
             </ProductsWrapper>
         </ProductsContainer>
     )

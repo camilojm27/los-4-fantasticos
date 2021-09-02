@@ -10,7 +10,7 @@ const PublicRoutes = () => {
             <PublicRoute exact path="/categories/:id?" component={Categories} />
             <PublicRoute exact path = "/" component={Home} />
             <PublicRoute exact path = "/products/:id?" component={ProductAllScreen} />
-            <Redirect path="/**" to="/"/>
+            <Redirect path="/**" to="/products" />
         </Switch>
     )
 }

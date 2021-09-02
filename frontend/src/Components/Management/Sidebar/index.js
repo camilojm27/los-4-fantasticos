@@ -23,11 +23,11 @@ const Sidebar
 
             <SidebarContainer>
 
-                <SidebarTitle>
-                    <SidebarImg>
-                        <Img src="https://res.cloudinary.com/kentruri/image/upload/v1615312416/Logo_hzu1kc.png" alt="logo" />
-                    </SidebarImg>
-                </SidebarTitle>
+                {/*<SidebarTitle>*/}
+                {/*    <SidebarImg>*/}
+                {/*        <Img src="https://res.cloudinary.com/kentruri/image/upload/v1615312416/Logo_hzu1kc.png" alt="logo" />*/}
+                {/*    </SidebarImg>*/}
+                {/*</SidebarTitle>*/}
 
                 <SidebarMenu>
                     <SidebarLink>

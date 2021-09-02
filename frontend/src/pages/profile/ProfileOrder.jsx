@@ -5,7 +5,7 @@ import MailIcon from "@material-ui/icons/Mail";
 import SettingsIcon from '@material-ui/icons/Settings';
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import './Profile.css'
-import PrimaryAppBar from "../../Components/Ecommerce/PrimaryAppBar";
+import PrimaryAppBar from "../../Components/Eccomerce/PrimaryAppBar";
 
 const drawerWidth = 240;
 

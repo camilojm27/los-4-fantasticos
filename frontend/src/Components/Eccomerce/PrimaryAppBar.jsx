@@ -8,6 +8,8 @@ import {Link} from 'react-router-dom'
 import {IoCartOutline} from 'react-icons/io5'
 import {AiOutlineUser} from 'react-icons/ai'
 import {Badge, Menu, MenuItem} from "@material-ui/core";
+import {useDispatch} from "react-redux";
+import {logout} from "../../state/actions/authAction";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,6 +25,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PrimaryAppBar() {
+    const dispatch = useDispatch();
+    const logOut = () => {
+
+        dispatch(logout());
+
+    };
+
     const classes = useStyles();
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -44,13 +53,13 @@ export default function PrimaryAppBar() {
                             <img src="https://res.cloudinary.com/kentruri/image/upload/v1615312416/Logo_v81kkw.ico" alt=""/>
                         </Link>
                     </IconButton>
-                    <Link className={classes.title}>
+                    <Link to="/products" className={classes.title}>
                         <Typography variant="h6">
                         Productos
                     </Typography>
                     </Link>
 
-                    <Link className={classes.title}>
+                    <Link to="/about" className={classes.title}>
                         <Typography variant="h6" >
                             Sobre Nosotros
                         </Typography>
@@ -70,7 +79,10 @@ export default function PrimaryAppBar() {
                     >
                         <MenuItem onClick={handleClose}><Link to="/profile/settings">Configuración de Perfil</Link></MenuItem>
                         <MenuItem onClick={handleClose}><Link to="/profile/order">Ordenes</Link></MenuItem>
-                        <MenuItem onClick={handleClose}>Cerrar Sesión</MenuItem>
+                        <MenuItem onClick={() => {
+                            handleClose();
+                            logOut();
+                        }}>Cerrar Sesión</MenuItem>
                     </Menu>
                 </Toolbar>
             </AppBar>

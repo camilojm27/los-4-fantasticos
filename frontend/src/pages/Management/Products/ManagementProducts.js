@@ -3,19 +3,25 @@ import React from 'react'
 import Sidebar from '../../../Components/Management/Sidebar'
 import Navbar from '../../../Components/Management/Navbar'
 import Product from '../../../Components/Management/Products'
+import PrimaryAppBar from "../../../Components/Eccomerce/PrimaryAppBar";
 
 const ManagementProducts = () => {
 
 
   return (
-    <div className="container">
-      <Navbar />
+      <>
+          <PrimaryAppBar/>
+          <div className="container">
 
-      <Product />
+              <Navbar />
 
-      <Sidebar />
+              <Product />
 
-    </div>
+              <Sidebar />
+
+          </div>
+      </>
+
   )
 }
 

@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import {Link} from "react-router-dom";
 
 export const ProductsContainer = styled.div`
    height: 100vh;
@@ -105,3 +106,25 @@ export const ProductsP = styled.p`
   font-family: 'RocknRoll One', sans-serif;
   color:#000;
 `
+export const ButtonL = styled(Link)`
+  border-radius: 50px;
+  background: ${({primary}) => (primary ? 'rgb(201, 198, 56)' : '#010606')};
+  white-space: nowrap;
+  padding: ${({big}) => (big ? '14px 48px' : '12px 30px')};
+  color: ${({dark}) => (dark ? '#010606' : '#fff')};
+  font-size: ${({fontBig}) => (fontBig ? '20px' : '16px')};
+  outline: none;
+  border: none;
+  cursor: pointer;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+  grid-column: 1/4;
+  width: 100%;
+  margin: auto;
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: ${({primary}) => (primary ? '#fff' : 'rgb(201, 198, 56)' )};
+  }
+  `;
