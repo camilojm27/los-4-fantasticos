@@ -11,8 +11,10 @@ import {
 import PrimaryAppBar from "../../Components/Eccomerce/PrimaryAppBar";
 
 import ProductList from '../../Components/Eccomerce/Products/ProductList'
-export const Products = () => {
+import Categories from "../Categories";
 
+export const ProductAllScreen = (props) => {
+    const catId = props.match.params.id
     return (
         <ProductSection>
             <PrimaryAppBar />
