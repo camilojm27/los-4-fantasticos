@@ -7,10 +7,9 @@ import {
     SearchInput,
     TitleHero
 } from "./ProductElements";
-import PrimaryAppBar from "../../Components/PrimaryAppBar";
-import ProductList from "../../Components/Products/ProductList";
+import PrimaryAppBar from "../../Components/Eccomerce/PrimaryAppBar";
 
-
+import ProductList from '../../Components/Eccomerce/Products/ProductList'
 export const Products = () => {
     return(
         <ProductSection>

@@ -23,9 +23,10 @@ export const getProducts = () => async (dispatch) => {
 
         const res = await axios.get(`${REACT_APP_API_URL}/product`)
 
+
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
-            payload: res.data.products
+            payload: res.data
         })
     }
 
@@ -50,8 +51,6 @@ export const addProduct = (data, token) => async (dispatch) => {
             }
 
         })
-
-        console.log(hola)
         dispatch({
             type: PRODUCT_REQUEST_SUCCESS
         })

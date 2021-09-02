@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 
-import { login } from "../../../actions/authAction"
+import { login } from "../../../state/actions/authAction"
 const SignInModal = ({ showSignIn, setShowSignIn }) => {
 
   const history = useHistory();

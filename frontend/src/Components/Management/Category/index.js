@@ -9,7 +9,7 @@ import { Background, CloseModal, Input, ModalInput, ModalInputId, InputId, Optio
 import { BtnRemove, BtnSend, BtnEdit } from '../Btn'
 import { useForm } from "react-hook-form";
 import styled from 'styled-components';
-import { addCategory, getCategory, editCategory, deleteCategory } from '../../../actions/categoryAction'
+import { addCategory, getCategory, editCategory, deleteCategory } from '../../../state/actions/categoryAction'
 
 const Modal = styled.div`
   max-width: 900px;
@@ -53,7 +53,6 @@ const Category = () => {
 
   }
 
-  const API_URI = "https://ricuritas.herokuapp.com/api/category"
   const onSubmit = async (data) => {
     console.log(data)
     if (modal.insert === true) {

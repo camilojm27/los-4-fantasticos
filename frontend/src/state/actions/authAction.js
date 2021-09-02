@@ -4,8 +4,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT
-} from "../constants/authConstants";
-import AuthService from '../services/auth.service'
+} from "../../state/constants/authConstants";
+import AuthService from '../../services/auth.service'
 export const signUp = (data) => (dispatch) => {
 
   return AuthService.register(data).then(

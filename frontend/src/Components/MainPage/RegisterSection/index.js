@@ -28,9 +28,9 @@ import PlacesAutocomplete, {
   getLatLng
 } from "react-places-autocomplete"
 import { useDispatch, useSelector } from 'react-redux'
-import { signUp } from "../../../actions/authAction"
+import { signUp } from "../../../state/actions/authAction"
 import { useHistory } from 'react-router-dom';
-import { REGISTER_FAIL } from "../../../constants/authConstants"
+import { REGISTER_FAIL } from "../../../state/constants/authConstants"
 
 
 const RegisterSection = () => {

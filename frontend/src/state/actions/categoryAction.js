@@ -7,7 +7,6 @@ export const getCategory = () => async (dispatch) => {
     try {
 
         const res = await axios.get(`${REACT_APP_API_URL}/category`)
-
         dispatch({
             type: CATEGORY_LIST_SUCCESS,
             payload: res.data

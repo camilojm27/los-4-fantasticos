@@ -77,7 +77,7 @@ const Tablas = (props) => {
     setPage(0);
   };
 
-  const {loading,error,categories} = props.listCategory
+  const { loading, error, categories } = props.listCategory
 
   //Busqueda
 
@@ -89,28 +89,28 @@ const Tablas = (props) => {
   }
 
   //CRU
- const handleChange = (object,data) => {
-  props.handleSelect(object,data)
- }
+  const handleChange = (object, data) => {
+    props.handleSelect(object, data)
+  }
 
 
 
 
   return (
     <>
-    
+
       <CustomizedRadios handleSelect={handleSelect} />
       <SearchbarContainer>
 
 
         <SearchBar
-               onChange={(e) => { setQuery(e) }}
-            
-               style={{
-                 margin: '0 auto',
-                 maxWidth: 800
-               }}
-               placeholder="Buscar..."
+          onChange={(e) => { setQuery(e) }}
+
+          style={{
+            margin: '0 auto',
+            maxWidth: 800
+          }}
+          placeholder="Buscar..."
 
         />
       </SearchbarContainer>
@@ -133,8 +133,8 @@ const Tablas = (props) => {
             </TableHead>
             <ThemeProvider theme={theme}>
               <TableBody>
-                {loading ? <h1>cargando...</h1> :categories.categories && categories.categories.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((item) => {
-       
+                {loading ? <h1>cargando...</h1> : categories.categories && categories.categories.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((item) => {
+
                   if (query === "") {
                     return item
                   } else if (select === "Id" && item.id.toString().toLowerCase().includes(query.toLowerCase())) {
@@ -142,19 +142,19 @@ const Tablas = (props) => {
                   } else if (select === "Nombre" && item.name.toString().toLowerCase().includes(query.toLowerCase())) {
                     return item
                   }
-     
+
 
 
                 }).map(item => (
                   <TableRow key={item.id}>
                     <StyledTableCell>{item.id}</StyledTableCell>
                     <StyledTableCell>{item.name}</StyledTableCell>
-                    <StyledTableCell ><BtnEdit onClick={()=>handleChange({remove:false,edit:true,insert:false},item)} >
-                      Editar 
-                               </BtnEdit></StyledTableCell>
-                    <StyledTableCell ><BtnRemove onClick={()=>handleChange({remove:true,edit:false,insert:false},item)}>
+                    <StyledTableCell ><BtnEdit onClick={() => handleChange({ remove: false, edit: true, insert: false }, item)} >
+                      Editar
+                    </BtnEdit></StyledTableCell>
+                    <StyledTableCell ><BtnRemove onClick={() => handleChange({ remove: true, edit: false, insert: false }, item)}>
                       Eliminar
- </BtnRemove ></StyledTableCell>
+                    </BtnRemove ></StyledTableCell>
                   </TableRow>
 
                 ))
@@ -176,11 +176,11 @@ const Tablas = (props) => {
       </Paper>
 
 
-      <WrapperBtn><Btn onClick={()=>handleChange({remove:false,edit:false,insert:true},{})}> Nueva categoria</Btn> </WrapperBtn>
+      <WrapperBtn><Btn onClick={() => handleChange({ remove: false, edit: false, insert: true }, {})}> Nueva categoria</Btn> </WrapperBtn>
 
-      <h1 style={{margin : "20px 0  0 0"}}>{error}</h1>
+      <h1 style={{ margin: "20px 0  0 0" }}>{error}</h1>
 
- 
+
 
     </>
 

@@ -14,7 +14,7 @@ import SearchBar from "material-ui-search-bar";
 import { SearchbarContainer } from '../Searchbar';
 import CustomizedRadios from './SearchOption'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProducts } from '../../../actions/productAction'
+import { getProducts } from '../../../state/actions/productAction'
 const Tablas = (props) => {
     //Estilos de las tablas 
 
@@ -81,7 +81,11 @@ const Tablas = (props) => {
         setPage(0);
     };
 
-    const { loading, error, products } = props.listProduct
+
+
+
+
+
     //Solicitando datos
 
     const dispatch = useDispatch()
@@ -89,6 +93,8 @@ const Tablas = (props) => {
     useEffect(() => {
         dispatch(getProducts())
     }, [dispatch])
+    const listProducts = useSelector(state => state.productList)
+    const { loading, error, products } = listProducts
 
 
     //Busqueda
@@ -99,14 +105,18 @@ const Tablas = (props) => {
     const handleSelect = (option) => {
 
         setSelect(option)
+        console.log(option)
 
 
     }
+
+
+    //CRU
 
     const handleChange = (object, data) => {
         props.handleSelect(object, data)
-
     }
+
 
     return (
         <>
@@ -159,25 +169,23 @@ const Tablas = (props) => {
                                     }
 
 
-                                }).filter(item => (
-                                  item.available ?
-                                     <TableRow key={item.id}>
-                                        
+                                }).map(item => (
+                                    <TableRow key={item.id}>
                                         <StyledTableCell>{item.id}</StyledTableCell>
                                         <StyledTableCell>{item.name}</StyledTableCell>
                                         <StyledTableCell>{item.units}</StyledTableCell>
                                         <StyledTableCell>{item.category_name}</StyledTableCell>
                                         <StyledTableCell>{item.description}</StyledTableCell>
-                     
+
                                         <StyledTableCell>{item.details}</StyledTableCell>
-                                        <StyledTableCell><BtnEdit onClick={() => handleChange({ remove: false, edit: true, insert: false }, item)}>
+                                        <StyledTableCell ><BtnEdit onClick={() => handleChange({ remove: false, edit: true, insert: false }, item)} >
                                             Editar
                                         </BtnEdit></StyledTableCell>
-                                        <StyledTableCell><BtnRemove onClick={() => handleChange({ remove: true, edit: false, insert: false }, item)}>
+                                        <StyledTableCell ><BtnRemove onClick={() => handleChange({ remove: true, edit: false, insert: false }, item)}>
                                             Eliminar
-                                        </BtnRemove ></StyledTableCell> 
-                                    </TableRow>  :  null
-                                   
+                                        </BtnRemove ></StyledTableCell>
+                                    </TableRow>
+
                                 ))
 
                                 }
@@ -198,8 +206,6 @@ const Tablas = (props) => {
 
 
             <WrapperBtn><Btn onClick={() => handleChange({ remove: false, edit: false, insert: true }, {})}> Nuevo producto</Btn> </WrapperBtn>
-
-            <h1 style={{ margin: "20px 0  0 0" }}>{error}</h1>
 
         </>
     )

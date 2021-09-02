@@ -2,7 +2,7 @@ import { SidebarContainer, SidebarTitle, SidebarImg, Img, SidebarMenu, SidebarLi
 import './active.css'
 import React from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../../actions/authAction"
+import { logout } from "../../../state/actions/authAction"
 import { Redirect,useHistory } from 'react-router-dom'
 
 const Sidebar

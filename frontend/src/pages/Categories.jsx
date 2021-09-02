@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import ProductsList from "../Components/Products/ProductList";
-import CategoriesPanel from "../Components/Categories/CategoriesPanel";
+import ProductsList from "../Components/Eccomerce/Products/ProductList";
+import CategoriesPanel from "../Components/Eccomerce/Categories/CategoriesPanel";
 
 const SectionCategories = styled.section`
     padding-top: 30px;

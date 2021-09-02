@@ -9,7 +9,7 @@ import { Background, CloseModal, Input, ModalInput, ModalInputId, InputId, Optio
 import { BtnRemove, BtnSend, BtnEdit } from '../Btn'
 import { useForm } from "react-hook-form";
 
-import { addProduct, getProducts, editProduct, deleteProduct } from '../../../actions/productAction';
+import { addProduct, getProducts, editProduct, deleteProduct } from '../../../state/actions/productAction';
 
 const Modal = styled.div`
   max-width: 900px;
@@ -19,14 +19,12 @@ const Modal = styled.div`
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   color: #000;
-
   position: absolute;
   z-index: 10;
   border-radius: 5px;
   -webkit-box-shadow: inset 0px -5px 15px -4px rgba(0,0,0,0.75);
 -moz-box-shadow: inset 0px -5px 15px -4px rgba(0,0,0,0.75);
 box-shadow: inset 0px -5px 15px -4px rgba(0,0,0,0.75);
-
 `;
 
 const Product = () => {
@@ -67,8 +65,8 @@ const Product = () => {
       data.units = parseInt(data.units, 10)
       data.unit_price = parseInt(data.unit_price,10)
       data.category_id = parseInt(data.category_id,10)
-      
-      dispatch(addProduct(data, currentUser.Authorization)).then(response => {
+
+      dispatch(addProduct(data, currentUser.Authorization)).then(() => {
         setModal({ remove: false, edit: false, insert: false })
         dispatch(getProducts())
 
@@ -79,7 +77,7 @@ const Product = () => {
     else {
       if (modal.edit === true) {
 
-        dispatch(editProduct(data, currentUser.Authorization)).then(response => {
+        dispatch(editProduct(data, currentUser.Authorization)).then(() => {
           setModal({ remove: false, edit: false, insert: false })
           dispatch(getProducts())
         }).catch(error => {
@@ -93,7 +91,7 @@ const Product = () => {
   const confirm = async () => {
     if (modal.remove === true) {
       dispatch(deleteProduct(edit.id, currentUser.Authorization))
-        .then(response => {
+        .then(() => {
           setModal({ remove: false, edit: false, insert: false })
           dispatch(getProducts())
         }).catch(error => {
@@ -104,7 +102,7 @@ const Product = () => {
 
   useEffect(() => {
     dispatch(getProducts())
-    console.log(listProduct)
+
   }, [dispatch])
 
 
@@ -162,7 +160,7 @@ const Product = () => {
       {modal.edit ?
         <Background>
           <Modal>
-            <form form onSubmit={handleSubmit(onSubmit)} >
+            <form onSubmit={handleSubmit(onSubmit)} >
               <CloseModal
                 aria-label='Close modal'
                 onClick={() => setModal({ remove: false, edit: false, insert: false })}
@@ -243,7 +241,8 @@ const Product = () => {
       </HeaderMessage>
 
       <WrapperTable>
-        <Tablas handleSelect={handleSelect} listProduct={listProduct} />
+          <Tablas handleSelect={handleSelect} listProduct={listProduct} />
+
       </WrapperTable>
 
 
