@@ -13,7 +13,9 @@ const Management = () => {
           <div className="container">
 
               <Navbar />
+            
               <HeaderSection />
+              
               <Sidebar />
 
           </div>

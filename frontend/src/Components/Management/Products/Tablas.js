@@ -196,7 +196,7 @@ const Tablas = (props) => {
                 <TablePagination
                     rowsPerPageOptions={[2, 10, 15]}
                     component="div"
-                    count={loading ? <h1>cargando...</h1> : products.categories && products.categories.length}
+                    count={loading ? <h1>cargando...</h1> : products.products && products.products.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onChangePage={handleChangePage}

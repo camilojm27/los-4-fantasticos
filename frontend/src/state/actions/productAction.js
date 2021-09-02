@@ -42,10 +42,10 @@ export const getProducts = () => async (dispatch) => {
 export const addProduct = (data, token) => async (dispatch) => {
     console.log(data)
     dispatch({
-        type: PRODUCT_REQUEST_FAIL
+        type: PRODUCT_REQUEST
     })
     try {
-        const hola = await axios.post(`${REACT_APP_API_URL}/product`, data, {
+          await axios.post(`${REACT_APP_API_URL}/product`, data, {
             headers: {
                 'Authorization': token
             }
@@ -55,7 +55,7 @@ export const addProduct = (data, token) => async (dispatch) => {
             type: PRODUCT_REQUEST_SUCCESS
         })
     } catch (error) {
-        console.log(error.response)
+        console.log(error.response,"fallo")
         const { msg } = error.response.data
         dispatch({
             type: PRODUCT_REQUEST_FAIL,

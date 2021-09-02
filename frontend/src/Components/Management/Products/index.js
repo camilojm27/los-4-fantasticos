@@ -65,8 +65,8 @@ const Product = () => {
       data.units = parseInt(data.units, 10)
       data.unit_price = parseInt(data.unit_price,10)
       data.category_id = parseInt(data.category_id,10)
-
-
+      delete data.id
+      console.log(data)
       dispatch(addProduct(data, currentUser.Authorization)).then(response => {
 
         setModal({ remove: false, edit: false, insert: false })
@@ -78,7 +78,7 @@ const Product = () => {
     }
     else {
       if (modal.edit === true) {
-
+          
         dispatch(editProduct(data, currentUser.Authorization)).then(() => {
           setModal({ remove: false, edit: false, insert: false })
           dispatch(getProducts())
@@ -125,9 +125,9 @@ const Product = () => {
                 <Input placeholder="Nombre del producto" {...register("name")} />
               </ModalInput>
 
-              <ModalInput>
-                <Input placeholder="Imagen" {...register("image")} />
-              </ModalInput>
+         
+                <Input type="file" {...register("image")} style={{margin : "0 0 0 55px"}} />
+     
 
               <ModalInput>
                 <Input placeholder="Descripcion" {...register("description")} />
