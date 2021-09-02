@@ -1,13 +1,15 @@
 import Home from '../pages'
-import {Switch,Redirect} from "react-router-dom"
+import {Switch, Redirect, Route} from "react-router-dom"
 import {PublicRoute} from "./helperRoutes"
-import {Products} from "../pages/products/Products";
+import {ProductAllScreen} from "../pages/products/ProductAllScreen";
+import Categories from "../pages/Categories";
 const PublicRoutes = () => {
 
     return (
         <Switch>
+            <PublicRoute exact path="/categories/:id?" component={Categories} />
             <PublicRoute exact path = "/" component={Home} />
-            <PublicRoute exact path = "/products" component={Products} />
+            <PublicRoute exact path = "/products/:id?" component={ProductAllScreen} />
             <Redirect path="/**" to="/"/>
         </Switch>
     )

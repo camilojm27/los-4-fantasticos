@@ -23,3 +23,6 @@ a{
     color: white;
     background-color: #440381ff;
 }
+.tabs-active li{
+    color: white;
+}

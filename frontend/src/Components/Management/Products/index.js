@@ -67,7 +67,7 @@ const Product = () => {
       data.units = parseInt(data.units, 10)
       data.unit_price = parseInt(data.unit_price,10)
       data.category_id = parseInt(data.category_id,10)
-      
+
       dispatch(addProduct(data, currentUser.Authorization)).then(response => {
         setModal({ remove: false, edit: false, insert: false })
         dispatch(getProducts())
@@ -162,7 +162,7 @@ const Product = () => {
       {modal.edit ?
         <Background>
           <Modal>
-            <form form onSubmit={handleSubmit(onSubmit)} >
+            <form onSubmit={handleSubmit(onSubmit)} >
               <CloseModal
                 aria-label='Close modal'
                 onClick={() => setModal({ remove: false, edit: false, insert: false })}

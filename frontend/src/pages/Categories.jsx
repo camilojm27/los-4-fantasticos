@@ -10,9 +10,9 @@ const SectionCategories = styled.section`
 
 
 
-const Categories = (props) => {
+const Categories = ({id}) => {
 
-    const categoriesID = props.match.params.id
+    const categoriesID = id
 
     return(
         <SectionCategories >

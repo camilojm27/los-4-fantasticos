@@ -7,11 +7,13 @@ import {
     SearchInput,
     TitleHero
 } from "./ProductElements";
-import PrimaryAppBar from "../../Components/PrimaryAppBar";
+import PrimaryAppBar from "../../Components/Ecommerce/PrimaryAppBar";
 import ProductList from "../../Components/Products/ProductList";
+import Categories from "../Categories";
 
 
-export const Products = () => {
+export const ProductAllScreen = (props) => {
+    const catId = props.match.params.id
     return(
         <ProductSection>
             <PrimaryAppBar/>
@@ -22,7 +24,7 @@ export const Products = () => {
                     <SearchIconP/>
                 </SearchBar>
             </HeroProducts>
-            <ProductList/>
+            <Categories id={catId}/>
         </ProductSection>
     )
 }

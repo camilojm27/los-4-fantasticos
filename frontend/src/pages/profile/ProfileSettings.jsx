@@ -1,18 +1,12 @@
 import React, {useState} from "react";
-import {
-    Drawer,
-    ListItem,
-    List,
-    ListItemIcon,
-    ListItemText, TextField, Button, Grid, Hidden, IconButton, Toolbar, AppBar, Typography
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import {Button, Grid, List, ListItem, ListItemIcon, ListItemText, TextField} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
 import MailIcon from "@material-ui/icons/Mail";
 import SaveIcon from '@material-ui/icons/Save';
 import SettingsIcon from '@material-ui/icons/Settings';
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
-import MenuIcon from '@material-ui/icons/Menu';
 import {useDispatch, useSelector} from "react-redux";
+import PrimaryAppBar from "../../Components/Ecommerce/PrimaryAppBar";
 
 const drawerWidth = 240;
 
@@ -55,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
 const ProfileSettings = (props) => {
     const {history} = props;
     const dispatch = useDispatch()
-    const { user: {user} } = useSelector((state) => state.auth);
+    const {user: {user}} = useSelector((state) => state.auth);
 
     const [toggleState, setToggleState] = useState(1);
     const toggleTab = (index) => {
@@ -65,37 +59,37 @@ const ProfileSettings = (props) => {
     const itemsList = [
         {
             text: "Ajustes de Cuenta",
-            icon: <SettingsIcon />,
+            icon: <SettingsIcon/>,
             id: 1,
             onClick: () => history.push('/profile/settings')
         },
         {
             text: "Ordenes",
-            icon: <MailIcon />,
+            icon: <MailIcon/>,
             id: 2,
             onClick: () => history.push('/profile/order')
         },
         {
             text: "Privacidad",
-            icon: <FingerprintIcon />,
+            icon: <FingerprintIcon/>,
             id: 3,
             onClick: () => history.push('/profile/privacy')
         }
     ];
-const drawer = (
-    <List>
-        {itemsList.map((item, index) => {
-            const { text, icon,id,  onClick } = item;
-            return (
-                <ListItem style={ index === 0 ? { backgroundColor: '#3f51b5', color: "white" } : {}}
-                                  button key={text} onClick={onClick}>
-                    {icon && <ListItemIcon>{icon}</ListItemIcon>}
-                    <ListItemText primary={text} />
-                </ListItem>
-            );
-        })}
-    </List>
-)
+    const drawer = (
+        <List>
+            {itemsList.map((item, index) => {
+                const {text, icon, id, onClick} = item;
+                return (
+                    <ListItem style={index === 0 ? {backgroundColor: '#3f51b5', color: "white"} : {}}
+                              button key={text} onClick={onClick}>
+                        {icon && <ListItemIcon>{icon}</ListItemIcon>}
+                        <ListItemText primary={text}/>
+                    </ListItem>
+                );
+            })}
+        </List>
+    )
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -103,55 +97,11 @@ const drawer = (
     const container = window !== undefined ? () => window.document.body : undefined;
 
     return (
-        <div style={{display: 'flex'}}>
-            <AppBar position="fixed" className={classes.appBar}>
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        className={classes.menuButton}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap>
-                        Configuración de perfil
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <nav className={classes.drawer} aria-label="mailbox folders">
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-                <Hidden smUp implementation="css">
-                    <Drawer
-                        container={container}
-                        variant="temporary"
-                        open={mobileOpen}
-                        onClose={handleDrawerToggle}
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        ModalProps={{
-                            keepMounted: true, // Better open performance on mobile.
-                        }}
-                    >
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-                <Hidden xsDown implementation="css">
-                    <Drawer
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        variant="permanent"
-                        open
-                    >
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-            </nav>
+        <>
+            <PrimaryAppBar/>
+            <h1 style={{textAlign: 'center'}}>Configuración de Cuenta</h1>
             <section className={classes.content}>
-                <div className={classes.toolbar} />
+                <div className={classes.toolbar}/>
                 <form>
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>
@@ -159,21 +109,23 @@ const drawer = (
                         </Grid>
 
                         <Grid item xs={12} sm={6}>
-                            <TextField label="Email" defaultValue={user.email} fullWidth  variant="outlined" />
+                            <TextField label="Email" defaultValue={user.email} fullWidth variant="outlined"/>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField label="Telefono" defaultValue={user.phone_num} fullWidth variant="outlined" />
+                            <TextField label="Telefono" defaultValue={user.phone_num} fullWidth variant="outlined"/>
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField label="Direccion detallada" defaultValue={user.address} fullWidth variant="outlined" />
+                            <TextField label="Direccion detallada" defaultValue={user.address} fullWidth
+                                       variant="outlined"/>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField label="Cedula" defaultValue={user.doc_num} fullWidth variant="outlined" />
+                            <TextField label="Cedula" defaultValue={user.doc_num} fullWidth variant="outlined"/>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField  InputLabelProps={{
+                            <TextField InputLabelProps={{
                                 shrink: true,
-                            }} type="date" label="Fecha de nacimiento" defaultValue={user.birth}  fullWidth variant="outlined" />
+                            }} type="date" label="Fecha de nacimiento" defaultValue={user.birth} fullWidth
+                                       variant="outlined"/>
                         </Grid>
                     </Grid>
 
@@ -182,14 +134,14 @@ const drawer = (
                         variant="contained"
                         color="primary"
                         size="large"
-                        startIcon={<SaveIcon />}
+                        startIcon={<SaveIcon/>}
                         style={{marginTop: 10}}
                     >
-                        Save
+                        Guardar Cambios
                     </Button>
                 </form>
             </section>
-        </div>
+        </>
     )
 
 }
