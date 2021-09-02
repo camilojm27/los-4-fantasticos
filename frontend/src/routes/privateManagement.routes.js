@@ -13,7 +13,8 @@ import Admins from '../pages/Management/Admins/Admins'
 import AdminsEdit from '../pages/Management/Admins/EditAdmins'
 import ProfileSettings from "../pages/profile/ProfileSettings";
 import {ProfileOrder} from "../pages/profile/ProfileOrder";
-import {Products} from "../pages/products/Products";
+import {ProductAllScreen} from "../pages/products/ProductAllScreen";
+import Categories from "../pages/Categories";
 
 const PrivateRoutesManagement = () => {
     return (
@@ -22,8 +23,8 @@ const PrivateRoutesManagement = () => {
             <PrivateRouteManagement path="/Management/" component={Management} exact />
             <PrivateRouteManagement path="/Management/Categories" component={ManagementCategories} exact />
             <PrivateRouteManagement path="/Management/Categories/edit" component={CategoriesEdit} exact />
-            <PrivateRouteManagement path="/Management/Products" component={ManagementProducts} exact />
-            <PrivateRouteManagement path="/Management/Products/edit" component={ProductsEdit} exact />
+            <PrivateRouteManagement path="/Management/ProductAllScreen" component={ManagementProducts} exact />
+            <PrivateRouteManagement path="/Management/ProductAllScreen/edit" component={ProductsEdit} exact />
             <PrivateRouteManagement path="/Management/Invoices" component={Invoices} exact />
             <PrivateRouteManagement path="/Management/Invoices/edit" component={InvoicesEdit} exact />
             <PrivateRouteManagement path="/Management/Clients" component={Clients} exact />
@@ -32,7 +33,8 @@ const PrivateRoutesManagement = () => {
             <PrivateRouteManagement path="/Management/Admins/edit" component={AdminsEdit} exact />
             <Route exact path="/profile/settings" component={ProfileSettings}  />
             <Route exact path="/profile/order" component={ProfileOrder}  />
-            <Route exact path="/products" component={Products} />
+            <Route exact path="/products/:id?" component={ProductAllScreen} />
+            <Route exact path="/categories/:id?" component={Categories} />
 
                 <Route exact path="*" render={() => {
                 return <Redirect to ="/Management/"/>

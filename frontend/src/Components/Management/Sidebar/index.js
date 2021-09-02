@@ -11,16 +11,16 @@ const Sidebar
 
         const dispatch = useDispatch();
         const logOut = () => {
-        
-            dispatch(logout());       
-          
+
+            dispatch(logout());
+
         };
 
-    
+
 
 
         return (
-     
+
             <SidebarContainer>
 
                 <SidebarTitle>
@@ -42,9 +42,9 @@ const Sidebar
                         </div>
                     </SidebarLink>
                     <SidebarLink>
-                        <div id={window.location.pathname === '/Management/Products' || window.location.pathname === '/Management/Products/Edit' ? "active" : ""}>
+                        <div id={window.location.pathname === '/Management/ProductAllScreen' || window.location.pathname === '/Management/ProductAllScreen/Edit' ? "active" : ""}>
                             <I><ProductIcon /></I>
-                            <ASidebar2 to="Products">Productos</ASidebar2>
+                            <ASidebar2 to="ProductAllScreen">Productos</ASidebar2>
                         </div>
                     </SidebarLink>
                     <SidebarLink>

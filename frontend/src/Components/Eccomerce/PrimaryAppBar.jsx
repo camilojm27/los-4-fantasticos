@@ -3,10 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import {Link} from 'react-router-dom'
+import {IoCartOutline} from 'react-icons/io5'
+import {AiOutlineUser} from 'react-icons/ai'
+import {Badge, Menu, MenuItem} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,6 +24,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrimaryAppBar() {
     const classes = useStyles();
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     return (
         <div className={classes.root}>
@@ -44,7 +55,23 @@ export default function PrimaryAppBar() {
                             Sobre Nosotros
                         </Typography>
                     </Link>
-                    {/*<Button color="inherit">Login</Button>*/}
+                    <Badge badgeContent={3} color="secondary" style={{marginRight: 40}}>
+                        <IoCartOutline fontSize={30}/>
+                    </Badge>
+                    <Badge>
+                        <AiOutlineUser fontSize={30} style={{marginRight: 10}} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}/>
+                    </Badge>
+                    <Menu
+                        id="simple-menu"
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                    >
+                        <MenuItem onClick={handleClose}><Link to="/profile/settings">Configuración de Perfil</Link></MenuItem>
+                        <MenuItem onClick={handleClose}><Link to="/profile/order">Ordenes</Link></MenuItem>
+                        <MenuItem onClick={handleClose}>Cerrar Sesión</MenuItem>
+                    </Menu>
                 </Toolbar>
             </AppBar>
         </div>

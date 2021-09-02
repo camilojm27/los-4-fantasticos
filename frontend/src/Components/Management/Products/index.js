@@ -66,7 +66,9 @@ const Product = () => {
       data.unit_price = parseInt(data.unit_price,10)
       data.category_id = parseInt(data.category_id,10)
 
-      dispatch(addProduct(data, currentUser.Authorization)).then(() => {
+
+      dispatch(addProduct(data, currentUser.Authorization)).then(response => {
+
         setModal({ remove: false, edit: false, insert: false })
         dispatch(getProducts())
 

@@ -43,6 +43,7 @@ export const SearchInput = styled.input `
   caret-color: orange;
   line-height: 40px;
   transition: width 0.4s linear;
+  font-size: 1.2rem;
 `;
 
 export const SearchIconP = styled(SearchIcon)`
@@ -56,3 +57,30 @@ export const SearchIconP = styled(SearchIcon)`
   color:white;
   text-decoration:none;
 `;
+
+
+// Category
+
+export const Li = styled.li`
+  font-size: 20px;
+  list-style: none;
+  padding: 0.25em 0.5em;
+  margin: 10px;
+  border-radius: 9px;
+  color: #111111;
+
+  &:hover {
+    color: rgb(226, 8, 102);
+  }
+
+`;
+
+export const Panel = styled.aside`
+  height: 300px;
+  width: 200px;
+  overflow: auto;
+  border: solid orange;
+  border-radius: 9px;
+  align-self: center;
+  margin-left: 20px;
+  `;

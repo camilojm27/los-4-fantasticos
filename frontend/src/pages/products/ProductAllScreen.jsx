@@ -7,21 +7,23 @@ import {
     SearchInput,
     TitleHero
 } from "./ProductElements";
+
 import PrimaryAppBar from "../../Components/Eccomerce/PrimaryAppBar";
 
 import ProductList from '../../Components/Eccomerce/Products/ProductList'
 export const Products = () => {
-    return(
+
+    return (
         <ProductSection>
-            <PrimaryAppBar/>
+            <PrimaryAppBar />
             <HeroProducts>
                 <TitleHero>¿Que deseas comer hoy?</TitleHero>
                 <SearchBar>
-                    <SearchInput type="text" placeholder="Search..."/>
-                    <SearchIconP/>
+                    <SearchInput type="text" placeholder="Search..." />
+                    <SearchIconP />
                 </SearchBar>
             </HeroProducts>
-            <ProductList/>
+            <Categories id={catId} />
         </ProductSection>
     )
 }

@@ -1,17 +1,11 @@
 import React, {useState} from "react";
-import {
-    Drawer,
-    ListItem,
-    List,
-    ListItemIcon,
-    ListItemText,  Hidden, IconButton, Toolbar, AppBar, Typography
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import {List, ListItem, ListItemIcon, ListItemText} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
 import MailIcon from "@material-ui/icons/Mail";
 import SettingsIcon from '@material-ui/icons/Settings';
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
-import MenuIcon from '@material-ui/icons/Menu';
 import './Profile.css'
+import PrimaryAppBar from "../../Components/Ecommerce/PrimaryAppBar";
 
 const drawerWidth = 240;
 
@@ -60,19 +54,19 @@ export const ProfileOrder = (props) => {
     const itemsList = [
         {
             text: "Ajustes de Cuenta",
-            icon: <SettingsIcon />,
+            icon: <SettingsIcon/>,
             id: 1,
             onClick: () => history.push('/profile/settings')
         },
         {
             text: "Ordenes",
-            icon: <MailIcon />,
+            icon: <MailIcon/>,
             id: 2,
             onClick: () => history.push('/profile/order')
         },
         {
             text: "Privacidad",
-            icon: <FingerprintIcon />,
+            icon: <FingerprintIcon/>,
             id: 3,
             onClick: () => history.push('/profile/privacy')
         }
@@ -80,11 +74,12 @@ export const ProfileOrder = (props) => {
     const drawer = (
         <List>
             {itemsList.map((item, index) => {
-                const { text, icon,id,  onClick } = item;
+                const {text, icon, id, onClick} = item;
                 return (
-                    <ListItem style={ index === 1 ? { backgroundColor: '#3f51b5', color: "white" } : {}} button key={text} onClick={onClick}>
+                    <ListItem style={index === 1 ? {backgroundColor: '#3f51b5', color: "white"} : {}} button key={text}
+                              onClick={onClick}>
                         {icon && <ListItemIcon>{icon}</ListItemIcon>}
-                        <ListItemText primary={text} />
+                        <ListItemText primary={text}/>
                     </ListItem>
                 );
             })}
@@ -97,72 +92,31 @@ export const ProfileOrder = (props) => {
     const container = window !== undefined ? () => window.document.body : undefined;
 
     return (
-        <div style={{display: 'flex'}}>
-            <AppBar position="fixed" className={classes.appBar}>
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        className={classes.menuButton}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap>
-                        Configuración de perfil
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <nav className={classes.drawer} aria-label="mailbox folders">
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-                <Hidden smUp implementation="css">
-                    <Drawer
-                        container={container}
-                        variant="temporary"
-                        open={mobileOpen}
-                        onClose={handleDrawerToggle}
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        ModalProps={{
-                            keepMounted: true, // Better open performance on mobile.
-                        }}
-                    >
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-                <Hidden xsDown implementation="css">
-                    <Drawer
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                        variant="permanent"
-                        open
-                    >
-                        {drawer}
-                    </Drawer>
-                </Hidden>
-            </nav>
+        <>
+            <div>
+                <PrimaryAppBar/>
 
-            <section className={classes.content}>
-                <div className={classes.toolbar} />
-                <div className="order-card">
-                    <div>
-                        <img src="https://images.rappi.com/products/2090099620-1566521324.jpg?d=200x200&e=webp" alt=""/>
-                    </div>
-                    <div>
-                        <h4>Papa John's Cañas Gordas</h4>
-                        <div className="order-card-details">
-                            <h5>Fecha <small>Sábado, 28 de agosto de 2021</small></h5>
-                            <h5>Cantidad <small>2</small></h5>
-                            <h5>Total <small> $ 7.590</small></h5>
+                <section className={classes.content}>
+                    <div className={classes.toolbar}/>
+                    <div className="order-card">
+                        <div>
+                            <img src="https://images.rappi.com/products/2090099620-1566521324.jpg?d=200x200&e=webp"
+                                 alt=""/>
+                        </div>
+                        <div>
+                            <h4>Papa John's Cañas Gordas</h4>
+                            <div className="order-card-details">
+                                <h5>Fecha <small>Sábado, 28 de agosto de 2021</small></h5>
+                                <h5>Cantidad <small>2</small></h5>
+                                <h5>Total <small> $ 7.590</small></h5>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-        </div>
+            </div>
+        </>
+
     )
 
 }

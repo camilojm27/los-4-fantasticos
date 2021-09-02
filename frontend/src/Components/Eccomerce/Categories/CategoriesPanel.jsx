@@ -9,7 +9,6 @@ const Li = styled.li`
   padding: 0.25em 0.5em;
   margin: 10px;
   border-radius: 9px;
-  color: #111111;
 
   &:hover {
     color: rgb(226, 8, 102);
@@ -30,7 +29,7 @@ const Panel = styled.aside`
 const CategoriesPanel = (props) => {
     let [categories, setCategories] = useState([])
     useEffect(() => {
-        Axios.get('/category').then((res) => {
+        Axios.get('https://ricuritas.herokuapp.com/api/category').then((res) => {
             let data = res.data.categories
 
             setCategories(data)
@@ -40,10 +39,13 @@ const CategoriesPanel = (props) => {
     return (
         <Panel>
             <ul>
+                <Link to='/products'>
+                    <Li className={props.categoriesID === '' ? 'tabs-active' : ''}>Todas</Li>
+                </Link>
                 {
                     categories.map((cat) =>
-                        <Link to={`/categories/${cat.id}`}>
-                            <Li className={props.categoriesID === cat.id ? 'active-category' : ''}>{cat.name}</Li>
+                        <Link key={cat.id} to={`/products/${cat.id}`}>
+                            <Li className={props.categoriesID === cat.id.toString() ? 'tabs-active' : ''}>{cat.name}</Li>
                         </Link>
                     )
                 }
