@@ -4,19 +4,19 @@ import Sidebar from '../../../Components/Management/Sidebar'
 import Navbar from '../../../Components/Management/Navbar'
 import Product from '../../../Components/Management/Products'
 
-const Products = () => {
+const ManagementProducts = () => {
 
-   
-    return (
-        <div className="container">
-          <Navbar/>
-   
-          <Product/>
-          
-          <Sidebar/>
-          
-        </div> 
-    )
+
+  return (
+    <div className="container">
+      <Navbar />
+
+      <Product />
+
+      <Sidebar />
+
+    </div>
+  )
 }
 
-export default Products
+export default ManagementProducts

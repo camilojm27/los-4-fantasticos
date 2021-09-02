@@ -8,12 +8,10 @@ export const getProductList = () => async (dispatch) => {
 
     try {
         const { data } = await axios.get(`${REACT_APP_API_URL}/product`)
-        for (let i = 0; i < 10; i++) {
-            data.push(data[0]);
-        }
-        dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data })
+
+        dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data.products })
     } catch (error) {
-        const { msg } = error.response.data
+        const { msg } = error
         dispatch({ type: PRODUCT_LIST_FAIL, payload: msg })
     }
 }
@@ -27,12 +25,12 @@ export const getProducts = () => async (dispatch) => {
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
-            payload: res.data
+            payload: res.data.products
         })
     }
 
     catch (error) {
-        const { msg } = error.response.data
+        const { msg } = error
         dispatch({ type: PRODUCT_LIST_FAIL, payload: msg })
     }
 
@@ -75,7 +73,7 @@ export const deleteProduct = (id, token) => async (dispatch) => {
         type: PRODUCT_REQUEST
     })
     try {
-        const hola = await axios.delete(`${REACT_APP_API_URL}/product/${id}`, {
+        await axios.delete(`${REACT_APP_API_URL}/product/${id}`, {
             headers: {
                 'Authorization': token
             }
@@ -116,4 +114,3 @@ export const editProduct = (data, token) => async (dispatch) => {
 
 
 }
-
