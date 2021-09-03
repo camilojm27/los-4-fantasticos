@@ -6,7 +6,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import SettingsIcon from '@material-ui/icons/Settings';
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import {useDispatch, useSelector} from "react-redux";
-import PrimaryAppBar from "./../../Components/Eccomerce/PrimaryAppBar";
+import PrimaryAppBar from "../../Components/Eccomerce/PrimaryAppBar";
 
 const drawerWidth = 240;
 

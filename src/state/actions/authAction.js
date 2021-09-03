@@ -4,7 +4,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT
-} from "../../state/constants/authConstants";
+} from "../constants/authConstants";
 import AuthService from '../../services/auth.service'
 export const signUp = (data) => (dispatch) => {
 
@@ -31,7 +31,7 @@ export const login = (email, password) => (dispatch) => {
   return AuthService.login(email, password).then(
     (data) => {
 
-      
+
       dispatch({
         type: LOGIN_SUCCESS,
         payload: { user: data },
