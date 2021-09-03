@@ -2,8 +2,8 @@ os: linux
 language: node_js
 node_js:
   - '14'
-#before_install:
-#  - npm install -g npm@latest
+before_install:
+  - npm install -g npm@latest
 dist: focal
 cache:
   directories:
