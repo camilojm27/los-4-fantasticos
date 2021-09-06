@@ -32,13 +32,13 @@ export const ProductsWrapper = styled.div`
   grid-gap: 16px;
   padding: 0 50px;
 
-  @media screen and (max-width: 1000px){
-      grid-templatecolumns: 1fr 1fr;
+  @media screen and (max-width: 1000px) {
+    grid-templatecolumns: 1fr 1fr;
   }
 
-  @media screen and (max-width: 860px){
-      grid-template-columns: 1fr;
-      padding: 50px 20px;
+  @media screen and (max-width: 860px) {
+    grid-template-columns: 1fr;
+    padding: 50px 20px;
   }
 `
 
@@ -47,24 +47,25 @@ export const ProductsCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items:center;
+  align-items: center;
   border-radius: 10px;
-  height:400px;
+  height: 400px;
   max-height: 500px;
   padding: 30px 30px 50px 30px;
-  box-shadow: 5px 5px 4px rgba(5,5,5,0.2);
+  box-shadow: 5px 5px 4px rgba(5, 5, 5, 0.2);
 
   transition: all 0.2s ease-in-out;
+
   &:hover {
-      transform: scale(1.02);
-      transition: all 0.2s ease-in-out;
-      cursor: pointer;
-  @media screen and (max-width: 860px){
-    padding: 0px 30px 30px 30px;
-    height:380px;
-  }
-  
- 
+    transform: scale(1.02);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    @media screen and (max-width: 860px) {
+      padding: 0px 30px 30px 30px;
+      height: 380px;
+    }
+
+
   }
 `
 
@@ -74,7 +75,6 @@ export const ProductsImage = styled.img`
   width: 200px;
   margin-bottom: 10px;
 `
-
 
 
 export const ProductsH1 = styled.h1`
@@ -123,8 +123,9 @@ export const ButtonL = styled(Link)`
   grid-column: 1/4;
   width: 100%;
   margin: auto;
+
   &:hover {
     transition: all 0.2s ease-in-out;
-    background: ${({primary}) => (primary ? '#fff' : 'rgb(201, 198, 56)' )};
+    background: ${({primary}) => (primary ? '#fff' : 'rgb(201, 198, 56)')};
   }
-  `;
+`;

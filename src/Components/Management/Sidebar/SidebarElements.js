@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import { Link as LinkR } from 'react-router-dom'
+import {Link as LinkR} from 'react-router-dom'
 import {IoHome} from 'react-icons/io5'
 import {HiOutlineClipboardList} from 'react-icons/hi'
-import {RiProductHuntLine,RiFileListLine} from 'react-icons/ri'
-import {FiUser,FiUserPlus} from 'react-icons/fi'
+import {RiFileListLine, RiProductHuntLine} from 'react-icons/ri'
+import {FiUser, FiUserPlus} from 'react-icons/fi'
 import {FaPowerOff} from 'react-icons/fa'
 
 export const SidebarContainer = styled.div`
@@ -35,13 +35,11 @@ margin-bottom:30px;
 `
 
 
-
 export const SidebarImg = styled.div`
 display:flex;
 align-items:center;
 padding-bottom:10px;
 `
-
 
 
 export const Img = styled.img`
@@ -51,12 +49,10 @@ width:250px;
 `
 
 
-
 export const SidebarMenu = styled.div`
 
 
 `
-
 
 
 export const I = styled.i`
@@ -84,7 +80,6 @@ export const ASidebar2 = styled(LinkR)`
 `
 
 
-
 export const SidebarLink = styled.div`
   color: #f3f4f6;
   padding: 10px;
@@ -98,7 +93,6 @@ export const SidebarLink = styled.div`
   
   
   `
-
 
 
 export const H2Sidebar = styled.h2`

@@ -32,7 +32,7 @@ export const InfoRow = styled.div`
       grid-template-areas: 'col1 col1' 'col2 col2';
   }
  
-` 
+`
 
 export const Column1 = styled.div`
   margin-bottom: 15px;
@@ -71,8 +71,8 @@ export const Heading = styled.h1`
   font-weight: 600;
   color: #f7f8fa;
 
-  @media screen and (max-width: 480px){
-      font-size: 30px;
+  @media screen and (max-width: 480px) {
+    font-size: 30px;
 
   }
 `

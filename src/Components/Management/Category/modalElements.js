@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { MdClose} from 'react-icons/md';
+import {MdClose} from 'react-icons/md';
+
 export const Background = styled.div`
   width: 80%;
   height: 100%;
@@ -14,7 +15,6 @@ export const Background = styled.div`
     height: 130%;
   }
 `;
-
 
 
 export const CloseModal = styled(MdClose)`

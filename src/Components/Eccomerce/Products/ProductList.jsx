@@ -17,29 +17,29 @@ const ProductList = (props) => {
 
     const dispatch = useDispatch()
 
-    useEffect(()=> {
+    useEffect(() => {
         dispatch(getProductList())
     }, [dispatch])
 
     const productList = useSelector(state => state.productList)
     const {loading, error, products} = productList
 
-    return(
+    return (
         <SelfProductList>
             {loading ? <h1>Cargando</h1> : error ? <h1>{error}</h1> :
-                 products.filter(function (product) {
-                    if (props.categoriesID){
-                        return  product.category_id === Number(props.categoriesID)
+                products.filter(function (product) {
+                    if (props.categoriesID) {
+                        return product.category_id === Number(props.categoriesID)
                     }
                     return product
                 }).map(product =>
-                        <ProductCard
-                            name={product.name}
-                            image={product.image}
-                            price={product.unit_price}
-                            description={product.description}
-                        />
-                        )
+                    <ProductCard
+                        name={product.name}
+                        image={product.image}
+                        price={product.unit_price}
+                        description={product.description}
+                    />
+                )
             }
         </SelfProductList>
     )

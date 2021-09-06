@@ -5,27 +5,27 @@ import Sidebar from '../Components/MainPage/Sidebar'
 import HeroSection from '../Components/MainPage/HeroSection';
 import InfoSection from '../Components/MainPage/infoSection';
 import ProductsSection from '../Components/MainPage/Products'
-import RegisterSection  from '../Components/MainPage/RegisterSection'
+import RegisterSection from '../Components/MainPage/RegisterSection'
 
 
 const Home = () => {
 
-  const [isOpen, setIsOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
 
-  const toggle = () => {
-    setIsOpen(!isOpen)
-  }
+    const toggle = () => {
+        setIsOpen(!isOpen)
+    }
 
     return (
         <>
-         
-          <Sidebar isOpen={isOpen} toggle={toggle} />
-          <Navbar toggle={toggle} />
-          <HeroSection/>
-         
-          <InfoSection/>
-          <ProductsSection/>
-          <RegisterSection/>
+
+            <Sidebar isOpen={isOpen} toggle={toggle}/>
+            <Navbar toggle={toggle}/>
+            <HeroSection/>
+
+            <InfoSection/>
+            <ProductsSection/>
+            <RegisterSection/>
 
         </>
     )

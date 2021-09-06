@@ -9,15 +9,14 @@ const SectionCategories = styled.section`
 `;
 
 
-
 const Categories = ({id}) => {
 
     const categoriesID = id
 
-    return(
-        <SectionCategories >
+    return (
+        <SectionCategories>
             <CategoriesPanel categoriesID={categoriesID}/>
-            <ProductsList categoriesID={categoriesID} />
+            <ProductsList categoriesID={categoriesID}/>
         </SectionCategories>
 
     )

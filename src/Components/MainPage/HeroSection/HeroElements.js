@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import {MdKeyboardArrowRight, MdArrowForward} from 'react-icons/md';
+import {MdArrowForward, MdKeyboardArrowRight} from 'react-icons/md';
+
 export const HeroContainer = styled.div`
 
   background: #0c0c0c;
@@ -12,7 +13,7 @@ export const HeroContainer = styled.div`
 
   z-index: 1;
 
-  
+
 `
 
 export const HeroBg = styled.div`
@@ -36,13 +37,13 @@ export const VideoBg = styled.video`
 `
 
 export const HeroContent = styled.div`
-   z-index: 3;
-   max-width: 1200px;
-   position: absolute;
-   padding: 8px 24px;
-   display: relative;
-   flex-direction: column;
-   align-items: center;
+  z-index: 3;
+  max-width: 1200px;
+  position: absolute;
+  padding: 8px 24px;
+  display: relative;
+  flex-direction: column;
+  align-items: center;
 `
 
 export const HeroH1 = styled.h1`
@@ -50,15 +51,15 @@ export const HeroH1 = styled.h1`
   font-size: 48px;
   text-align: center;
   padding-top: 10rem; //esto quiza lo cambie, por pixeles, o lo quite
-  @media screen and (max-width: 768px){
-      font-size: 40px;
-      padding-top: 0rem;
+  @media screen and (max-width: 768px) {
+    font-size: 40px;
+    padding-top: 0rem;
 
   }
 
-  @media screen and (max-width: 480px){
-      font-size: 32px;
-      padding-top: 0rem;
+  @media screen and (max-width: 480px) {
+    font-size: 32px;
+    padding-top: 0rem;
 
   }
 `

@@ -1,12 +1,20 @@
 import React from 'react'
-import { HeaderContainer, HeaderWrapper, HeaderMessage, HeaderTitle, Img, H1Header, PHeader } from './HeaderSectionElements'
-import { useSelector } from "react-redux";
-import { Redirect } from 'react-router-dom'
+import {
+    H1Header,
+    HeaderContainer,
+    HeaderMessage,
+    HeaderTitle,
+    HeaderWrapper,
+    Img,
+    PHeader
+} from './HeaderSectionElements'
+import {useSelector} from "react-redux";
 
-import { BtnEdit } from '../Btn';
+import {BtnEdit} from '../Btn';
+
 function HeaderSection() {
 
-    const { user: currentUser } = useSelector((state) => state.auth);
+    const {user: currentUser} = useSelector((state) => state.auth);
 
     return (
         <HeaderContainer>
@@ -16,7 +24,7 @@ function HeaderSection() {
 
 
                     <HeaderTitle>
-                        <Img src="https://res.cloudinary.com/kentruri/image/upload/v1619027662/hello_pajcbd.svg" />
+                        <Img src="https://res.cloudinary.com/kentruri/image/upload/v1619027662/hello_pajcbd.svg"/>
                         <H1Header>
                             Hola {currentUser === null ? "user" : currentUser.user.name}
                             <PHeader>
@@ -26,13 +34,12 @@ function HeaderSection() {
                         </H1Header>
 
 
-
                     </HeaderTitle>
                 </HeaderMessage>
 
                 <HeaderMessage>
                     <H1Header>
-                       Generar
+                        Generar
                     </H1Header>
 
                     <BtnEdit>Top 20 productos mas vendidos</BtnEdit>

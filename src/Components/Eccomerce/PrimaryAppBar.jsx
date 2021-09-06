@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -50,17 +50,18 @@ export default function PrimaryAppBar() {
                 <Toolbar>
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                         <Link to="/">
-                            <img src="https://res.cloudinary.com/kentruri/image/upload/v1615312416/Logo_v81kkw.ico" alt=""/>
+                            <img src="https://res.cloudinary.com/kentruri/image/upload/v1615312416/Logo_v81kkw.ico"
+                                 alt=""/>
                         </Link>
                     </IconButton>
                     <Link to="/products" className={classes.title}>
                         <Typography variant="h6">
-                        Productos
-                    </Typography>
+                            Productos
+                        </Typography>
                     </Link>
 
                     <Link to="/about" className={classes.title}>
-                        <Typography variant="h6" >
+                        <Typography variant="h6">
                             Sobre Nosotros
                         </Typography>
                     </Link>
@@ -68,7 +69,8 @@ export default function PrimaryAppBar() {
                         <IoCartOutline fontSize={30}/>
                     </Badge>
                     <Badge>
-                        <AiOutlineUser fontSize={30} style={{marginRight: 10}} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}/>
+                        <AiOutlineUser fontSize={30} style={{marginRight: 10}} aria-controls="simple-menu"
+                                       aria-haspopup="true" onClick={handleClick}/>
                     </Badge>
                     <Menu
                         id="simple-menu"
@@ -77,7 +79,8 @@ export default function PrimaryAppBar() {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={handleClose}><Link to="/profile/settings">Configuración de Perfil</Link></MenuItem>
+                        <MenuItem onClick={handleClose}><Link to="/profile/settings">Configuración de
+                            Perfil</Link></MenuItem>
                         <MenuItem onClick={handleClose}><Link to="/profile/order">Ordenes</Link></MenuItem>
                         <MenuItem onClick={() => {
                             handleClose();

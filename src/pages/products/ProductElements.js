@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 import SearchIcon from '@material-ui/icons/Search';
 
-export const ProductSection = styled.section `
+export const ProductSection = styled.section`
 
 `;
 
-export const HeroProducts = styled.div `
+export const HeroProducts = styled.div`
   height: 300px;
   background-image: url('https://www.enter.co/wp-content/uploads/2017/02/menu-restaurant-vintage-tableFINAL.jpg');
   display: flex;
@@ -14,7 +14,7 @@ export const HeroProducts = styled.div `
   justify-content: center;
 
 `;
-export const TitleHero = styled.h2 `
+export const TitleHero = styled.h2`
   color: white;
   margin-top: 20px;
   backdrop-filter: blur(4px);
@@ -22,7 +22,7 @@ export const TitleHero = styled.h2 `
   background-color: rgba(0, 0, 0, 0.27);
   padding: 5px;
 `
-export const SearchBar = styled.div `
+export const SearchBar = styled.div`
   margin-bottom: auto;
   margin-top: auto;
   height: 50px;
@@ -33,7 +33,7 @@ export const SearchBar = styled.div `
   align-items: center;
 `;
 
-export const SearchInput = styled.input `
+export const SearchInput = styled.input`
   color: white;
   border: 0;
   outline: 0;
@@ -74,13 +74,3 @@ export const Li = styled.li`
   }
 
 `;
-
-export const Panel = styled.aside`
-  height: 300px;
-  width: 200px;
-  overflow: auto;
-  border: solid orange;
-  border-radius: 9px;
-  align-self: center;
-  margin-left: 20px;
-  `;

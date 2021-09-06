@@ -1,9 +1,9 @@
-
 import styled from 'styled-components';
-import { MdClose} from 'react-icons/md';
+import {MdClose} from 'react-icons/md';
 
-import { FaUser,FaLock } from "react-icons/fa";
-import { Link as LinkS} from 'react-scroll'
+import {FaLock, FaUser} from "react-icons/fa";
+import {Link as LinkS} from 'react-scroll'
+
 export const Background = styled.div`
   width: 100%;
   height: 100%;
@@ -21,9 +21,9 @@ export const Background = styled.div`
 
 export const SignInWrapper = styled.div`
   max-width: 500rem;
-  min-width:350px;
+  min-width: 350px;
   max-height: 600px;
-  min-height:500px;
+  min-height: 500px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   color: #000;
@@ -31,9 +31,9 @@ export const SignInWrapper = styled.div`
   position: absolute;
   z-index: 10;
   border-radius: 10px;
-  -webkit-box-shadow: inset 0px -5px 15px -4px rgba(0,0,0,0.75);
--moz-box-shadow: inset 0px -5px 15px -4px rgba(0,0,0,0.75);
-box-shadow: inset 0px -5px 15px -4px rgba(0,0,0,0.75);
+  -webkit-box-shadow: inset 0px -5px 15px -4px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: inset 0px -5px 15px -4px rgba(0, 0, 0, 0.75);
+  box-shadow: inset 0px -5px 15px -4px rgba(0, 0, 0, 0.75);
 
 `;
 
@@ -57,7 +57,7 @@ width:150px;
   
  `
 
- export const H1SignIn = styled.h1`
+export const H1SignIn = styled.h1`
    font-size: 1.5rem;
   color: #444;
   padding-top:50px;
@@ -65,8 +65,8 @@ width:150px;
   display:block;
 
  `
- 
- export const IconUser = styled(FaUser)`
+
+export const IconUser = styled(FaUser)`
 width: 24px;
 height: 24px; 
 line-height: 55px;
@@ -77,7 +77,7 @@ line-height: 55px;
  padding-top:4px;
  `
 
-  
+
 export const IconPassword = styled(FaLock)`
 width: 24px;
 height: 24px; 

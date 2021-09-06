@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {BsPlusSquareFill} from 'react-icons/bs'
-const AddToCartIcon = styled.div `
+
+const AddToCartIcon = styled.div`
 position: absolute;
   right: 20px;
   
@@ -45,14 +46,13 @@ const CardDetails = styled.div`
   margin-left: 10px;
 `
 
-const Price = styled.p `
+const Price = styled.p`
   font-size: 18px;
   font-weight: bold;
 `;
-const Description = styled.p `
+const Description = styled.p`
 
 `;
-
 
 
 const ProductCard = ({image, name, price, description}) => {

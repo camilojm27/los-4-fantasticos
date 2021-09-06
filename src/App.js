@@ -1,27 +1,27 @@
 import React from 'react'
 
 import './App.css'
-import { useSelector } from 'react-redux'
-import  PublicRoutes  from './routes/public.routes';
+import {useSelector} from 'react-redux'
+import PublicRoutes from './routes/public.routes';
 
 
-import  PrivateRoutesManagement from './routes/privateManagement.routes'
-import  PrivateRoutesCustomer from './routes/privateCustomer.routes';
-
+import PrivateRoutesManagement from './routes/privateManagement.routes'
+import PrivateRoutesCustomer from './routes/privateCustomer.routes';
 
 
 function App() {
-  const { isLoggedIn } = useSelector(state => state.auth);
-  const { user: currentUser } = useSelector((state) => state.auth);
+    const {isLoggedIn} = useSelector(state => state.auth);
+    const {user: currentUser} = useSelector((state) => state.auth);
 
-  return (
-      
-    <div>
-       {!isLoggedIn ? <PublicRoutes />:currentUser.user.role === 1 ? <PrivateRoutesManagement /> : currentUser.user.role === 0 ? <PrivateRoutesCustomer />:<PublicRoutes />}  
+    return (
 
-    </div>
-     
-  );
+        <div>
+            {!isLoggedIn ? <PublicRoutes/> : currentUser.user.role === 1 ?
+                <PrivateRoutesManagement/> : currentUser.user.role === 0 ? <PrivateRoutesCustomer/> : <PublicRoutes/>}
+
+        </div>
+
+    );
 }
 
 export default App;

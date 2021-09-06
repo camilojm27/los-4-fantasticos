@@ -8,21 +8,21 @@ import PrimaryAppBar from "../../../Components/Eccomerce/PrimaryAppBar";
 const ManagementProducts = () => {
 
 
-  return (
-      <>
-          <PrimaryAppBar/>
-          <div className="container">
+    return (
+        <>
+            <PrimaryAppBar/>
+            <div className="container">
 
-              <Navbar />
+                <Navbar/>
 
-              <Product />
+                <Product/>
 
-              <Sidebar />
+                <Sidebar/>
 
-          </div>
-      </>
+            </div>
+        </>
 
-  )
+    )
 }
 
 export default ManagementProducts

@@ -5,13 +5,13 @@ import Navbar from '../../../Components/Management/Navbar'
 
 const CategoriesEdit = () => {
 
-   
+
     return (
         <div className="container">
-           <Navbar/>
-          <Sidebar/>
-          
-        </div> 
+            <Navbar/>
+            <Sidebar/>
+
+        </div>
     )
 }
 

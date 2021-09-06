@@ -1,26 +1,25 @@
 import styled from 'styled-components'
-import { FaUser,FaLock,FaMapMarkerAlt,FaRegCalendarAlt } from "react-icons/fa";
+import {FaLock, FaMapMarkerAlt, FaRegCalendarAlt, FaUser} from "react-icons/fa";
 
 
 import {FiMail} from 'react-icons/fi'
 
-import {HiOutlineIdentification,HiPhone} from 'react-icons/hi'
-
+import {HiOutlineIdentification, HiPhone} from 'react-icons/hi'
 
 
 export const RegisterContainer = styled.div`
-height: 92vh;
-   display:flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   background: #fff;
-   -webkit-justify-content: normal;
-   padding-top:100px;
- 
-  
+  height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  -webkit-justify-content: normal;
+  padding-top: 100px;
 
-   `
+
+
+`
 
 export const RegisterWrapper = styled.div``
 
@@ -63,36 +62,33 @@ width:135px;
 `
 
 export const Input = styled.input`
-   background: none;
+  background: none;
   outline: none;
   border: none;
   line-height: 1;
   font-weight: 600;
   font-size: 1rem;
   color: #666;
-  width:180px;
-  margin-left:5px;
-  cursor:text;
-  background:none;
+  width: 180px;
+  margin-left: 5px;
+  cursor: text;
+  background: none;
 
-  @media screen and (max-width: 530px){
+  @media screen and (max-width: 530px) {
 
     font-size: 0.5rem;
-    width:95px;
+    width: 95px;
 
-}
+  }
 
-@media screen and (max-width: 345px){
+  @media screen and (max-width: 345px) {
 
-font-size: 0.45rem;
-width:85px;
+    font-size: 0.45rem;
+    width: 85px;
 
-}
+  }
 
 `
-
-
-
 
 
 export const RegisterGridInput = styled.div`
@@ -138,59 +134,58 @@ export const I = styled.i`
 
 
 export const BtnRegister = styled.button`
-   border-radius: 50px;
-   background: rgb(235, 232, 51);
-   white-space: nowrap;
-   padding: 10px 40px;
-   margin:auto;
-   margin-top:20px;
-   color: #010606;
-   font-size: 16px;
-   outline: none;
-   border: none;
-   cursor: pointer;
-   transition: all 0.2s ease-in-out;
-   text-decoration: none;
-   font-family: 'RocknRoll One', sans-serif;
-   display:block;
+  border-radius: 50px;
+  background: rgb(235, 232, 51);
+  white-space: nowrap;
+  padding: 10px 40px;
+  margin: auto;
+  margin-top: 20px;
+  color: #010606;
+  font-size: 16px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-decoration: none;
+  font-family: 'RocknRoll One', sans-serif;
+  display: block;
 
-   &:hover{
-      transition: all 0.2s ease-in-out;
-      background: #f0f0f0;
-      color: #333;
-   }
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    background: #f0f0f0;
+    color: #333;
+  }
 
 `
 
 
-
 export const InputBlock = styled.input`
 
-   background: none;
+  background: none;
   outline: none;
   border: none;
   line-height: 1;
   font-weight: 600;
   font-size: 1rem;
   color: #666;
-  width:430px;
-  margin-left:5px;
-  cursor:text;
-  background:none;
+  width: 430px;
+  margin-left: 5px;
+  cursor: text;
+  background: none;
 
-  @media screen and (max-width: 530px){
+  @media screen and (max-width: 530px) {
 
     font-size: 0.5rem;
-    width:275px;
+    width: 275px;
 
-}
+  }
 
-@media screen and (max-width: 345px){
+  @media screen and (max-width: 345px) {
 
-font-size: 0.45rem;
-width:85px;
+    font-size: 0.45rem;
+    width: 85px;
 
-}
+  }
 
 
 `
@@ -208,55 +203,31 @@ export const ErrorMesage = styled.h3`
 `
 
 export const ComboBox = styled.select`
- background: none;
+  background: none;
   outline: none;
   border: none;
   line-height: 1;
   font-weight: 600;
   font-size: 1rem;
   color: #666;
-  width:200px;
-  margin-left:10px;
-  margin-top:18px;
-  background:none;
+  width: 200px;
+  margin-left: 10px;
+  margin-top: 18px;
+  background: none;
 
-  @media screen and (max-width: 530px){
+  @media screen and (max-width: 530px) {
 
     font-size: 0.5rem;
-    width:95px;
+    width: 95px;
 
-}
+  }
 
-@media screen and (max-width: 345px){
+  @media screen and (max-width: 345px) {
 
-font-size: 0.45rem;
-width:85px;
+    font-size: 0.45rem;
+    width: 85px;
 
 `
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 export const IconUser = styled(FaUser)`
@@ -270,7 +241,7 @@ line-height: 55px;
  padding-top:4px;
  `
 
-  
+
 export const IconPassword = styled(FaLock)`
 width: 24px;
 height: 24px; 
@@ -307,10 +278,10 @@ line-height: 55px;
 
 `
 export const IconCalendar = styled(FaRegCalendarAlt)`
-width: 0px;
-height: 0px; 
+  width: 0px;
+  height: 0px;
 
- margin-left:10px;
+  margin-left: 10px;
 
 
 

@@ -1,22 +1,22 @@
 import styled from 'styled-components'
-import { Link as LinkR } from 'react-router-dom'
-import { Link as LinkS} from 'react-scroll'
+import {Link as LinkR} from 'react-router-dom'
+import {Link as LinkS} from 'react-scroll'
 import {FaTimes} from 'react-icons/fa'
 
 export const SidebarContainer = styled.aside`
-   position:fixed;
-   z-index: 999;
-   width: 100%;
-   height: 100%;
-   background: #0d0d0d;
-   display: grid;
-   align-items: center;
-   top: 0;
-   left: 0;
-   transition: 0.3s ease-in-out;
-   opacity: ${ ({isOpen}) => (isOpen ? '100%' : '0') };
-   top: ${({isOpen }) => (isOpen ? '0' : '-100%')};
-   
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  background: #0d0d0d;
+  display: grid;
+  align-items: center;
+  top: 0;
+  left: 0;
+  transition: 0.3s ease-in-out;
+  opacity: ${({isOpen}) => (isOpen ? '100%' : '0')};
+  top: ${({isOpen}) => (isOpen ? '0' : '-100%')};
+
 
 
 `
@@ -51,21 +51,21 @@ export const SidebarMenu = styled.ul`
 `
 
 export const SidebarLink = styled(LinkS)`
- display:flex;
- align-items: center;
- justify-content: center;
- font-size: 1.5rem;
- text-decoration: none;
- list-style: none;
- transition: 0.2s ease-in-out;
- text-decoration: none;
- color:#fff;
- cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  text-decoration: none;
+  list-style: none;
+  transition: 0.2s ease-in-out;
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
 
- &:hover {
+  &:hover {
     color: rgb(235, 232, 51);
     transition: 0.2s ease-in-out;
- }
+  }
 `
 
 export const SideBtnWrap = styled.div`
@@ -89,9 +89,9 @@ export const SidebarRoute = styled(LinkR)`
   text-decoration: none;
 
   &:hover {
-     transition: all 0.2s ease-in-out;
-     background: #fff;
-     color: #000;
+    transition: all 0.2s ease-in-out;
+    background: #fff;
+    color: #000;
 
   }
 `

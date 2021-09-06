@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import React, {useEffect, useState} from 'react';
+import {createTheme, makeStyles, ThemeProvider, withStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,18 +7,18 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { createMuiTheme } from '@material-ui/core/styles';
 import TablePagination from '@material-ui/core/TablePagination';
-import { Btn, WrapperBtn, BtnEdit, BtnRemove } from '../Btn'
+import {Btn, BtnEdit, BtnRemove, WrapperBtn} from '../Btn'
 import SearchBar from "material-ui-search-bar";
-import { SearchbarContainer } from '../Searchbar';
+import {SearchbarContainer} from '../Searchbar';
 import CustomizedRadios from './SearchOption'
-import { useDispatch, useSelector } from 'react-redux'
-import { getProducts } from '../../../state/actions/productAction'
-const Tablas = (props) => {
-    //Estilos de las tablas 
+import {useDispatch, useSelector} from 'react-redux'
+import {getProducts} from '../../../state/actions/productAction'
 
-    const theme = createMuiTheme({
+const Tablas = (props) => {
+    //Estilos de las tablas
+
+    const theme = createTheme({
         palette: {
             primary: {
                 main: "#D63434",
@@ -56,15 +56,15 @@ const Tablas = (props) => {
     });
 
     const columns = [
-        { id: 'Id', label: 'ID', minWidth: 170 },
-        { id: 'Nombre', label: 'Nombre', minWidth: 100 },
-        { id: 'Unidades', label: 'Unidades', minWidth: 100 },
-        { id: 'Category_id', label: 'Categoria', minWidth: 100 },
-        { id: 'description', label: 'Descripcion', minWidth: 100 },
+        {id: 'Id', label: 'ID', minWidth: 170},
+        {id: 'Nombre', label: 'Nombre', minWidth: 100},
+        {id: 'Unidades', label: 'Unidades', minWidth: 100},
+        {id: 'Category_id', label: 'Categoria', minWidth: 100},
+        {id: 'description', label: 'Descripcion', minWidth: 100},
 
-        { id: 'details', label: 'Detalles', minWidth: 100 },
-        { id: 'Editar', label: '', minWidth: 100 },
-        { id: 'Eliminar', label: '', minWidth: 100 },
+        {id: 'details', label: 'Detalles', minWidth: 100},
+        {id: 'Editar', label: '', minWidth: 100},
+        {id: 'Eliminar', label: '', minWidth: 100},
 
     ];
 
@@ -82,10 +82,6 @@ const Tablas = (props) => {
     };
 
 
-
-
-
-
     //Solicitando datos
 
     const dispatch = useDispatch()
@@ -94,7 +90,7 @@ const Tablas = (props) => {
         dispatch(getProducts())
     }, [dispatch])
     const listProducts = useSelector(state => state.productList)
-    const { loading, error, products } = listProducts
+    const {loading, error, products} = listProducts
 
 
     //Busqueda
@@ -120,10 +116,12 @@ const Tablas = (props) => {
 
     return (
         <>
-            <CustomizedRadios handleSelect={handleSelect} />
+            <CustomizedRadios handleSelect={handleSelect}/>
             <SearchbarContainer>
                 <SearchBar
-                    onChange={(e) => { setQuery(e) }}
+                    onChange={(e) => {
+                        setQuery(e)
+                    }}
 
                     style={{
                         margin: '0 auto',
@@ -143,7 +141,7 @@ const Tablas = (props) => {
                                     <StyledTableCell
                                         key={column.id}
                                         align={column.align}
-                                        style={{ minWidth: column.minWidth }}
+                                        style={{minWidth: column.minWidth}}
                                     >
                                         {column.label}
                                     </StyledTableCell>
@@ -152,7 +150,8 @@ const Tablas = (props) => {
                         </TableHead>
                         <ThemeProvider theme={theme}>
                             <TableBody>
-                                {loading ? <h1>cargando...</h1> : products.products && products.products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((item) => {
+                                {loading ?
+                                    <h1>cargando...</h1> : products.products && products.products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((item) => {
 
                                     if (item === undefined || query === "") {
                                         return item
@@ -160,11 +159,9 @@ const Tablas = (props) => {
                                         return item
                                     } else if (select === "Nombre" && item.name.toString().toLowerCase().includes(query.toLowerCase())) {
                                         return item
-                                    }
-                                    else if (select === "Unidad" && item.units.toString().toLowerCase().includes(query.toLowerCase())) {
+                                    } else if (select === "Unidad" && item.units.toString().toLowerCase().includes(query.toLowerCase())) {
                                         return item
-                                    }
-                                    else if (select === "Categoria" && item.category_name.toString().toLowerCase().includes(query.toLowerCase())) {
+                                    } else if (select === "Categoria" && item.category_name.toString().toLowerCase().includes(query.toLowerCase())) {
                                         return item
                                     }
 
@@ -178,12 +175,20 @@ const Tablas = (props) => {
                                         <StyledTableCell>{item.description}</StyledTableCell>
 
                                         <StyledTableCell>{item.details}</StyledTableCell>
-                                        <StyledTableCell ><BtnEdit onClick={() => handleChange({ remove: false, edit: true, insert: false }, item)} >
+                                        <StyledTableCell><BtnEdit onClick={() => handleChange({
+                                            remove: false,
+                                            edit: true,
+                                            insert: false
+                                        }, item)}>
                                             Editar
                                         </BtnEdit></StyledTableCell>
-                                        <StyledTableCell ><BtnRemove onClick={() => handleChange({ remove: true, edit: false, insert: false }, item)}>
+                                        <StyledTableCell><BtnRemove onClick={() => handleChange({
+                                            remove: true,
+                                            edit: false,
+                                            insert: false
+                                        }, item)}>
                                             Eliminar
-                                        </BtnRemove ></StyledTableCell>
+                                        </BtnRemove></StyledTableCell>
                                     </TableRow>
 
                                 ))
@@ -199,13 +204,13 @@ const Tablas = (props) => {
                     count={loading ? <h1>cargando...</h1> : products.products && products.products.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
-                    onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                    onPageChange={handleChangePage}/>
             </Paper>
 
 
-            <WrapperBtn><Btn onClick={() => handleChange({ remove: false, edit: false, insert: true }, {})}> Nuevo producto</Btn> </WrapperBtn>
+            <WrapperBtn><Btn onClick={() => handleChange({remove: false, edit: false, insert: true}, {})}> Nuevo
+                producto</Btn> </WrapperBtn>
 
         </>
     )

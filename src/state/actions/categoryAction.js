@@ -1,9 +1,17 @@
 import axios from 'axios'
-import { CATEGORY_LIST_FAIL, CATEGORY_LIST_SUCCESS, CATEGORY_LIST_REQUEST, CATEGORY_REQUEST, CATEGORY_REQUEST_SUCCESS, CATEGORY_REQUEST_FAIL } from '../constants/categoryConstants'
+import {
+    CATEGORY_LIST_FAIL,
+    CATEGORY_LIST_REQUEST,
+    CATEGORY_LIST_SUCCESS,
+    CATEGORY_REQUEST,
+    CATEGORY_REQUEST_FAIL,
+    CATEGORY_REQUEST_SUCCESS
+} from '../constants/categoryConstants'
+
 const REACT_APP_API_URL = "https://ricuritas.herokuapp.com/api";
 export const getCategory = () => async (dispatch) => {
 
-    dispatch({ type: CATEGORY_LIST_REQUEST })
+    dispatch({type: CATEGORY_LIST_REQUEST})
     try {
 
         const res = await axios.get(`${REACT_APP_API_URL}/category`)
@@ -11,9 +19,8 @@ export const getCategory = () => async (dispatch) => {
             type: CATEGORY_LIST_SUCCESS,
             payload: res.data
         })
-    }
-    catch (e) {
-        dispatch({ type: CATEGORY_LIST_FAIL, payload: e.message })
+    } catch (e) {
+        dispatch({type: CATEGORY_LIST_FAIL, payload: e.message})
     }
 }
 

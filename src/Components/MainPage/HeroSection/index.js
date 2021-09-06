@@ -1,21 +1,19 @@
-import React, { useState } from 'react'
-import { Button } from '../ButtonElement'
+import React, {useState} from 'react'
+import {Button} from '../ButtonElement'
 import {
-    HeroContainer,
+    ArrowForward,
+    ArrowRight,
     HeroBg,
-    VideoBg,
+    HeroBtnWrapper,
+    HeroContainer,
     HeroContent,
     HeroH1,
     HeroP,
-    HeroBtnWrapper,
-    ArrowForward,
-    ArrowRight
+    VideoBg
 } from './HeroElements'
 
 
-
 const HeroSection = () => {
-
 
 
     const [hover, setHover] = useState(false)
@@ -25,11 +23,13 @@ const HeroSection = () => {
 
     return (
         <HeroContainer id={'/'}>
-            <HeroBg >
-                <VideoBg autoPlay loop muted src='https://res.cloudinary.com/kentruri/video/upload/v1615312461/video_eya0yy.mp4' type='video/mp4' />
+            <HeroBg>
+                <VideoBg autoPlay loop muted
+                         src='https://res.cloudinary.com/kentruri/video/upload/v1615312461/video_eya0yy.mp4'
+                         type='video/mp4'/>
             </HeroBg>
             <HeroContent>
-                <HeroH1 >Lo mas rico de cali, ve!</HeroH1>
+                <HeroH1>Lo mas rico de cali, ve!</HeroH1>
                 <HeroP>
                     Registrate para ordenar en linea, en la comodidad de tu hogar
                 </HeroP>
@@ -45,7 +45,7 @@ const HeroSection = () => {
                         spy={true}
                         exact='true'
                         offset={-80}>
-                        ¡Registrarse es gratis!  {hover ? <ArrowForward /> : <ArrowRight />}
+                        ¡Registrarse es gratis! {hover ? <ArrowForward/> : <ArrowRight/>}
                     </Button>
                 </HeroBtnWrapper>
             </HeroContent>

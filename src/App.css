@@ -1,28 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
-*{
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Encode Sans Expanded', sans-serif;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Encode Sans Expanded', sans-serif;
 }
 
-a{
-  text-decoration: none;
-}
-.active-category{
-  color: white;
-  background-color: crimson;
+a {
+    text-decoration: none;
 }
 
-.danger-color{
+.active-category {
+    color: white;
+    background-color: crimson;
+}
+
+.danger-color {
     background-color: #FBB70A;
 }
 
-.tabs-active{
+.tabs-active {
     color: white;
     background-color: #440381ff;
 }
-.tabs-active li{
+
+.tabs-active li {
     color: white;
 }
