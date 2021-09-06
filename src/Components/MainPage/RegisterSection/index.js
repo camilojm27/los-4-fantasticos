@@ -194,7 +194,7 @@ const RegisterSection = () => {
 
                                     <ComboBox name="format"
                                               id="format"  {...register("doc_type", {required: "Campo obligatorio"})}>
-                                        <option select value="Cedula">Cedula</option>
+                                        <option value="Cedula">Cedula</option>
                                         <option value="Tarjeta de identidad">Tarjeta de identidad</option>
                                         <option value="Cedula de extranjeria">Cedula de extranjeria</option>
                                         <option value="DNI">DNI</option>

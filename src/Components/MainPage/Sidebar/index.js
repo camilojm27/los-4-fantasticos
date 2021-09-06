@@ -53,7 +53,7 @@ const Sidebar = ({isOpen, toggle}) => {
                     </SidebarMenu>
                     <SideBtnWrap>
                         <SidebarRoute onClick={openSignIn}>
-                            Iniciar Sesion
+                            Iniciar Sesión
                         </SidebarRoute>
                     </SideBtnWrap>
                 </SidebarWrapper>

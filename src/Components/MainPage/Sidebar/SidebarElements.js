@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import {Link as LinkR} from 'react-router-dom'
 import {Link as LinkS} from 'react-scroll'
 import {FaTimes} from 'react-icons/fa'
 
@@ -11,14 +10,10 @@ export const SidebarContainer = styled.aside`
   background: #0d0d0d;
   display: grid;
   align-items: center;
-  top: 0;
   left: 0;
   transition: 0.3s ease-in-out;
   opacity: ${({isOpen}) => (isOpen ? '100%' : '0')};
   top: ${({isOpen}) => (isOpen ? '0' : '-100%')};
-
-
-
 `
 export const CloseIcon = styled(FaTimes)`
    color:#fff;
@@ -58,7 +53,6 @@ export const SidebarLink = styled(LinkS)`
   text-decoration: none;
   list-style: none;
   transition: 0.2s ease-in-out;
-  text-decoration: none;
   color: #fff;
   cursor: pointer;
 
@@ -74,7 +68,7 @@ export const SideBtnWrap = styled.div`
 `
 
 
-export const SidebarRoute = styled(LinkR)`
+export const SidebarRoute = styled.span`
   border-radius: 50px;
   background: rgb(201, 198, 56);
   white-space: nowrap;
