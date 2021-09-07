@@ -1,12 +1,12 @@
-import React, {useState} from "react";
-import {Button, Grid, List, ListItem, ListItemIcon, ListItemText, TextField} from "@material-ui/core";
+import React from "react";
+import {Button, Grid, TextField} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import MailIcon from "@material-ui/icons/Mail";
 import SaveIcon from '@material-ui/icons/Save';
-import SettingsIcon from '@material-ui/icons/Settings';
-import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import {useDispatch, useSelector} from "react-redux";
 import PrimaryAppBar from "../../Components/Eccomerce/PrimaryAppBar";
+import {useForm} from "react-hook-form";
+import axios from "axios";
+import {login, logout} from "../../state/actions/authAction";
 
 const drawerWidth = 240;
 
@@ -46,55 +46,49 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ProfileSettings = (props) => {
-    const {history} = props;
-    const dispatch = useDispatch()
-    const {user: {user}} = useSelector((state) => state.auth);
+const ProfileSettings = () => {
+    const dispatch = useDispatch();
+    const {user: {user, Authorization}} = useSelector((state) => state.auth);
+    const {register, handleSubmit: handleUserNewData} = useForm();
 
-    const [toggleState, setToggleState] = useState(1);
-    const toggleTab = (index) => {
-        setToggleState(index);
-    };
-    const classes = useStyles();
-    const itemsList = [
-        {
-            text: "Ajustes de Cuenta",
-            icon: <SettingsIcon/>,
-            id: 1,
-            onClick: () => history.push('/profile/settings')
-        },
-        {
-            text: "Ordenes",
-            icon: <MailIcon/>,
-            id: 2,
-            onClick: () => history.push('/profile/order')
-        },
-        {
-            text: "Privacidad",
-            icon: <FingerprintIcon/>,
-            id: 3,
-            onClick: () => history.push('/profile/privacy')
+    const onSubmit = async (data) => {
+        console.log(data)
+        console.log(data.email)
+        console.log(Authorization)
+        const pass = await veryPassword(data.email, data.password);
+        if (pass) {
+            axios.put('https://ricuritas.herokuapp.com/api/user', data, {
+                headers: {
+                    'Authorization': Authorization
+                }
+            }).then(() => {
+                alert('Cambios guardados correctamente')
+                dispatch(logout());
+                dispatch(login(data.email, data.password))
+
+            })
+                .catch(() => alert('error'))
+        } else {
+            alert('La contraseña es incorrecta')
         }
-    ];
-    const drawer = (
-        <List>
-            {itemsList.map((item, index) => {
-                const {text, icon, id, onClick} = item;
-                return (
-                    <ListItem style={index === 0 ? {backgroundColor: '#3f51b5', color: "white"} : {}}
-                              button key={text} onClick={onClick}>
-                        {icon && <ListItemIcon>{icon}</ListItemIcon>}
-                        <ListItemText primary={text}/>
-                    </ListItem>
-                );
-            })}
-        </List>
-    )
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
-    const container = window !== undefined ? () => window.document.body : undefined;
+
+    }
+    const veryPassword = async (email, password) => {
+
+        try {
+            const {data} = await axios.post('https://ricuritas.herokuapp.com/api/auth/signin', {
+                email,
+                password
+            })
+            if (data.Authorization) {
+                return true
+            }
+        } catch (e) {
+            return false;
+        }
+    }
+
+    const classes = useStyles();
 
     return (
         <>
@@ -102,30 +96,42 @@ const ProfileSettings = (props) => {
             <h1 style={{textAlign: 'center'}}>Configuración de Cuenta</h1>
             <section className={classes.content}>
                 <div className={classes.toolbar}/>
-                <form>
+                <form onSubmit={handleUserNewData(onSubmit)}>
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>
-                            <TextField label="Nombre" defaultValue={user.name} fullWidth variant="outlined"/>
+                            <TextField {...register("name", {required: true})} label="Nombre" defaultValue={user.name}
+                                       type="text" fullWidth variant="outlined"/>
                         </Grid>
 
                         <Grid item xs={12} sm={6}>
-                            <TextField label="Email" defaultValue={user.email} fullWidth variant="outlined"/>
+                            <TextField {...register("email", {required: true})} label="Email" defaultValue={user.email}
+                                       type="email" fullWidth variant="outlined"/>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField label="Telefono" defaultValue={user.phone_num} fullWidth variant="outlined"/>
+                            <TextField {...register("phone_num", {required: true})} label="Télefono"
+                                       type="number" defaultValue={user.phone_num} fullWidth variant="outlined"/>
                         </Grid>
-                        <Grid item xs={12}>
-                            <TextField label="Direccion detallada" defaultValue={user.address} fullWidth
-                                       variant="outlined"/>
+                        {/*<Grid item xs={12}>*/}
+                        {/*    <TextField {...register("address", {required: true})} label="Dirección detallada"*/}
+                        {/*               defaultValue={user.address} fullWidth*/}
+                        {/*              type="text" variant="outlined"/>*/}
+                        {/*</Grid>*/}
+                        <Grid item xs={12} sm={6}>
+                            <TextField {...register("doc_num", {required: true})} label="Cedula"
+                                       defaultValue={user.doc_num} fullWidth variant="outlined"/>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField label="Cedula" defaultValue={user.doc_num} fullWidth variant="outlined"/>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField InputLabelProps={{
+                            <TextField {...register("birth", {required: true})} InputLabelProps={{
                                 shrink: true,
                             }} type="date" label="Fecha de nacimiento" defaultValue={user.birth} fullWidth
                                        variant="outlined"/>
+                        </Grid>
+                        <label> </label>
+
+                        <Grid item style={{margin: 'auto'}} xs={6} sm={6}>
+                            <TextField {...register("password", {required: true})}
+                                       label="Para guardar tus cambios debes ingresar tu contraseña actual"
+                                       type="password" fullWidth variant="filled"/>
                         </Grid>
                     </Grid>
 
@@ -136,10 +142,13 @@ const ProfileSettings = (props) => {
                         size="large"
                         startIcon={<SaveIcon/>}
                         style={{marginTop: 10}}
+                        type="submit"
                     >
                         Guardar Cambios
                     </Button>
+
                 </form>
+
             </section>
         </>
     )
