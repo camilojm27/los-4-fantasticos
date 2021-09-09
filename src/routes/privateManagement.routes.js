@@ -1,5 +1,5 @@
 import {Redirect, Route, Switch} from "react-router-dom"
-import {PrivateRouteManagement} from "./helperRoutes"
+import {PrivateRouteManagement, PublicRoute} from "./helperRoutes"
 import Management from '../pages/Management/Management'
 import ManagementCategories from '../pages/Management/Category/Categories'
 import CategoriesEdit from '../pages/Management/Category/EditCategories'
@@ -15,6 +15,7 @@ import ProfileSettings from "../pages/profile/ProfileSettings";
 import {ProfileOrder} from "../pages/profile/ProfileOrder";
 import {ProductAllScreen} from "../pages/products/ProductAllScreen";
 import Categories from "../pages/Categories";
+import SobreNosotros from "../pages/AboutUs";
 
 const PrivateRoutesManagement = () => {
     return (
@@ -35,6 +36,7 @@ const PrivateRoutesManagement = () => {
             <Route exact path="/profile/order" component={ProfileOrder}/>
             <Route exact path="/products/:id?" component={ProductAllScreen}/>
             <Route exact path="/categories/:id?" component={Categories}/>
+                <PrivateRouteManagement exact path="/about" component={SobreNosotros}/>
 
             <Route exact path="*" render={() => {
                 return <Redirect to="/Management/"/>

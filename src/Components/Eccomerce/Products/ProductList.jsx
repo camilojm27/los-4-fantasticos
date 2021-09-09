@@ -3,6 +3,8 @@ import {useEffect} from "react";
 import {getProductList} from "../../../state/actions/productAction";
 import ProductCard from "./ProductCard";
 import styled from "styled-components";
+import {Skeleton} from "@material-ui/lab";
+import {Box} from "@material-ui/core";
 
 const SelfProductList = styled.section`
   display: grid;
@@ -26,7 +28,30 @@ const ProductList = (props) => {
 
     return (
         <SelfProductList>
-            {loading ? <h1>Cargando</h1> : error ? <h1>{error}</h1> :
+            {loading ?
+                <>
+                    <Box pt={0.5}>
+                        <Skeleton variant="rect" width={210} height={118} />
+                        <Skeleton variant="text" />
+                        <Skeleton width="60%" />
+                    </Box>
+                    <Box pt={0.5}>
+                        <Skeleton variant="rect" width={210} height={118} />
+                        <Skeleton variant="text" />
+                        <Skeleton width="60%" />
+                    </Box>
+                    <Box pt={0.5}>
+                        <Skeleton variant="rect" width={210} height={118} />
+                        <Skeleton variant="text" />
+                        <Skeleton width="60%" />
+                    </Box>
+                    <Box pt={0.5}>
+                        <Skeleton variant="rect" width={210} height={118} />
+                        <Skeleton variant="text" />
+                        <Skeleton width="60%" />
+                    </Box>
+                </>
+                : error ? <h1>{error}</h1> :
                 products.filter(function (product) {
                     if (props.categoriesID) {
                         return product.category_id === Number(props.categoriesID)
@@ -34,6 +59,7 @@ const ProductList = (props) => {
                     return product
                 }).map(product =>
                     <ProductCard
+                        key={product.name}
                         name={product.name}
                         image={product.image}
                         price={product.unit_price}
