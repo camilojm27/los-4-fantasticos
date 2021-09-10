@@ -1,13 +1,13 @@
 import React from "react";
 import {Button, Grid, TextField} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import SaveIcon from '@material-ui/icons/Save';
 import {useDispatch, useSelector} from "react-redux";
 import PrimaryAppBar from "../../Components/Eccomerce/PrimaryAppBar";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 import {login, logout} from "../../state/actions/authAction";
-
+import SaveIcon from '@material-ui/icons/Save';
+import DeleteIcon from '@material-ui/icons/Delete';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -90,6 +90,23 @@ const ProfileSettings = () => {
 
     const classes = useStyles();
 
+    function deleteAccount() {
+        const confirmation = window.confirm('Estas seguro que quieres eliminar la cuenta');
+        if (confirmation){
+            axios.delete('https://ricuritas.herokuapp.com/api/user',  {
+                headers: {
+                    'Authorization': Authorization
+                }
+            }).then(() => {
+                alert('Cuenta Eliminada correctamente')
+                dispatch(logout());
+
+            })
+                .catch(() => alert('error'))
+        }
+
+    }
+
     return (
         <>
             <PrimaryAppBar/>
@@ -134,17 +151,27 @@ const ProfileSettings = () => {
                                        type="password" fullWidth variant="filled"/>
                         </Grid>
                     </Grid>
-
+                    <br/>
                     <Button
-                        fullWidth
+
                         variant="contained"
                         color="primary"
                         size="large"
                         startIcon={<SaveIcon/>}
-                        style={{marginTop: 10}}
+                        style={{margin: '20 auto', width: '50%'}}
                         type="submit"
                     >
                         Guardar Cambios
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        size="large"
+                        startIcon={<DeleteIcon/>}
+                        style={{margin: '20 auto', width: '50%'}}
+                        onClick={deleteAccount}
+                    >
+                        Eliminar Cuenta
                     </Button>
 
                 </form>
