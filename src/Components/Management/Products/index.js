@@ -24,8 +24,8 @@ import {addProduct, deleteProduct, editProduct, getProducts} from '../../../stat
 const Modal = styled.div`
   max-width: 900px;
   min-width: 700px;
-  max-height: 900px;
-  min-height: 300px;
+  max-height: 800px;
+  min-height: 750px;
   background: #fff;
   color: #000;
   position: absolute;
@@ -66,6 +66,8 @@ const Product = () => {
     setValue('units', edit.units)
     setValue('unit_price', edit.unit_price)
     setValue('details', edit.details)
+    setValue('category_id', edit.category_id)
+    setValue('available', edit.available)
     const handleSelect = (select, data) => {
 
         setModal(select)
@@ -74,16 +76,19 @@ const Product = () => {
     }
 
     const onSubmit = async (data) => {
-
+        const form = new FormData()
+            form.append("name",data.name)
+            form.append("description",data.description)
+            form.append("iva",19)
+            form.append("units",data.units)
+            form.append("details",data.details)
+            form.append("available",true)
+            form.append("category_id",data.category_id)
+            form.append("unit_price",data.unit_price)
+           
         if (modal.insert === true) {
-            data.iva = 19
-            data.available = true
-            data.units = parseInt(data.units, 10)
-            data.unit_price = parseInt(data.unit_price, 10)
-            data.category_id = parseInt(data.category_id, 10)
-            delete data.id
-            console.log(data)
-            dispatch(addProduct(data, currentUser.Authorization)).then(response => {
+            form.append("image",data.upload_image[0])
+            dispatch(addProduct(form, currentUser.Authorization)).then(response => {
 
                 setModal({remove: false, edit: false, insert: false})
                 dispatch(getProducts())
@@ -93,8 +98,8 @@ const Product = () => {
             })
         } else {
             if (modal.edit === true) {
-
-                dispatch(editProduct(data, currentUser.Authorization)).then(() => {
+                form.append("id",data.id)
+                dispatch(editProduct(form, currentUser.Authorization)).then(() => {
                     setModal({remove: false, edit: false, insert: false})
                     dispatch(getProducts())
                 }).catch(error => {
@@ -122,6 +127,7 @@ const Product = () => {
 
     }, [dispatch])
 
+  
 
     return (
         <Container>
@@ -139,7 +145,7 @@ const Product = () => {
                             </ModalInput>
 
 
-                            <Input type="file" {...register("image")} style={{margin: "0 0 0 55px"}}/>
+                            <Input type="file" {...register("upload_image")} style={{margin: "0 0 0 55px"}}/>
 
 
                             <ModalInput>
@@ -191,7 +197,7 @@ const Product = () => {
                             </ModalInput>
 
                             <ModalInput>
-                                <Input  {...register("image")} />
+                                <Input  type="file" {...register("upload_image")} />
                             </ModalInput>
 
                             <ModalInput>
@@ -248,19 +254,7 @@ const Product = () => {
                             </OptionsRemove>
                         </Modal>
                     </Background> : null}
-            <HeaderMessage>
-                <HeaderTitle>
-                    <Img src="https://res.cloudinary.com/kentruri/image/upload/v1619027662/hello_pajcbd.svg"/>
-                    <H1Header>
-                        Hola {currentUser === null ? "user" : currentUser.user.name}
-                        <PHeader>
-                            Bienvenido al panel de los productos
-                        </PHeader>
-                    </H1Header>
-
-
-                </HeaderTitle>
-            </HeaderMessage>
+           
 
             <WrapperTable>
                 <Tablas handleSelect={handleSelect} listProduct={listProduct}/>

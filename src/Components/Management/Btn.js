@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {Link as LinkR} from 'react-router-dom'
 
-export const Btn = styled(LinkR)`
+export const Btn = styled.button`
    border-radius: 10px;
    background: rgb(235, 232, 51);
    white-space: nowrap;
@@ -73,6 +73,30 @@ export const BtnEdit = styled.button`
    &:hover{
       transition: all 0.2s ease-in-out;
       background: #767676;
+      color: #fff;
+   }
+
+`
+
+export const BtnActivate = styled.button `
+   border-radius: 5px;
+   background: #2457F7;
+   white-space: nowrap;
+   padding: 12px 20px;
+   color: #fff;
+   font-size: 13px;
+   outline: none;
+   border: none;
+   cursor: pointer;
+   transition: all 0.2s ease-in-out;
+   text-decoration: none;
+   font-family: 'RocknRoll One', sans-serif;
+   margin-left: 10px;
+
+
+   &:hover{
+      transition: all 0.2s ease-in-out;
+      background: #033FF9;
       color: #fff;
    }
 

@@ -47,8 +47,8 @@ const Tablas = (props) => {
 
         },
         container: {
-            maxHeight: 330,
-            minHeight: 330,
+            maxHeight: 550,
+            minHeight: 550,
 
             minWidth: 1000,
         },
@@ -66,7 +66,7 @@ const Tablas = (props) => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-    const handleChangePage = (newPage) => {
+    const handleChangePage = (event,newPage) => {
         setPage(newPage);
     };
 
@@ -177,12 +177,14 @@ const Tablas = (props) => {
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onChangePage={handleChangePage}
-                    onChangeRowsPerPage={handleChangeRowsPerPage}
-                />
+                    onChangeRowsPerPage={handleChangeRowsPerPage}/>
             </Paper>
 
 
-            <WrapperBtn><Btn onClick={() => handleChange({remove: false, edit: false, insert: true}, {})}> Nueva
+            <WrapperBtn><Btn onClick={() => handleChange({
+                                            remove: false,
+                                            edit: false,
+                                            insert: true}, {})}> Nueva
                 categoria</Btn> </WrapperBtn>
 
             <h1 style={{margin: "20px 0  0 0"}}>{error}</h1>

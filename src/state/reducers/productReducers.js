@@ -4,7 +4,8 @@ import {
     PRODUCT_LIST_SUCCESS,
     PRODUCT_REQUEST,
     PRODUCT_REQUEST_FAIL,
-    PRODUCT_REQUEST_SUCCESS
+    PRODUCT_REQUEST_SUCCESS,
+    RESET_PRODUCT_LIST
 } from "../constants/productConstants";
 
 const INITIAL_STATE = {
@@ -15,6 +16,10 @@ const INITIAL_STATE = {
 
 export const getProductListReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case RESET_PRODUCT_LIST:
+            return{
+                products:[]
+            }
         case PRODUCT_LIST_REQUEST:
             return {...state, loading: true}
         case PRODUCT_LIST_SUCCESS:

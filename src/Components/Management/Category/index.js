@@ -186,21 +186,7 @@ const Category = () => {
                             </OptionsRemove>
                         </Modal>
                     </Background> : null}
-            <HeaderMessage>
-
-
-                <HeaderTitle>
-                    <Img src="https://res.cloudinary.com/kentruri/image/upload/v1619027662/hello_pajcbd.svg"/>
-                    <H1Header>
-                        Hola {currentUser === null ? "user" : currentUser.user.name}
-                        <PHeader>
-                            Bienvenido al panel de las Categorias
-                        </PHeader>
-                    </H1Header>
-
-
-                </HeaderTitle>
-            </HeaderMessage>
+        
 
             <WrapperTable>
 

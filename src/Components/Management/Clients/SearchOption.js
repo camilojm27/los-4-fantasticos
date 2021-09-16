@@ -54,7 +54,7 @@ const CustomizedRadios = (props) => {
 
     const handleChange = (event) => {
         //setValue(event.target.value)
-        //console.log(value)
+
         props.handleSelect(event.target.value)
         //handleSelect(value)
 
@@ -80,9 +80,12 @@ const CustomizedRadios = (props) => {
 
     return (
         <FormControl component="fieldset">
-            <RadioGroup row defaultValue="Id" aria-label="gender" name="customized-radios" onChange={handleChange}>
-                <FormControlLabel value="Id" control={<StyledRadio/>} label="Id"/>
+            <RadioGroup row defaultValue="Nombre" aria-label="gender" name="customized-radios" onChange={handleChange}>
                 <FormControlLabel value="Nombre" control={<StyledRadio/>} label="Nombre"/>
+                <FormControlLabel value="Email" control={<StyledRadio/>} label="Email"/>
+                <FormControlLabel value="Numero de telefono" control={<StyledRadio/>} label="Numero de telefono"/>
+                <FormControlLabel value="Numero de documento" control={<StyledRadio/>} label="Numero de documento"/>
+                
 
             </RadioGroup>
         </FormControl>

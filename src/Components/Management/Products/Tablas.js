@@ -8,16 +8,16 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
-import {Btn, BtnEdit, BtnRemove, WrapperBtn} from '../Btn'
+import {Btn, BtnActivate, BtnEdit, BtnRemove, WrapperBtn} from '../Btn'
 import SearchBar from "material-ui-search-bar";
 import {SearchbarContainer} from '../Searchbar';
 import CustomizedRadios from './SearchOption'
 import {useDispatch, useSelector} from 'react-redux'
-import {getProducts} from '../../../state/actions/productAction'
+import {editProduct, getProducts} from '../../../state/actions/productAction'
 
 const Tablas = (props) => {
     //Estilos de las tablas
-
+    const {user: currentUser} = useSelector((state) => state.auth);
     const theme = createTheme({
         palette: {
             primary: {
@@ -48,21 +48,22 @@ const Tablas = (props) => {
 
         },
         container: {
-            maxHeight: 330,
-            minHeight: 330,
+            maxHeight: 550,
+            minHeight: 550,
 
             minWidth: 1000,
         },
     });
 
     const columns = [
-        {id: 'Id', label: 'ID', minWidth: 170},
-        {id: 'Nombre', label: 'Nombre', minWidth: 100},
-        {id: 'Unidades', label: 'Unidades', minWidth: 100},
+        {id: 'Id', label: 'ID', minWidth: 60},
+        {id: 'Nombre', label: 'Nombre', minWidth: 80},
+        {id: 'Unidades', label: 'Unidades', minWidth: 50},
         {id: 'Category_id', label: 'Categoria', minWidth: 100},
-        {id: 'description', label: 'Descripcion', minWidth: 100},
-
-        {id: 'details', label: 'Detalles', minWidth: 100},
+        {id: 'description', label: 'Descripcion', minWidth: 110},
+        {id: 'details', label: 'Detalles', minWidth: 110},
+        {id: 'available', label: 'disponible', minWidth: 80},
+        {id: 'Activar', label: '', minWidth: 100},
         {id: 'Editar', label: '', minWidth: 100},
         {id: 'Eliminar', label: '', minWidth: 100},
 
@@ -113,6 +114,27 @@ const Tablas = (props) => {
         props.handleSelect(object, data)
     }
 
+    const changeStatus = (data) =>  {
+        const form = new FormData()
+        form.append("name",data.name)
+        form.append("id",data.id)
+        form.append("image",data.image)
+        form.append("description",data.description)
+        form.append("iva",data.iva)
+        form.append("units",data.units)
+        form.append("details",data.details)
+        form.append("available",true)
+        form.append("category_id",data.category_id)
+        form.append("unit_price",data.unit_price)
+        console.log(data)
+        console.log(form,currentUser.Authorization, "hola")
+        dispatch(editProduct(form, currentUser.Authorization)).then(() => {
+            dispatch(getProducts())
+        }).catch(error => {
+            console.log(error.response.data)
+        })
+    }
+
 
     return (
         <>
@@ -152,7 +174,7 @@ const Tablas = (props) => {
                             <TableBody>
                                 {loading ?
                                     <h1>cargando...</h1> : products.products && products.products.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((item) => {
-
+                                  
                                     if (item === undefined || query === "") {
                                         return item
                                     } else if (select === "Id" && item.id.toString().toLowerCase().includes(query.toLowerCase())) {
@@ -173,15 +195,18 @@ const Tablas = (props) => {
                                         <StyledTableCell>{item.units}</StyledTableCell>
                                         <StyledTableCell>{item.category_name}</StyledTableCell>
                                         <StyledTableCell>{item.description}</StyledTableCell>
-
                                         <StyledTableCell>{item.details}</StyledTableCell>
+                                        <StyledTableCell>{ (item.available ? "si" : "no")}</StyledTableCell>
+                                        <StyledTableCell><BtnActivate onClick={() => changeStatus(item)}>
+                                            Activar
+                                        </BtnActivate></StyledTableCell>
                                         <StyledTableCell><BtnEdit onClick={() => handleChange({
                                             remove: false,
                                             edit: true,
                                             insert: false
                                         }, item)}>
                                             Editar
-                                        </BtnEdit></StyledTableCell>
+                                        </BtnEdit></StyledTableCell>                   
                                         <StyledTableCell><BtnRemove onClick={() => handleChange({
                                             remove: true,
                                             edit: false,
@@ -190,6 +215,7 @@ const Tablas = (props) => {
                                             Eliminar
                                         </BtnRemove></StyledTableCell>
                                     </TableRow>
+                                    
 
                                 ))
 
@@ -199,7 +225,7 @@ const Tablas = (props) => {
                     </Table>
                 </TableContainer>
                 <TablePagination
-                    rowsPerPageOptions={[2, 10, 15]}
+                    rowsPerPageOptions={[2, 10, 15,100,1000]}
                     component="div"
                     count={loading ? <h1>cargando...</h1> : products.products && products.products.length}
                     rowsPerPage={rowsPerPage}

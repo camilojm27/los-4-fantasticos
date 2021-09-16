@@ -4,27 +4,17 @@ import {
     PRODUCT_LIST_SUCCESS,
     PRODUCT_REQUEST,
     PRODUCT_REQUEST_FAIL,
-    PRODUCT_REQUEST_SUCCESS
+    PRODUCT_REQUEST_SUCCESS,
+    RESET_PRODUCT_LIST
 } from "../constants/productConstants";
 import axios from "axios";
 
 const REACT_APP_API_URL = "https://ricuritas.herokuapp.com/api";
 
-export const getProductList = () => async (dispatch) => {
-    dispatch({type: PRODUCT_LIST_REQUEST})
 
-    try {
-        const {data} = await axios.get(`${REACT_APP_API_URL}/product`)
-
-        dispatch({type: PRODUCT_LIST_SUCCESS, payload: data.products})
-    } catch (error) {
-        const {msg} = error
-        dispatch({type: PRODUCT_LIST_FAIL, payload: msg})
-    }
-}
 
 export const getProducts = () => async (dispatch) => {
-
+    dispatch({type:RESET_PRODUCT_LIST})
     dispatch({type: PRODUCT_LIST_REQUEST})
     try {
 
@@ -44,7 +34,6 @@ export const getProducts = () => async (dispatch) => {
 
 
 export const addProduct = (data, token) => async (dispatch) => {
-    console.log(data)
     dispatch({
         type: PRODUCT_REQUEST
     })
@@ -71,7 +60,6 @@ export const addProduct = (data, token) => async (dispatch) => {
 }
 
 export const deleteProduct = (id, token) => async (dispatch) => {
-    console.log(id)
     dispatch({
         type: PRODUCT_REQUEST
     })
@@ -99,7 +87,7 @@ export const editProduct = (data, token) => async (dispatch) => {
         type: PRODUCT_REQUEST
     })
     try {
-        await axios.put(`${REACT_APP_API_URL}/product/${data.id}`, data, {
+        await axios.put(`${REACT_APP_API_URL}/product/${data.get("id")}`, data, {
             headers: {
                 'Authorization': token
             }

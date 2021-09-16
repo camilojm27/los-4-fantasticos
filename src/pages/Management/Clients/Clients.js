@@ -2,10 +2,10 @@ import React from 'react'
 
 import Sidebar from '../../../Components/Management/Sidebar'
 import Navbar from '../../../Components/Management/Navbar'
-import Category from '../../../Components/Management/Category'
+import Client from '../../../Components/Management/Clients'
 import PrimaryAppBar from "../../../Components/Eccomerce/PrimaryAppBar";
 
-const Categories = () => {
+const Clients = () => {
 
 
     return (
@@ -15,7 +15,7 @@ const Categories = () => {
 
                 <Navbar/>
 
-                <Category/>
+                <Client/>
 
                 <Sidebar/>
 
@@ -25,4 +25,4 @@ const Categories = () => {
     )
 }
 
-export default Categories
+export default Clients

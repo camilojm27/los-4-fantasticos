@@ -80,9 +80,9 @@ const CustomizedRadios = (props) => {
 
     return (
         <FormControl component="fieldset">
-            <RadioGroup defaultValue="Id" aria-label="gender" name="customized-radios" onChange={handleChange}>
+            <RadioGroup row defaultValue="Id" aria-label="gender" name="customized-radios" onChange={handleChange}>
                 <FormControlLabel value="Id" control={<StyledRadio/>} label="Id"/>
-                <FormControlLabel value="Nombre" control={<StyledRadio/>} label="Nombre"/>
+                <FormControlLabel value="Nombre"  control={<StyledRadio/>} label="Nombre"/>
                 <FormControlLabel value="Unidad" control={<StyledRadio/>} label="Unidad"/>
                 <FormControlLabel value="Categoria" control={<StyledRadio/>} label="Categoria"/>
             </RadioGroup>

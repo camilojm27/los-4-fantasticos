@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {getProductList} from "../../../state/actions/productAction";
+import {getProducts} from "../../../state/actions/productAction";
 import ProductCard from "./ProductCard";
 import styled from "styled-components";
 import {Skeleton} from "@material-ui/lab";
@@ -20,7 +20,7 @@ const ProductList = (props) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getProductList())
+        dispatch(getProducts())
     }, [dispatch])
 
     const productList = useSelector(state => state.productList)
@@ -52,7 +52,7 @@ const ProductList = (props) => {
                     </Box>
                 </>
                 : error ? <h1>{error}</h1> :
-                products.filter(function (product) {
+                products.products.filter(function (product) {
                     if (props.categoriesID) {
                         return product.category_id === Number(props.categoriesID)
                     }
