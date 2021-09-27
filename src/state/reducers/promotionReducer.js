@@ -9,7 +9,7 @@ import {
 
 const INITIAL_STATE = {
   loading: true,
-  promotion: [],
+  promotions: [],
   error: ""
 }
 
@@ -18,7 +18,7 @@ export const getPromotionListReducer = (state = INITIAL_STATE, action) => {
       case PROMOTION_LIST_REQUEST:
           return {...state, loading: true}
       case PROMOTION_LIST_SUCCESS:
-          return {...state, loading: false, promotion: action.payload}
+          return {...state, loading: false, promotions: action.payload}
       case PROMOTION_LIST_FAIL:
           return {...state, loading: false, error: action.payload}
 

@@ -2,7 +2,7 @@ import React from 'react'
 
 import Sidebar from '../../../Components/Management/Sidebar'
 import Navbar from '../../../Components/Management/Navbar'
-import Category from '../../../Components/Management/Category'
+import Promotion from '../../../Components/Management/Promotion'
 import PrimaryAppBar from "../../../Components/Eccomerce/PrimaryAppBar";
 
 const Promotions = () => {
@@ -15,7 +15,7 @@ const Promotions = () => {
 
                 <Navbar/>
 
-                <Category/>
+                <Promotion/>
 
                 <Sidebar/>
 

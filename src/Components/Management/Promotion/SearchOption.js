@@ -53,7 +53,8 @@ const CustomizedRadios = (props) => {
 
 
     const handleChange = (event) => {
-
+        //setValue(event.target.value)
+        //console.log(value)
         props.handleSelect(event.target.value)
 
 
@@ -81,9 +82,10 @@ const CustomizedRadios = (props) => {
         <FormControl component="fieldset">
             <RadioGroup row defaultValue="Id" aria-label="gender" name="customized-radios" onChange={handleChange}>
                 <FormControlLabel value="Id" control={<StyledRadio/>} label="Id"/>
-                <FormControlLabel value="Lugar" control={<StyledRadio/>} label="Lugar"/>
-                <FormControlLabel value="Hora de apertura" control={<StyledRadio/>} label="Hora de apertura"/>
-                <FormControlLabel value="Hora de cerrado" control={<StyledRadio/>} label="Hora de cerrado"/>
+                <FormControlLabel value="Nombre del descento" control={<StyledRadio/>} label="Nombre del descento"/>
+                <FormControlLabel value="Fecha de inicio" control={<StyledRadio/>} label="Fecha de inicio"/>
+                <FormControlLabel value="Fecha de finalizacion" control={<StyledRadio/>} label="Fecha de finalizacion"/>
+               
 
             </RadioGroup>
         </FormControl>
