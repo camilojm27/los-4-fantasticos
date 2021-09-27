@@ -39,8 +39,8 @@ const Modal = styled.div`
 
 const Client = () => {
     const dispatch = useDispatch()
-    const [address, setAddress] = useState("")
-    const [coordinates, setCoordinates] = useState({lat: null, lng: null})
+    const [loc, setLoc] = useState("")
+    const [coordinates, setCoordinates] = useState({ lat: null, lng: null })
     const { user: currentUser } = useSelector((state) => state.auth);
     const listUsers = useSelector(state => state.userList)
     const [modal, setModal] = useState({
@@ -49,27 +49,33 @@ const Client = () => {
         insert: false
     })
 
-    const [edit, setEdit] = useState({ name: "", email: "", doc_type: "", doc_num: "", birth: "", address: "", password: "", phone_num: ""})
+    const [edit, setEdit] = useState({ name: "", email: "", doc_type: "", doc_num: "", birth: "", address: "", password: "", phone_num: "" })
     const { register, handleSubmit, setValue } = useForm({
         defaultValues: edit
 
     })
-    setValue("name", edit.name)
-    setValue("email", edit.email)
-    setValue("doc_type", edit.doc_type)
-    setValue("doc_num", edit.doc_num)
-    setValue("birth", edit.birth)
-    setValue("longitude",edit.location?.longitude)
-    setValue("latitude",edit.location?.latitude)
-    setValue("address", edit.location?.address)
-    setValue("password", edit.password)
-    setValue("phone_num", edit.phone_num)
-    setValue("role", edit.role)
-    
+
+
+
+    useEffect(() => {
+        setValue("name", edit.name)
+        setValue("email", edit.email)
+        setValue("doc_type", edit.doc_type)
+        setValue("doc_num", edit.doc_num)
+        setValue("birth", edit.birth)
+        setValue("longitude", edit.location?.longitude)
+        setValue("latitude", edit.location?.latitude)
+        setValue("address", edit.location?.address)
+        setValue("password", edit.password)
+        setValue("phone_num", edit.phone_num)
+        setValue("role", edit.role)
+    }, [edit])
+
+
 
 
     const handleSelect = (select, data) => {
-        console.log(data,"ya me pase")
+        console.log(data, "ya me pase")
         setModal(select)
         setEdit(data)
 
@@ -78,19 +84,19 @@ const Client = () => {
     const handleAddress = async value => {
         const results = await geocodeByAddress(value);
         const latLng = await getLatLng(results[0]);
-        setAddress(value);
+        setLoc(value);
         setCoordinates(latLng)
     }
 
 
     const onSubmit = async (data) => {
 
-        data.address = address;
 
         if (modal.insert === true) {
             data.latitude = coordinates.lat;
             data.longitude = coordinates.lng;
-            data.address = address
+            data.address = loc
+            data.role = 0
             dispatch(addUser(data, currentUser.Authorization)).then(response => {
                 setModal({ remove: false, edit: false, insert: false })
                 dispatch(getUsers(currentUser.Authorization))
@@ -100,7 +106,19 @@ const Client = () => {
             })
         } else {
             if (modal.edit === true) {
-
+                if (loc === "") {
+                    const results = await geocodeByAddress(data.address);
+                    const latLng = await getLatLng(results[0]);
+                    data.latitude = latLng.lat
+                    data.longitude = latLng.lng
+                    
+                 
+                } else {
+                    data.latitude = coordinates.lat
+                    data.longitude = coordinates.lng
+                    data.address = loc
+                  
+                }
                 console.log(data)
                 dispatch(editUser(data, currentUser.Authorization)).then(response => {
                     setModal({ remove: false, edit: false, insert: false })
@@ -151,17 +169,17 @@ const Client = () => {
                             <ModalInput>
                                 <Input placeholder="Email" {...register("email")} />
                             </ModalInput>
-                            <ModalInput style={{width: "220px "}}>
-                                <Input style={{width: "210px "}} type="date" placeholder="Fecha de nacimiento" {...register("birth")} />
+                            <ModalInput style={{ width: "220px " }}>
+                                <Input style={{ width: "210px " }} type="date" placeholder="Fecha de nacimiento" {...register("birth")} />
                             </ModalInput>
-                            <ModalInput style={{width: "220px "}}>
-                            <ComboBox name="format"
-                                              id="format"  {...register("doc_type", {required: "Campo obligatorio"})}>
-                                        <option value="Cedula">Cedula</option>
-                                        <option value="Tarjeta de identidad">Tarjeta de identidad</option>
-                                        <option value="Cedula de extranjeria">Cedula de extranjeria</option>
-                                        <option value="DNI">DNI</option>
-                                    </ComboBox>
+                            <ModalInput style={{ width: "220px " }}>
+                                <ComboBox name="format"
+                                    id="format"  {...register("doc_type", { required: "Campo obligatorio" })}>
+                                    <option value="Cedula">Cedula</option>
+                                    <option value="Tarjeta de identidad">Tarjeta de identidad</option>
+                                    <option value="Cedula de extranjeria">Cedula de extranjeria</option>
+                                    <option value="DNI">DNI</option>
+                                </ComboBox>
                             </ModalInput>
                             <ModalInput>
                                 <Input placeholder="Numero de documento" {...register("doc_num")} />
@@ -169,8 +187,8 @@ const Client = () => {
                             <ModalInput>
                                 <Input placeholder="Numero de celular" {...register("phone_num")} />
                             </ModalInput>
-                            
-                            <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleAddress}>
+
+                            <PlacesAutocomplete value={loc} onChange={setLoc} onSelect={handleAddress}>
 
                                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
 
@@ -190,15 +208,15 @@ const Client = () => {
                                             })}
                                         </div>
                                     </ModalInput>
-                                  
+
 
 
                                 )}
- 
+
 
                             </PlacesAutocomplete>
-                          
-                            <Options style={{margin: "0px 0px 0px 455px "}}>
+
+                            <Options style={{ margin: "0px 0px 0px 455px " }}>
                                 <BtnSend>Crear</BtnSend>
                                 <BtnRemove onClick={() => setModal({
                                     remove: false,
@@ -223,6 +241,9 @@ const Client = () => {
                                 <Input {...register("name")} />
                             </ModalInput>
                             <ModalInput>
+                                <Input {...register("password")} />
+                            </ModalInput>
+                            <ModalInput>
                                 <Input  {...register("email")} />
                             </ModalInput>
                             <ModalInput>
@@ -238,14 +259,37 @@ const Client = () => {
                                 <Input {...register("phone_num")} />
                             </ModalInput>
                             <ModalInput>
-                                <Input {...register("address")} />
-                            </ModalInput>
-                            <ModalInput>
                                 <Input  {...register("role")} />
                             </ModalInput>
-                            <ModalInput>
-                                <Input {...register("birth")} />
-                            </ModalInput>
+                            <PlacesAutocomplete value={loc} onChange={setLoc} onSelect={handleAddress}>
+
+                                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+
+
+                                    <ModalInput>
+
+                                        <Input {...register("address")} {...getInputProps({ placeholder: "Direccion de la sede" })}
+                                            type="text" name="direccion" />
+                                        <div>
+                                            {loading && <div>...loading</div>}
+                                            {suggestions.map((suggestions, index) => {
+                                                const style = suggestions.active
+                                                    ? { backgroundColor: "#ddd", cursor: "pointer" }
+                                                    : { backgroundColor: "#fff", cursor: "pointer" };
+                                                return <div key={index} {...getSuggestionItemProps(suggestions, { style })}
+                                                    key={index}>{suggestions.description}</div>
+                                            })}
+                                        </div>
+                                    </ModalInput>
+
+
+
+                                )}
+
+
+                            </PlacesAutocomplete>
+
+
 
                             <Options>
                                 <BtnSend>Actualizar</BtnSend>
@@ -267,7 +311,7 @@ const Client = () => {
                                 onClick={() => setModal({ remove: false, edit: false, insert: false })}
                             />
                             <Title>
-                                <H1>¿Esta seguro que desea eliminar la categoria?</H1>
+                                <H1>¿Esta seguro que desea eliminar el usuario?</H1>
                             </Title>
 
                             <OptionsRemove>

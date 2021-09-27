@@ -11,7 +11,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import { Btn, BtnEdit, BtnRemove, WrapperBtn } from '../Btn'
 import SearchBar from "material-ui-search-bar";
 import { SearchbarContainer } from '../Searchbar';
-import CustomizedRadios from '../Clients/SearchOption'
+import CustomizedRadios from '../Category/SearchOption'
 
 
 const Tablas = (props) => {
@@ -81,7 +81,7 @@ const Tablas = (props) => {
     };
 
     const { loading, error, users } = props.listUsers
-    console.log(users)
+
     //Busqueda
 
     const [query, setQuery] = useState("");
@@ -94,6 +94,7 @@ const Tablas = (props) => {
     //CRU
     const handleChange = (object, data) => {
         props.handleSelect(object, data)
+
     }
 
 
@@ -137,7 +138,7 @@ const Tablas = (props) => {
                             <TableBody>
                                 {loading ?
                                     <h1>cargando...</h1> : users.users && users.users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((item) => {
-                                        if (item.role !== 0) {
+                                        if (item.role !== 0 && item.available) {
                                             if (query === "") {
                                                 return item
                                             } else if (select === "Nombre" && item.name.toString().toLowerCase().includes(query.toLowerCase())) {
@@ -212,7 +213,7 @@ const Tablas = (props) => {
                 remove: false,
                 edit: false,
                 insert: true
-            }, {})}> Nuevo admin</Btn> </WrapperBtn>
+            }, {})}> Nuevo usuario</Btn> </WrapperBtn>
 
             <h1 style={{ margin: "20px 0  0 0" }}>{error}</h1>
 

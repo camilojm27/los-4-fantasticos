@@ -81,7 +81,6 @@ const Avenue = () => {
     const onSubmit = async (data) => {
        
         if (modal.insert === true) {
-            console.log("a")
             data.longitude = coordinates.lng
             data.latitude = coordinates.lat
             data.address = loc

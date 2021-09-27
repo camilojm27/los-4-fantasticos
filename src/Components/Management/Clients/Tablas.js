@@ -138,7 +138,7 @@ const Tablas = (props) => {
                             <TableBody>
                                 {loading ?
                                     <h1>cargando...</h1> : users.users && users.users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((item) => {
-                                        if (item.role !== 1) {
+                                        if (item.role !== 1 && item.available) {
                                             if (query === "") {
                                                 return item
                                             } else if (select === "Nombre" && item.name.toString().toLowerCase().includes(query.toLowerCase())) {
