@@ -1,29 +1,32 @@
 import Tablas from './Tablas'
 import React, { useEffect, useState } from 'react';
 import { Container, WrapperTable } from '../Elements'
+
 import { useDispatch, useSelector } from "react-redux";
+
 import {
     Background,
     CloseModal,
     H1,
     Input,
+    InputId,
     ModalInput,
+    ModalInputId,
     Options,
     OptionsRemove,
     Title
-} from './modalElements.js'
+} from '../Category/modalElements'
 import { BtnEdit, BtnRemove, BtnSend } from '../Btn'
 import { useForm } from "react-hook-form";
 import styled from 'styled-components';
-import { addUser, deleteUser, editUser, getUsers } from '../../../state/actions/userActions'
+import { addAvenue, deleteAvenue, editAvenue, getAvenue } from '../../../state/actions/avenuesAction'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete"
-import { ComboBox } from '../../MainPage/RegisterSection/RegisterSectionElements';
 
 const Modal = styled.div`
   max-width: 900px;
-  min-width: 750px;
-  max-height: 900px;
-  min-height: 750px;
+  min-width: 700px;
+  max-height: 600px;
+  min-height: 300px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   color: #000;
@@ -37,39 +40,31 @@ const Modal = styled.div`
 
 `;
 
-const Client = () => {
+const Avenue = () => {
     const dispatch = useDispatch()
-    const [address, setAddress] = useState("")
-    const [coordinates, setCoordinates] = useState({lat: null, lng: null})
     const { user: currentUser } = useSelector((state) => state.auth);
-    const listUsers = useSelector(state => state.userList)
+    const listAvenue = useSelector(state => state.avenueList)
+    const [loc, setLoc] = useState("")
+    const [coordinates, setCoordinates] = useState({ lat: null, lng: null })
     const [modal, setModal] = useState({
         remove: false,
         edit: false,
         insert: false
     })
 
-    const [edit, setEdit] = useState({ name: "", email: "", doc_type: "", doc_num: "", birth: "", address: "", password: "", phone_num: ""})
+    const [edit, setEdit] = useState({ id: "", site: "", open_time: "", close_time: "", address: "" })
     const { register, handleSubmit, setValue } = useForm({
         defaultValues: edit
 
     })
-    setValue("name", edit.name)
-    setValue("email", edit.email)
-    setValue("doc_type", edit.doc_type)
-    setValue("doc_num", edit.doc_num)
-    setValue("birth", edit.birth)
-    setValue("longitude",edit.location?.longitude)
-    setValue("latitude",edit.location?.latitude)
-    setValue("address", edit.location?.address)
-    setValue("password", edit.password)
-    setValue("phone_num", edit.phone_num)
-    setValue("role", edit.role)
-    
-
-
+   
+    useEffect(() =>  { setValue('id', edit.id)
+    setValue('site', edit.site)
+    setValue('open_time', edit.open_time)
+    setValue('close_time', edit.close_time)
+    setValue('address', edit.address)},[edit])
     const handleSelect = (select, data) => {
-        console.log(data,"ya me pase")
+
         setModal(select)
         setEdit(data)
 
@@ -78,35 +73,48 @@ const Client = () => {
     const handleAddress = async value => {
         const results = await geocodeByAddress(value);
         const latLng = await getLatLng(results[0]);
-        setAddress(value);
+        setLoc(value);
         setCoordinates(latLng)
     }
 
 
     const onSubmit = async (data) => {
-
-        data.address = address;
-
+       
         if (modal.insert === true) {
-            data.latitude = coordinates.lat;
-            data.longitude = coordinates.lng;
-            data.address = address
-            dispatch(addUser(data, currentUser.Authorization)).then(response => {
+            console.log("a")
+            data.longitude = coordinates.lng
+            data.latitude = coordinates.lat
+            data.address = loc
+            delete data.id
+            console.log(data)
+            dispatch(addAvenue(data, currentUser.Authorization)).then(response => {
                 setModal({ remove: false, edit: false, insert: false })
-                dispatch(getUsers(currentUser.Authorization))
+                dispatch(getAvenue())
 
             }).catch(error => {
                 console.log(error.response)
             })
         } else {
             if (modal.edit === true) {
-
-                console.log(data)
-                dispatch(editUser(data, currentUser.Authorization)).then(response => {
+                if(loc === ""){
+                    const results = await geocodeByAddress(data.address);
+                    const latLng = await getLatLng(results[0]);
+                    data.latitude = latLng.lat
+                    data.longitude = latLng.lng
+                    console.log("soy address1", data.address, "soy coord1", data.longitude,data.latitude)
+                }else{
+                    data.latitude = coordinates.lat
+                    data.longitude = coordinates.lng
+                    data.address = loc
+                    console.log("soy loc2", loc, "soy coord2", data.longitude,data.latitude)
+                }
+                
+                
+                dispatch(editAvenue(data, currentUser.Authorization)).then(response => {
                     setModal({ remove: false, edit: false, insert: false })
-                    dispatch(getUsers(currentUser.Authorization))
+                    dispatch(getAvenue())
                 }).catch(error => {
-                    console.log(error.response)
+                    console.log(error.response.data)
                 })
             }
 
@@ -116,10 +124,10 @@ const Client = () => {
     const confirm = async () => {
         if (modal.remove === true) {
 
-            dispatch(deleteUser(edit.doc_num, currentUser.Authorization))
+            dispatch(deleteAvenue(edit.id, currentUser.Authorization))
                 .then(response => {
                     setModal({ remove: false, edit: false, insert: false })
-                    dispatch(getUsers(currentUser.Authorization))
+                    dispatch(getAvenue())
                 }).catch(error => {
                     console.log(error.response.data)
                 })
@@ -127,7 +135,8 @@ const Client = () => {
     }
 
     useEffect(() => {
-        dispatch(getUsers(currentUser.Authorization))
+        dispatch(getAvenue())
+  
     }, [dispatch])
 
 
@@ -142,63 +151,49 @@ const Client = () => {
                                 aria-label='Close modal'
                                 onClick={() => setModal({ remove: false, edit: false, insert: false })}
                             />
+                            <ModalInputId>
+                                <InputId placeholder="Id" readOnly />
+                            </ModalInputId>
                             <ModalInput>
-                                <Input placeholder="Nombre del usuario" {...register("name")} />
+                                <Input placeholder="Sitio" {...register("site")} />
                             </ModalInput>
+
                             <ModalInput>
-                                <Input placeholder="Contraseña" {...register("password")} />
-                            </ModalInput>
-                            <ModalInput>
-                                <Input placeholder="Email" {...register("email")} />
-                            </ModalInput>
-                            <ModalInput style={{width: "220px "}}>
-                                <Input style={{width: "210px "}} type="date" placeholder="Fecha de nacimiento" {...register("birth")} />
-                            </ModalInput>
-                            <ModalInput style={{width: "220px "}}>
-                            <ComboBox name="format"
-                                              id="format"  {...register("doc_type", {required: "Campo obligatorio"})}>
-                                        <option value="Cedula">Cedula</option>
-                                        <option value="Tarjeta de identidad">Tarjeta de identidad</option>
-                                        <option value="Cedula de extranjeria">Cedula de extranjeria</option>
-                                        <option value="DNI">DNI</option>
-                                    </ComboBox>
+                                <Input placeholder="Hora de apertura" {...register("open_time")} />
                             </ModalInput>
                             <ModalInput>
-                                <Input placeholder="Numero de documento" {...register("doc_num")} />
+                                <Input placeholder="Hora de cerrado" {...register("close_time")} />
                             </ModalInput>
-                            <ModalInput>
-                                <Input placeholder="Numero de celular" {...register("phone_num")} />
-                            </ModalInput>
-                            
-                            <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleAddress}>
+
+                            <PlacesAutocomplete value={loc} onChange={setLoc} onSelect={handleAddress}>
 
                                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
 
 
                                     <ModalInput>
 
-                                        <Input {...getInputProps({ placeholder: "Direccion de residencia" })}
+                                        <Input {...register("address")} {...getInputProps({ placeholder: "Direccion de la sede" })}
                                             type="text" name="direccion" />
-                                        <div>
-                                            {loading && <div>...loading</div>}
-                                            {suggestions.map((suggestions, index) => {
-                                                const style = suggestions.active
-                                                    ? { backgroundColor: "#ddd", cursor: "pointer" }
-                                                    : { backgroundColor: "#fff", cursor: "pointer" };
-                                                return <div key={index} {...getSuggestionItemProps(suggestions, { style })}
-                                                    key={index}>{suggestions.description}</div>
-                                            })}
-                                        </div>
+                                           <div>
+                                                    {loading && <div>...loading</div>}
+                                                    {suggestions.map((suggestions, index) => {
+                                                        const style = suggestions.active
+                                                            ? {backgroundColor: "#ddd", cursor: "pointer"}
+                                                            : {backgroundColor: "#fff", cursor: "pointer"};
+                                                        return <div {...getSuggestionItemProps(suggestions, {style})}
+                                                                    key={index}>{suggestions.description}</div>
+                                                    })}
+                                                </div>
                                     </ModalInput>
-                                  
+
 
 
                                 )}
- 
+
 
                             </PlacesAutocomplete>
-                          
-                            <Options style={{margin: "0px 0px 0px 455px "}}>
+
+                            <Options style={{ margin: "0px 0px 0px 455px " }}>
                                 <BtnSend>Crear</BtnSend>
                                 <BtnRemove onClick={() => setModal({
                                     remove: false,
@@ -219,34 +214,47 @@ const Client = () => {
                                 aria-label='Close modal'
                                 onClick={() => setModal({ remove: false, edit: false, insert: false })}
                             />
+                            <ModalInputId>
+                                <InputId placeholder="Id" readOnly />
+                            </ModalInputId>
                             <ModalInput>
-                                <Input {...register("name")} />
-                            </ModalInput>
-                            <ModalInput>
-                                <Input  {...register("email")} />
-                            </ModalInput>
-                            <ModalInput>
-                                <Input {...register("birth")} />
-                            </ModalInput>
-                            <ModalInput>
-                                <Input {...register("doc_type")} />
-                            </ModalInput>
-                            <ModalInput>
-                                <Input {...register("doc_num")} />
-                            </ModalInput>
-                            <ModalInput>
-                                <Input {...register("phone_num")} />
-                            </ModalInput>
-                            <ModalInput>
-                                <Input {...register("address")} />
-                            </ModalInput>
-                            <ModalInput>
-                                <Input  {...register("role")} />
-                            </ModalInput>
-                            <ModalInput>
-                                <Input {...register("birth")} />
+                                <Input placeholder="Sitio" {...register("site")} />
                             </ModalInput>
 
+                            <ModalInput>
+                                <Input placeholder="Hora de apertura" {...register("open_time")} />
+                            </ModalInput>
+                            <ModalInput>
+                                <Input placeholder="Hora de cerrado" {...register("close_time")} />
+                            </ModalInput>
+
+                            <PlacesAutocomplete value={loc} onChange={setLoc} onSelect={handleAddress}>
+
+                                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+
+
+                                    <ModalInput>
+
+                                        <Input {...register("address")} {...getInputProps({ placeholder: "Direccion de la sede" })}
+                                            type="text" name="direccion" />
+                                        <div>
+                                            {loading && <div>...loading</div>}
+                                            {suggestions.map((suggestions, index) => {
+                                                const style = suggestions.active
+                                                    ? { backgroundColor: "#ddd", cursor: "pointer" }
+                                                    : { backgroundColor: "#fff", cursor: "pointer" };
+                                                return <div key={index} {...getSuggestionItemProps(suggestions, { style })}
+                                                    key={index}>{suggestions.description}</div>
+                                            })}
+                                        </div>
+                                    </ModalInput>
+
+
+
+                                )}
+
+
+                            </PlacesAutocomplete>
                             <Options>
                                 <BtnSend>Actualizar</BtnSend>
                                 <BtnRemove onClick={() => {
@@ -267,7 +275,7 @@ const Client = () => {
                                 onClick={() => setModal({ remove: false, edit: false, insert: false })}
                             />
                             <Title>
-                                <H1>¿Esta seguro que desea eliminar la categoria?</H1>
+                                <H1>¿Esta seguro que desea eliminar la sede?</H1>
                             </Title>
 
                             <OptionsRemove>
@@ -284,7 +292,7 @@ const Client = () => {
 
             <WrapperTable>
 
-                <Tablas handleSelect={handleSelect} listUsers={listUsers} />
+                <Tablas handleSelect={handleSelect} listAvenue={listAvenue} />
             </WrapperTable>
 
 
@@ -292,4 +300,4 @@ const Client = () => {
     )
 }
 
-export default Client
+export default Avenue

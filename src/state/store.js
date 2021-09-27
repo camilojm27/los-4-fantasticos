@@ -5,6 +5,8 @@ import {getCategoryListReducer} from "./reducers/categoryReducer"
 import {getInvoiceListReducer} from "./reducers/invoiceReducer"
 import {AuthReducer} from "./reducers/authReducer"
 import { getUsersListReducer } from "./reducers/userReducer";
+import {getAvenuesListReducer} from './reducers/avenuesReducer'
+import {getPromotionListReducer} from './reducers/promotionReducer'
 
 const initialState = {}
 
@@ -13,6 +15,8 @@ const reducer = combineReducers({
     categoryList: getCategoryListReducer,
     invoiceList: getInvoiceListReducer,
     userList : getUsersListReducer,
+    promotionList: getPromotionListReducer,
+    avenueList: getAvenuesListReducer,
     auth: AuthReducer
 
 })

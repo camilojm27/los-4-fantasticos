@@ -11,7 +11,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import {Btn, BtnEdit, BtnRemove, WrapperBtn} from '../Btn'
 import SearchBar from "material-ui-search-bar";
 import {SearchbarContainer} from '../Searchbar';
-import CustomizedRadios from '../Category/SearchOption'
+import CustomizedRadios from './SearchOption'
 
 
 const Tablas = (props) => {
@@ -55,11 +55,13 @@ const Tablas = (props) => {
     });
 
     const columns = [
-        {id: 'Id', label: 'ID', minWidth: 100},
-        {id: 'Nombre', label: 'Nombre', minWidth: 100},
-        {id:'Metodo de pago',label:'Metodo de pago',minWidth:150},
-        {id:'Total', label: 'Total', minWidth: 100},
-        {id:'Generar PDF', label: 'Generar PDF', minWidth:150} 
+        {id: 'Id', label: 'ID', minWidth: 0},
+        {id: 'Lugar', label: 'Lugar', minWidth: 130},
+        {id:'Hora de apertura',label:"Hora de apertura", minWidth:100},
+        {id:'Hora de cerrado',label:"Hora de cerrado", minWidth:100},
+        {id:'Direccion',label:"Direccion",minWidth:100},
+        {id: 'Editar', label: '', minWidth: 100},
+        {id: 'Eliminar', label: '', minWidth: 100},
 
     ];
 
@@ -76,7 +78,7 @@ const Tablas = (props) => {
         setPage(0);
     };
 
-    const {loading, error, categories} = props.listCategory
+    const {loading, error, avenues} = props.listAvenue
 
     //Busqueda
 
@@ -87,7 +89,11 @@ const Tablas = (props) => {
         setSelect(option)
     }
 
-   
+    //CRU
+    const handleChange = (object, data) => {
+        props.handleSelect(object, data)
+    }
+
 
     return (
         <>
@@ -129,25 +135,44 @@ const Tablas = (props) => {
                         <ThemeProvider theme={theme}>
                             <TableBody>
                                 {loading ?
-                                    <h1>cargando...</h1> : categories.categories && categories.categories.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((item) => {
-
+                                    <h1>cargando...</h1> : avenues.restaurants && avenues.restaurants.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).filter((item) => {
+                                if(item.available){
                                     if (query === "") {
                                         return item
                                     } else if (select === "Id" && item.id.toString().toLowerCase().includes(query.toLowerCase())) {
                                         return item
-                                    } else if (select === "Nombre" && item.name.toString().toLowerCase().includes(query.toLowerCase())) {
+                                    } else if (select === "Lugar" && item.site.toString().toLowerCase().includes(query.toLowerCase())) {
                                         return item
                                     }
+                                    else if (select === "Hora de apertura" && item.open_time.toString().toLowerCase().includes(query.toLowerCase())) {
+                                        return item
+                                    }
+                                }
+                                  
+                                    
 
 
                                 }).map(item => (
                                     <TableRow key={item.id}>
                                         <StyledTableCell>{item.id}</StyledTableCell>
-                                        <StyledTableCell>{item.name}</StyledTableCell>
-                                        <StyledTableCell>{}<BtnEdit>
-                                            PDF
+                                        <StyledTableCell>{item.site}</StyledTableCell>
+                                        <StyledTableCell>{item.open_time +"AM"}</StyledTableCell>
+                                        <StyledTableCell>{parseInt(item.close_time,10) - 12 + "PM"} </StyledTableCell>
+                                        <StyledTableCell>{item.address}</StyledTableCell>
+                                        <StyledTableCell><BtnEdit onClick={() => handleChange({
+                                            remove: false,
+                                            edit: true,
+                                            insert: false
+                                        }, item)}>
+                                            Editar
                                         </BtnEdit></StyledTableCell>
-           
+                                        <StyledTableCell><BtnRemove onClick={() => handleChange({
+                                            remove: true,
+                                            edit: false,
+                                            insert: false
+                                        }, item)}>
+                                            Eliminar
+                                        </BtnRemove></StyledTableCell>
                                     </TableRow>
 
                                 ))
@@ -160,7 +185,7 @@ const Tablas = (props) => {
                 <TablePagination
                     rowsPerPageOptions={[2, 10, 15]}
                     component="div"
-                    count={loading ? <h1>cargando...</h1> : categories.categories && categories.categories.length}
+                    count={loading ? <h1>cargando...</h1> : avenues.restaurants && avenues.restaurants.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onChangePage={handleChangePage}
@@ -168,7 +193,12 @@ const Tablas = (props) => {
             </Paper>
 
 
-         
+            <WrapperBtn><Btn onClick={() => handleChange({
+                                            remove: false,
+                                            edit: false,
+                                            insert: true}, {})}> Nueva
+                sede</Btn> </WrapperBtn>
+
             <h1 style={{margin: "20px 0  0 0"}}>{error}</h1>
 
 

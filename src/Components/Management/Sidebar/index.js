@@ -13,7 +13,9 @@ import {
     SidebarContainer,
     SidebarLink,
     SidebarLogout,
-    SidebarMenu
+    SidebarMenu,
+    PromotionIcon,
+    Avenues
 } from './SidebarElements'
 import './active.css'
 import React from 'react'
@@ -68,7 +70,21 @@ const Sidebar
                     <div
                         id={window.location.pathname === '/Management/Invoices' || window.location.pathname === '/Management/Invoices/Edit' ? "active" : ""}>
                         <I><InvoiceIcon/></I>
-                        <ASidebar2 to="Invoice">Facturas</ASidebar2>
+                        <ASidebar2 to="Invoices">Facturas</ASidebar2>
+                    </div>
+                </SidebarLink>
+                <SidebarLink>
+                    <div
+                        id={window.location.pathname === '/Management/Promotions' || window.location.pathname === '/Management/Invoices/Edit' ? "active" : ""}>
+                        <I><PromotionIcon/></I>
+                        <ASidebar2 to="Promotions">Descuentos</ASidebar2>
+                    </div>
+                </SidebarLink>
+                <SidebarLink>
+                    <div
+                        id={window.location.pathname === '/Management/Avenues' || window.location.pathname === '/Management/Avenues/Edit' ? "active" : ""}>
+                        <I><Avenues/></I>
+                        <ASidebar2 to="Avenues">Sedes</ASidebar2>
                     </div>
                 </SidebarLink>
                 <H2Sidebar>Usuarios</H2Sidebar>

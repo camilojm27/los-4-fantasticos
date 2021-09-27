@@ -2,6 +2,7 @@ import Tablas from './Tablas'
 import React, { useEffect, useState } from 'react';
 import { Container, WrapperTable } from '../Elements'
 import { useDispatch, useSelector } from "react-redux";
+
 import {
     Background,
     CloseModal,
@@ -11,7 +12,7 @@ import {
     Options,
     OptionsRemove,
     Title
-} from './modalElements.js'
+} from '../Clients/modalElements'
 import { BtnEdit, BtnRemove, BtnSend } from '../Btn'
 import { useForm } from "react-hook-form";
 import styled from 'styled-components';
@@ -37,7 +38,7 @@ const Modal = styled.div`
 
 `;
 
-const Client = () => {
+const Admin = () => {
     const dispatch = useDispatch()
     const [address, setAddress] = useState("")
     const [coordinates, setCoordinates] = useState({lat: null, lng: null})
@@ -49,7 +50,7 @@ const Client = () => {
         insert: false
     })
 
-    const [edit, setEdit] = useState({ name: "", email: "", doc_type: "", doc_num: "", birth: "", address: "", password: "", phone_num: ""})
+    const [edit, setEdit] = useState({ id: "", name: "", email: "", doc_type: "", doc_num: "", birth: "", location: "", password: "", phone_num: "" })
     const { register, handleSubmit, setValue } = useForm({
         defaultValues: edit
 
@@ -59,17 +60,14 @@ const Client = () => {
     setValue("doc_type", edit.doc_type)
     setValue("doc_num", edit.doc_num)
     setValue("birth", edit.birth)
-    setValue("longitude",edit.location?.longitude)
-    setValue("latitude",edit.location?.latitude)
-    setValue("address", edit.location?.address)
+    setValue("location", edit.location?.address)
     setValue("password", edit.password)
     setValue("phone_num", edit.phone_num)
     setValue("role", edit.role)
-    
 
 
     const handleSelect = (select, data) => {
-        console.log(data,"ya me pase")
+
         setModal(select)
         setEdit(data)
 
@@ -84,13 +82,13 @@ const Client = () => {
 
 
     const onSubmit = async (data) => {
-
+        data.latitude = coordinates.lat;
+        data.longitude = coordinates.lng;
         data.address = address;
-
+        console.log(data)
         if (modal.insert === true) {
-            data.latitude = coordinates.lat;
-            data.longitude = coordinates.lng;
-            data.address = address
+       
+            delete data.id
             dispatch(addUser(data, currentUser.Authorization)).then(response => {
                 setModal({ remove: false, edit: false, insert: false })
                 dispatch(getUsers(currentUser.Authorization))
@@ -101,12 +99,11 @@ const Client = () => {
         } else {
             if (modal.edit === true) {
 
-                console.log(data)
                 dispatch(editUser(data, currentUser.Authorization)).then(response => {
                     setModal({ remove: false, edit: false, insert: false })
                     dispatch(getUsers(currentUser.Authorization))
                 }).catch(error => {
-                    console.log(error.response)
+                    console.log(error.response.data)
                 })
             }
 
@@ -116,7 +113,7 @@ const Client = () => {
     const confirm = async () => {
         if (modal.remove === true) {
 
-            dispatch(deleteUser(edit.doc_num, currentUser.Authorization))
+            dispatch(deleteUser(edit.id, currentUser.Authorization))
                 .then(response => {
                     setModal({ remove: false, edit: false, insert: false })
                     dispatch(getUsers(currentUser.Authorization))
@@ -169,7 +166,6 @@ const Client = () => {
                             <ModalInput>
                                 <Input placeholder="Numero de celular" {...register("phone_num")} />
                             </ModalInput>
-                            
                             <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleAddress}>
 
                                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
@@ -190,14 +186,13 @@ const Client = () => {
                                             })}
                                         </div>
                                     </ModalInput>
-                                  
 
 
                                 )}
- 
+
 
                             </PlacesAutocomplete>
-                          
+
                             <Options style={{margin: "0px 0px 0px 455px "}}>
                                 <BtnSend>Crear</BtnSend>
                                 <BtnRemove onClick={() => setModal({
@@ -238,7 +233,7 @@ const Client = () => {
                                 <Input {...register("phone_num")} />
                             </ModalInput>
                             <ModalInput>
-                                <Input {...register("address")} />
+                                <Input {...register("location")} />
                             </ModalInput>
                             <ModalInput>
                                 <Input  {...register("role")} />
@@ -292,4 +287,4 @@ const Client = () => {
     )
 }
 
-export default Client
+export default Admin

@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 import {Link as LinkR} from 'react-router-dom'
-import {IoHome} from 'react-icons/io5'
+import {IoHome,IoPricetagsOutline} from 'react-icons/io5'
 import {HiOutlineClipboardList} from 'react-icons/hi'
 import {RiFileListLine, RiProductHuntLine} from 'react-icons/ri'
 import {FiUser, FiUserPlus} from 'react-icons/fi'
 import {FaPowerOff} from 'react-icons/fa'
+import {BiBuildingHouse} from 'react-icons/bi'
 
 export const SidebarContainer = styled.div`
 background: #020509;
@@ -26,6 +27,8 @@ export const InvoiceIcon = styled(RiFileListLine)``
 export const ClientIcon = styled(FiUser)``
 export const AdminIcon = styled(FiUserPlus)``
 export const LogoutIcon = styled(FaPowerOff)``
+export const PromotionIcon = styled(IoPricetagsOutline)``
+export const Avenues = styled(BiBuildingHouse)``
 
 export const SidebarTitle = styled.div`
 display:flex;

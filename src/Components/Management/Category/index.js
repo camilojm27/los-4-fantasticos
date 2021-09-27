@@ -1,7 +1,7 @@
 import Tablas from './Tablas'
 import React, {useEffect, useState} from 'react';
 import {Container, WrapperTable} from '../Elements'
-import {H1Header, HeaderMessage, HeaderTitle, Img, PHeader} from '../HeaderSection/HeaderSectionElements'
+
 import {useDispatch, useSelector} from "react-redux";
 
 import {
@@ -125,7 +125,7 @@ const Category = () => {
                                 <Input placeholder="Nombre de la categoria" {...register("name")} />
                             </ModalInput>
 
-                            <Options>
+                            <Options style={{margin: "0px 0px 0px 455px "}}>
                                 <BtnSend>Crear</BtnSend>
                                 <BtnRemove onClick={() => setModal({
                                     remove: false,
