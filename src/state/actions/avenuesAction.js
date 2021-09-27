@@ -1,5 +1,6 @@
 import axios from 'axios'
 import {
+    AVENUESELECTED_CHANGE,
     AVENUES_LIST_FAIL,
     AVENUES_LIST_REQUEST,
     AVENUES_LIST_SUCCESS,
@@ -99,3 +100,9 @@ export const editAvenue = (data, token) => async (dispatch) => {
 
 }
 
+export const avenueSelected = (idAvenue) => async (dispatch) => {
+    dispatch({
+        type: AVENUESELECTED_CHANGE,
+        payload: {avenueSelected:idAvenue}
+    })
+}

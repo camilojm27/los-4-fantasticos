@@ -17,7 +17,8 @@ import {
 } from '../Category/modalElements'
 import {BtnEdit, BtnRemove, BtnSend} from '../Btn'
 import styled from 'styled-components';
-import {getCategory,getInvoice} from '../../../state/actions/categoryAction'
+import {getCategory} from '../../../state/actions/categoryAction'
+import {getInvoice} from '../../../state/actions/invoiceAction'
 
 const Modal = styled.div`
   max-width: 900px;
@@ -40,13 +41,12 @@ const Modal = styled.div`
 const Invoice = () => {
     const dispatch = useDispatch()
     const {user: currentUser} = useSelector((state) => state.auth);
-    const listCategory = useSelector(state => state.categoryList)
-    //const listInvoice = useSelector(state => state.invoiceList)
+   
+    const listInvoice = useSelector(state => state.invoiceList)
 
  
     useEffect(() => {
-        dispatch(getCategory())
-      //  dispatch(getInvoice())
+        dispatch(getInvoice(currentUser.Authorization))
     }, [dispatch])
 
 
@@ -57,7 +57,7 @@ const Invoice = () => {
 
             <WrapperTable>
 
-                <Tablas  listCategory={listCategory}/>
+                <Tablas  listInvoice={listInvoice}/>
             </WrapperTable>
 
 
