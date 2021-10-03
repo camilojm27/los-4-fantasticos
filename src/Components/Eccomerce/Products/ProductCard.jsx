@@ -1,5 +1,11 @@
+import React from 'react'
 import styled from 'styled-components';
 import {BsPlusSquareFill} from 'react-icons/bs'
+import {useDispatch} from "react-redux";
+import {addToCart} from "../../../state/actions/cartActions";
+import {Alert} from "@material-ui/lab";
+import {Snackbar} from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 const AddToCartIcon = styled.div`
 position: absolute;
@@ -55,13 +61,29 @@ const Description = styled.p`
 `;
 
 
-const ProductCard = ({image, name, price, description}) => {
+const ProductCard = ({image, name, price, description, id}) => {
 
+    let history = useHistory();
+    const dispatch = useDispatch()
+    const [open, setOpen] = React.useState(true);
 
+    const handleClick = () => {
+        setOpen(true);
+        dispatch(addToCart(id, 1))
+        history.push('/cart')
+    };
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
     return (
         <SelfProductCard>
             <AddToCartIcon>
-                <BsPlusSquareFill color="orange" fontSize={26}/>
+                <BsPlusSquareFill color="orange" fontSize={26} onClick={handleClick}/>
             </AddToCartIcon>
             <div>
                 <CardImage src={image}/>
@@ -74,6 +96,12 @@ const ProductCard = ({image, name, price, description}) => {
                 </div>
 
             </CardDetails>
+
+            <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    {name} agregado correctamente
+                </Alert>
+            </Snackbar>
         </SelfProductCard>
 
     )

@@ -5,15 +5,23 @@ import {getCategoryListReducer} from "./reducers/categoryReducer"
 import {getInvoiceListReducer} from "./reducers/invoiceReducer"
 import {AuthReducer} from "./reducers/authReducer"
 import { getUsersListReducer } from "./reducers/userReducer";
+import {cartReducer} from "./reducers/cartReducers";
 
-const initialState = {}
+const initialState = {
+    cart: {
+        cartItems: localStorage.getItem('cartItems')
+            ? JSON.parse(localStorage.getItem('cartItems'))
+            : [],
+    },
+}
 
 const reducer = combineReducers({
     productList: getProductListReducer,
     categoryList: getCategoryListReducer,
     invoiceList: getInvoiceListReducer,
     userList : getUsersListReducer,
-    auth: AuthReducer
+    auth: AuthReducer,
+    cart: cartReducer
 
 })
 
