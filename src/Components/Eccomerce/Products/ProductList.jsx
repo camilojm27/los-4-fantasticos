@@ -60,6 +60,7 @@ const ProductList = (props) => {
                 }).map(product =>
                     <ProductCard
                         key={product.name}
+                        id={product.id}
                         name={product.name}
                         image={product.image}
                         price={product.unit_price}

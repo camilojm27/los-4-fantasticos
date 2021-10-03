@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom'
 import {IoCartOutline} from 'react-icons/io5'
 import {AiOutlineUser} from 'react-icons/ai'
 import {Badge, Menu, MenuItem} from "@material-ui/core";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../state/actions/authAction";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,6 +25,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PrimaryAppBar() {
+    const cart = useSelector((state) => state.cart);
+    const { cartItems } = cart;
     const dispatch = useDispatch();
     const logOut = () => {
 
@@ -65,9 +67,17 @@ export default function PrimaryAppBar() {
                             Sobre Nosotros
                         </Typography>
                     </Link>
-                    <Badge badgeContent={3} color="secondary" style={{marginRight: 40}}>
-                        <IoCartOutline fontSize={30}/>
-                    </Badge>
+                    {
+                        cartItems.length > 0 ?
+                            <Badge badgeContent={cartItems.length} color="secondary" style={{marginRight: 40}}>
+                                <IoCartOutline fontSize={30}/>
+                            </Badge>
+                            :
+                            <Badge badgeContent={0} color="secondary" style={{marginRight: 40}}>
+                                <IoCartOutline fontSize={30}/>
+                            </Badge>
+
+                    }
                     <Badge>
                         <AiOutlineUser fontSize={30} style={{marginRight: 10}} aria-controls="simple-menu"
                                        aria-haspopup="true" onClick={handleClick}/>

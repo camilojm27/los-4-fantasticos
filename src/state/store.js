@@ -7,8 +7,15 @@ import {AuthReducer} from "./reducers/authReducer"
 import { getUsersListReducer } from "./reducers/userReducer";
 import {getAvenuesListReducer} from './reducers/avenuesReducer'
 import {getPromotionListReducer} from './reducers/promotionReducer'
+import {cartReducer} from "./reducers/cartReducers";
 
-const initialState = {}
+const initialState = {
+    cart: {
+        cartItems: localStorage.getItem('cartItems')
+            ? JSON.parse(localStorage.getItem('cartItems'))
+            : [],
+    },
+}
 
 const reducer = combineReducers({
     productList: getProductListReducer,
@@ -17,7 +24,8 @@ const reducer = combineReducers({
     userList : getUsersListReducer,
     promotionList: getPromotionListReducer,
     avenueList: getAvenuesListReducer,
-    auth: AuthReducer
+    auth: AuthReducer,
+    cart: cartReducer
 
 })
 
