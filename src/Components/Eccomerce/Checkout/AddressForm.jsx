@@ -1,8 +1,13 @@
 import React from 'react';
 import Typography from "@material-ui/core/Typography";
 import {Checkbox, FormControlLabel, Grid, TextField} from "@material-ui/core";
+import {useSelector} from "react-redux";
 
 export default function AddressForm() {
+
+    const {user: {user, Authorization}} = useSelector((state) => state.auth);
+
+
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
@@ -12,23 +17,14 @@ export default function AddressForm() {
                 <Grid item xs={12} sm={6}>
                     <TextField
                         required
-                        id="firstName"
-                        name="firstName"
-                        label="First name"
-                        fullWidth
-                        autoComplete="given-name"
-                        variant="standard"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="lastName"
-                        name="lastName"
-                        label="Last name"
+                        id="fullname"
+                        name="fullname"
+                        label="Nombre completo"
                         fullWidth
                         autoComplete="family-name"
                         variant="standard"
+                        value={user.name}
+                        disabled
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -36,17 +32,19 @@ export default function AddressForm() {
                         required
                         id="address1"
                         name="address1"
-                        label="Address line 1"
+                        label="Dirección"
                         fullWidth
                         autoComplete="shipping address-line1"
                         variant="standard"
+                        value={user.location.address}
+
                     />
                 </Grid>
                 <Grid item xs={12}>
                     <TextField
-                        id="address2"
-                        name="address2"
-                        label="Address line 2"
+                        id="details"
+                        name="details"
+                        label="Detalles"
                         fullWidth
                         autoComplete="shipping address-line2"
                         variant="standard"
@@ -61,23 +59,26 @@ export default function AddressForm() {
                         fullWidth
                         autoComplete="shipping address-level2"
                         variant="standard"
+                        value='Cali'
+                        disabled
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
                         id="state"
                         name="state"
-                        label="State/Province/Region"
+                        label="Departamento / Region"
                         fullWidth
                         variant="standard"
+                        value='Valle del Cauca'
+                        disabled
                     />
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
-                        required
                         id="zip"
                         name="zip"
-                        label="Zip / Postal code"
+                        label="Código postal"
                         fullWidth
                         autoComplete="shipping postal-code"
                         variant="standard"
@@ -88,16 +89,18 @@ export default function AddressForm() {
                         required
                         id="country"
                         name="country"
-                        label="Country"
+                        label="País"
                         fullWidth
                         autoComplete="shipping country"
                         variant="standard"
+                        value='Colombia'
+                        disabled
                     />
                 </Grid>
                 <Grid item xs={12}>
                     <FormControlLabel
                         control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-                        label="Use this address for payment details"
+                        label="Guardar detalles para próxima compra"
                     />
                 </Grid>
             </Grid>

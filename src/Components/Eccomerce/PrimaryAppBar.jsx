@@ -69,13 +69,19 @@ export default function PrimaryAppBar() {
                     </Link>
                     {
                         cartItems.length > 0 ?
-                            <Badge badgeContent={cartItems.length} color="secondary" style={{marginRight: 40}}>
-                                <IoCartOutline fontSize={30}/>
-                            </Badge>
+                            <Link style={{color: 'white'}} to="/cart">
+                                <Badge badgeContent={cartItems.length} color="secondary" style={{marginRight: 40}}>
+                                    <IoCartOutline fontSize={30}/>
+                                </Badge>
+                            </Link>
+
                             :
-                            <Badge badgeContent={0} color="secondary" style={{marginRight: 40}}>
-                                <IoCartOutline fontSize={30}/>
-                            </Badge>
+                            <Link style={{color: 'white'}} to="/cart">
+                                <Badge badgeContent={0} color="secondary" style={{marginRight: 40}}>
+                                    <IoCartOutline fontSize={30}/>
+                                </Badge>
+                            </Link>
+
 
                     }
                     <Badge>

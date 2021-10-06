@@ -59,7 +59,7 @@ const ProductList = (props) => {
                     return product
                 }).map(product =>
                     <ProductCard
-                        key={product.name}
+                        key={product.name + product.id}
                         id={product.id}
                         name={product.name}
                         image={product.image}
