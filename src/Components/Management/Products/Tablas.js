@@ -62,6 +62,7 @@ const Tablas = (props) => {
         {id: 'Category_id', label: 'Categoria', minWidth: 100},
         {id: 'description', label: 'Descripcion', minWidth: 110},
         {id: 'details', label: 'Detalles', minWidth: 110},
+        {id: 'discount', label: 'Descuento', minWidth: 110},
         {id: 'available', label: 'disponible', minWidth: 80},
         {id: 'Activar', label: '', minWidth: 100},
         {id: 'Editar', label: '', minWidth: 100},
@@ -92,7 +93,8 @@ const Tablas = (props) => {
     }, [dispatch])
     const listProducts = useSelector(state => state.productList)
     const {loading, error, products} = listProducts
-
+    const listAvenue = useSelector(state => state.avenueList)
+    const {avenueSelected} = listAvenue
 
     //Busqueda
 
@@ -126,9 +128,12 @@ const Tablas = (props) => {
         form.append("available",true)
         form.append("category_id",data.category_id)
         form.append("unit_price",data.unit_price)
+        if(data.promotion !== null){
+            form.append("promotion",data.promotion.id)
+        }
+        
         console.log(data)
-        console.log(form,currentUser.Authorization, "hola")
-        dispatch(editProduct(form, currentUser.Authorization)).then(() => {
+        dispatch(editProduct(form, currentUser.Authorization,avenueSelected)).then(() => {
             dispatch(getProducts())
         }).catch(error => {
             console.log(error.response.data)
@@ -196,6 +201,7 @@ const Tablas = (props) => {
                                         <StyledTableCell>{item.category_name}</StyledTableCell>
                                         <StyledTableCell>{item.description}</StyledTableCell>
                                         <StyledTableCell>{item.details}</StyledTableCell>
+                                        <StyledTableCell>{item.promotion === null ? "No tiene" : item.promotion.title}</StyledTableCell>
                                         <StyledTableCell>{ (item.available ? "si" : "no")}</StyledTableCell>
                                         <StyledTableCell><BtnActivate onClick={() => changeStatus(item)}>
                                             Activar

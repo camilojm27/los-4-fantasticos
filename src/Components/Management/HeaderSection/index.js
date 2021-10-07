@@ -136,6 +136,7 @@ function HeaderSection() {
                     </H1Header>
 
                     <Btn>Top 20 productos mas vendidos</Btn>
+                    
                     <Btn>Top 20 Productos menos vendidos</Btn>
                     <Btn>Sede de restaurante con mas ventas</Btn>
                     <Btn>Sede de restaurante con menos ventas</Btn>
@@ -143,7 +144,7 @@ function HeaderSection() {
 
                     <HeaderTitle>
 
-
+                 
                     </HeaderTitle>
                 </HeaderMessage>
 

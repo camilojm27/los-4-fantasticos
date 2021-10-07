@@ -8,15 +8,13 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
-import { Btn, BtnEdit, BtnRemove, WrapperBtn } from '../Btn'
+import { BtnEdit } from '../Btn'
 import SearchBar from "material-ui-search-bar";
 import { SearchbarContainer } from '../Searchbar';
 import CustomizedRadios from '../Category/SearchOption'
-import { Link } from 'react-router-dom';
 
 
 const Tablas = (props) => {
-    //Estilos de las tablas
     const theme = createMuiTheme({
         palette: {
             primary: {
@@ -153,8 +151,8 @@ const Tablas = (props) => {
                                         <StyledTableCell>{item.order.total}$</StyledTableCell>
                                        
                                         <StyledTableCell>
-                                            {console.log(item.order.receipt)}
-                                        <a href={item.order.receipt}>
+
+                                        <a href={item.payments[0].receipt} target="_blank">
                                         <BtnEdit>
                                            
                                             Generar

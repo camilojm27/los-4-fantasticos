@@ -43,11 +43,12 @@ const Invoice = () => {
     const {user: currentUser} = useSelector((state) => state.auth);
    
     const listInvoice = useSelector(state => state.invoiceList)
-
+    const listAvenue = useSelector(state => state.avenueList)
+    const {avenueSelected} = listAvenue
  
     useEffect(() => {
-        dispatch(getInvoice(currentUser.Authorization))
-    }, [dispatch])
+        dispatch(getInvoice(currentUser.Authorization,avenueSelected))
+    }, [dispatch,avenueSelected])
 
 
     return (
