@@ -16,6 +16,8 @@ import {ProfileOrder} from "../pages/profile/ProfileOrder";
 import {ProductAllScreen} from "../pages/products/ProductAllScreen";
 import Categories from "../pages/Categories";
 import SobreNosotros from "../pages/AboutUs";
+import Promotions from "../pages/Management/Promotion/Promotions"
+import Avenues from "../pages/Management/Avenues/Avenues"
 import {Cart} from "../Components/Eccomerce/Cart";
 import Checkout from "../Components/Eccomerce/Checkout/Checkout";
 import OrderScreen from "../Components/Eccomerce/Checkout/OrderScreen";
@@ -35,6 +37,8 @@ const PrivateRoutesManagement = () => {
             <PrivateRouteManagement path="/Management/Clients/edit" component={ClientsEdit} exact/>
             <PrivateRouteManagement path="/Management/Admins" component={Admins} exact/>
             <PrivateRouteManagement path="/Management/Admins/edit" component={AdminsEdit} exact/>
+            <PrivateRouteManagement path="/Management/Promotions" component={Promotions} exact/>
+            <PrivateRouteManagement path="/Management/Avenues" component={Avenues} exact/>
             <Route exact path="/profile/settings" component={ProfileSettings}/>
             <Route exact path="/profile/order" component={ProfileOrder}/>
             <Route exact path="/products/:id?" component={ProductAllScreen}/>

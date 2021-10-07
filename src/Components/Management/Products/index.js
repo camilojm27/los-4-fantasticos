@@ -40,6 +40,8 @@ const Product = () => {
     const dispatch = useDispatch()
     const {user: currentUser} = useSelector((state) => state.auth);
     const listProduct = useSelector(state => state.productList)
+    const listAvenue = useSelector(state => state.avenueList)
+    const {avenueSelected} = listAvenue
     const [modal, setModal] = useState({
         remove: false,
         edit: false,
@@ -53,7 +55,8 @@ const Product = () => {
         description: "",
         units: "",
         details: "",
-        unit_price: ""
+        unit_price: "",
+        promotion:""
     })
     const {register, handleSubmit, setValue} = useForm({
         defaultValues: edit
@@ -68,6 +71,7 @@ const Product = () => {
     setValue('details', edit.details)
     setValue('category_id', edit.category_id)
     setValue('available', edit.available)
+    setValue('promotion',edit.promotion?.id)
     const handleSelect = (select, data) => {
 
         setModal(select)
@@ -85,13 +89,14 @@ const Product = () => {
             form.append("available",true)
             form.append("category_id",data.category_id)
             form.append("unit_price",data.unit_price)
+            form.append("promotion",data.promotion)
            
         if (modal.insert === true) {
             form.append("image",data.upload_image[0])
             dispatch(addProduct(form, currentUser.Authorization)).then(response => {
 
                 setModal({remove: false, edit: false, insert: false})
-                dispatch(getProducts())
+                dispatch(getProducts(avenueSelected))
 
             }).catch(error => {
                 console.log(error.response)
@@ -99,9 +104,9 @@ const Product = () => {
         } else {
             if (modal.edit === true) {
                 form.append("id",data.id)
-                dispatch(editProduct(form, currentUser.Authorization)).then(() => {
+                dispatch(editProduct(form, currentUser.Authorization,avenueSelected)).then(() => {
                     setModal({remove: false, edit: false, insert: false})
-                    dispatch(getProducts())
+                    dispatch(getProducts(avenueSelected))
                 }).catch(error => {
                     console.log(error.response.data)
                 })
@@ -112,10 +117,10 @@ const Product = () => {
 
     const confirm = async () => {
         if (modal.remove === true) {
-            dispatch(deleteProduct(edit.id, currentUser.Authorization))
+            dispatch(deleteProduct(edit.id, currentUser.Authorization,avenueSelected))
                 .then(() => {
                     setModal({remove: false, edit: false, insert: false})
-                    dispatch(getProducts())
+                    dispatch(getProducts(avenueSelected))
                 }).catch(error => {
                 console.log(error.response.data)
             })
@@ -123,9 +128,9 @@ const Product = () => {
     }
 
     useEffect(() => {
-        dispatch(getProducts())
-
-    }, [dispatch])
+        dispatch(getProducts(avenueSelected))
+        console.log("hola soy el avenueSelected", avenueSelected)
+    }, [dispatch,avenueSelected])
 
   
 
@@ -166,6 +171,11 @@ const Product = () => {
 
                             <ModalInput>
                                 <Input placeholder="Detalles" {...register("details")} />
+                            </ModalInput>
+
+                            
+                            <ModalInput>
+                                <Input placeholder="Id de descuento" {...register("promotion")} />
                             </ModalInput>
 
                             <Options>
@@ -218,6 +228,9 @@ const Product = () => {
 
                             <ModalInput>
                                 <Input {...register("details")} />
+                            </ModalInput>
+                            <ModalInput>
+                                <Input placeholder="Id de descuento" {...register("promotion")} />
                             </ModalInput>
 
 

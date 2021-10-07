@@ -98,7 +98,7 @@ const RegisterSection = () => {
                                     <div>
                                         <I> <IconUser/> </I>
                                         <Input placeholder="Nombre(s)" type="text"
-                                               name="nombre" {...register("name", {required: "Campo obligatorio"})} />
+                                               name="nombre" {...register("name", {required: "Campo obligatorio"})} data-test="name" />
                                         {errors.name && <ErrorMesage> {errors.name.message} </ErrorMesage>}
                                     </div>
 
@@ -109,7 +109,7 @@ const RegisterSection = () => {
                                     <div>
                                         <I> <IconUser/> </I>
                                         <Input placeholder="Apellido(s)" type="text"
-                                               name="apellido" {...register("last_Name", {required: "Campo obligatorio"})} />
+                                               name="apellido" {...register("last_Name", {required: "Campo obligatorio"})} data-test="last_name"/>
                                     </div>
                                     {errors.last_Name && <ErrorMesage> {errors.last_Name.message} </ErrorMesage>}
                                 </RegisterInput>
@@ -121,7 +121,7 @@ const RegisterSection = () => {
                                     <div>
                                         <I> <IconEmail/> </I>
                                         <InputBlock placeholder="Email" type="email"
-                                                    name="email" {...register("email", {required: "Campo obligatorio"})} />
+                                                    name="email" {...register("email", {required: "Campo obligatorio"})} data-test="email" />
 
                                     </div>
                                     {errors.email && <ErrorMesage> {errors.email.message} </ErrorMesage>}
@@ -136,7 +136,7 @@ const RegisterSection = () => {
 
                                     <I> <IconPassword/></I>
                                     <Input placeholder="Contraseña" type="password"
-                                           name="password" {...register("password", {required: "Campo obligatorio"})} />
+                                           name="password" {...register("password", {required: "Campo obligatorio"})} data-test="password" />
                                     {errors.password && <ErrorMesage> {errors.password.message} </ErrorMesage>}
                                 </RegisterInput>
 
@@ -145,7 +145,7 @@ const RegisterSection = () => {
                                     <Input placeholder="Repita su contraseña" type="password"
                                            name="password_repeat" {...register("password_repeat", {
                                         validate: value => value === password.current || "Las contraseñas no coinciden"
-                                    })} />
+                                    })} data-test="password_repeat" />
 
                                 </RegisterInput>
                                 {errors.password_repeat &&

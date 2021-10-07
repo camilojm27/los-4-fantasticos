@@ -11,7 +11,7 @@ import {
     Options,
     OptionsRemove,
     Title
-} from './modalElements.js'
+} from '../Clients/modalElements'
 import { BtnEdit, BtnRemove, BtnSend } from '../Btn'
 import { useForm } from "react-hook-form";
 import styled from 'styled-components';

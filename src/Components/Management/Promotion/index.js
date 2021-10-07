@@ -1,8 +1,8 @@
 import Tablas from './Tablas'
-import React, {useEffect, useState} from 'react';
-import {Container, WrapperTable} from '../Elements'
+import React, { useEffect, useState } from 'react';
+import { Container, WrapperTable } from '../Elements'
 
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
     Background,
@@ -15,11 +15,11 @@ import {
     Options,
     OptionsRemove,
     Title
-} from './modalElements'
-import {BtnEdit, BtnRemove, BtnSend} from '../Btn'
-import {useForm} from "react-hook-form";
+} from '../Category/modalElements'
+import { BtnEdit, BtnRemove, BtnSend } from '../Btn'
+import { useForm } from "react-hook-form";
 import styled from 'styled-components';
-import {addCategory, deleteCategory, editCategory, getCategory} from '../../../state/actions/categoryAction'
+import { getPromotion,addPromotion,editPromotion,deletePromotion } from '../../../state/actions/promotionAction'
 
 const Modal = styled.div`
   max-width: 900px;
@@ -39,23 +39,29 @@ const Modal = styled.div`
 
 `;
 
-const Category = () => {
+const Promotion = () => {
     const dispatch = useDispatch()
-    const {user: currentUser} = useSelector((state) => state.auth);
-    const listCategory = useSelector(state => state.categoryList)
+    const { user: currentUser } = useSelector((state) => state.auth);
+    const listPromotion = useSelector(state => state.promotionList)
     const [modal, setModal] = useState({
         remove: false,
         edit: false,
         insert: false
     })
 
-    const [edit, setEdit] = useState({id: "", name: ""})
-    const {register, handleSubmit, setValue} = useForm({
+    const [edit, setEdit] = useState({ id: "", end_date: "", title: "", close_time: "", discount: "" })
+    const { register, handleSubmit, setValue } = useForm({
         defaultValues: edit
 
     })
-    setValue('name', edit.name)
-    setValue('id', edit.id)
+
+    useEffect(() => {
+        setValue('id', edit.id)
+        setValue('start_date', edit.start_date)
+        setValue('end_date', edit.end_date)
+        setValue('title', edit.title)
+        setValue('discount', edit.discount)
+    }, [edit])
     const handleSelect = (select, data) => {
 
         setModal(select)
@@ -63,14 +69,17 @@ const Category = () => {
 
     }
 
-    const onSubmit = async (data) => {
-        console.log(data)
-        if (modal.insert === true) {
+  
 
+
+    const onSubmit = async (data) => {
+
+        if (modal.insert === true) {
             delete data.id
-            dispatch(addCategory(data, currentUser.Authorization)).then(response => {
-                setModal({remove: false, edit: false, insert: false})
-                dispatch(getCategory())
+            console.log(data)
+            dispatch(addPromotion(data, currentUser.Authorization)).then(response => {
+                setModal({ remove: false, edit: false, insert: false })
+                dispatch(getPromotion())
 
             }).catch(error => {
                 console.log(error.response)
@@ -78,9 +87,9 @@ const Category = () => {
         } else {
             if (modal.edit === true) {
 
-                dispatch(editCategory(data, currentUser.Authorization)).then(response => {
-                    setModal({remove: false, edit: false, insert: false})
-                    dispatch(getCategory())
+                dispatch(editPromotion(data, currentUser.Authorization)).then(response => {
+                    setModal({ remove: false, edit: false, insert: false })
+                    dispatch(getPromotion())
                 }).catch(error => {
                     console.log(error.response.data)
                 })
@@ -92,18 +101,18 @@ const Category = () => {
     const confirm = async () => {
         if (modal.remove === true) {
 
-            dispatch(deleteCategory(edit.id, currentUser.Authorization))
+            dispatch(deletePromotion(edit.id, currentUser.Authorization))
                 .then(response => {
-                    setModal({remove: false, edit: false, insert: false})
-                    dispatch(getCategory())
+                    setModal({ remove: false, edit: false, insert: false })
+                    dispatch(getPromotion())
                 }).catch(error => {
-                console.log(error.response.data)
-            })
+                    console.log(error.response.data)
+                })
         }
     }
 
     useEffect(() => {
-        dispatch(getCategory())
+        dispatch(getPromotion())
     }, [dispatch])
 
 
@@ -116,16 +125,27 @@ const Category = () => {
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <CloseModal
                                 aria-label='Close modal'
-                                onClick={() => setModal({remove: false, edit: false, insert: false})}
+                                onClick={() => setModal({ remove: false, edit: false, insert: false })}
                             />
                             <ModalInputId>
-                                <InputId placeholder="Id" readOnly/>
+                                <InputId placeholder="Id" readOnly />
                             </ModalInputId>
                             <ModalInput>
-                                <Input placeholder="Nombre de la categoria" {...register("name")} />
+                                <Input placeholder="Fecha de inicio YYYY-MM-DD" {...register("start_date")} />
                             </ModalInput>
 
-                            <Options style={{margin: "0px 0px 0px 455px "}}>
+                            <ModalInput>
+                                <Input placeholder="Fecha de finalizacion YYYY-MM-DD" {...register("end_date")} />
+                            </ModalInput>
+                            <ModalInput>
+                                <Input placeholder="Titulo de el descuento " {...register("title")} />
+                            </ModalInput>
+
+                            <ModalInput>
+                                <Input placeholder="Descuento (E.J: 20 es 20%)" {...register("discount")} />
+                            </ModalInput>
+
+                            <Options style={{ margin: "0px 0px 0px 455px " }}>
                                 <BtnSend>Crear</BtnSend>
                                 <BtnRemove onClick={() => setModal({
                                     remove: false,
@@ -144,19 +164,32 @@ const Category = () => {
                         <form form onSubmit={handleSubmit(onSubmit)}>
                             <CloseModal
                                 aria-label='Close modal'
-                                onClick={() => setModal({remove: false, edit: false, insert: false})}
+                                onClick={() => setModal({ remove: false, edit: false, insert: false })}
                             />
                             <ModalInputId>
-                                <InputId value={edit.id}  {...register("id")} readOnly/>
+                                <InputId placeholder="Id" readOnly />
                             </ModalInputId>
                             <ModalInput>
-                                <Input type="text" {...register("name")} />
+                                <Input placeholder="Fecha de inicio YYYY-MM-DD" {...register("start_date")} />
                             </ModalInput>
 
+                            <ModalInput>
+                                <Input placeholder="Fecha de finalizacion YYYY-MM-DD" {...register("end_date")} />
+                            </ModalInput>
+                            <ModalInput>
+                                <Input placeholder="Titulo de el descuento " {...register("title")} />
+                            </ModalInput>
+
+                            <ModalInput>
+                                <Input placeholder="Descuento" {...register("discount")} />
+                            </ModalInput>
+
+
+                    
                             <Options>
                                 <BtnSend>Actualizar</BtnSend>
                                 <BtnRemove onClick={() => {
-                                    setModal({remove: false, edit: false, insert: false})
+                                    setModal({ remove: false, edit: false, insert: false })
                                 }}>Cancelar</BtnRemove>
                             </Options>
 
@@ -170,10 +203,10 @@ const Category = () => {
                         <Modal>
                             <CloseModal
                                 aria-label='Close modal'
-                                onClick={() => setModal({remove: false, edit: false, insert: false})}
+                                onClick={() => setModal({ remove: false, edit: false, insert: false })}
                             />
                             <Title>
-                                <H1>¿Esta seguro que desea eliminar la categoria?</H1>
+                                <H1>¿Esta seguro que desea eliminar el descuento?</H1>
                             </Title>
 
                             <OptionsRemove>
@@ -186,11 +219,11 @@ const Category = () => {
                             </OptionsRemove>
                         </Modal>
                     </Background> : null}
-        
+
 
             <WrapperTable>
 
-                <Tablas handleSelect={handleSelect} listCategory={listCategory}/>
+                <Tablas handleSelect={handleSelect} listPromotion={listPromotion} />
             </WrapperTable>
 
 
@@ -198,4 +231,4 @@ const Category = () => {
     )
 }
 
-export default Category
+export default Promotion

@@ -28,7 +28,17 @@ export const Img = styled.img`
 export const H1Header = styled.h1`
    font-size: 24px;
    color: #2e4a66;
+
    margin-bottom: 10px;
+  
+`
+
+
+export const H2Header = styled.h2`
+   font-size: 20px;
+   color: #2e4a66;
+   margin-top:50px;
+   margin-bottom: 30px;
 `
 
 export const PHeader = styled.p`

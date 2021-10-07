@@ -2,10 +2,10 @@ import React from 'react'
 
 import Sidebar from '../../../Components/Management/Sidebar'
 import Navbar from '../../../Components/Management/Navbar'
-import Invoice from '../../../Components/Management/Invoice'
+import Avenue from '../../../Components/Management/Avenue'
 import PrimaryAppBar from "../../../Components/Eccomerce/PrimaryAppBar";
 
-const Invoices = () => {
+const Avenues = () => {
 
 
     return (
@@ -15,7 +15,7 @@ const Invoices = () => {
 
                 <Navbar/>
 
-                <Invoice/>
+                <Avenue/>
 
                 <Sidebar/>
 
@@ -25,4 +25,4 @@ const Invoices = () => {
     )
 }
 
-export default Invoices
+export default Avenues
