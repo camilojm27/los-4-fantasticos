@@ -28,19 +28,18 @@ export const getProducts = (avenue) => async (dispatch) => {
         })
     } catch (error) {
         const {msg} = error
-        console.log(msg,"hola")
         dispatch({type: PRODUCT_LIST_FAIL, payload: msg})
     }
 
 }
 
 
-export const addProduct = (data, token,avenue) => async (dispatch) => {
+export const addProduct = (data, token) => async (dispatch) => {
     dispatch({
         type: PRODUCT_REQUEST
     })
     try {
-        await axios.post(`${REACT_APP_API_URL}/product/restaurant/${avenue}`, data, {
+        await axios.post(`${REACT_APP_API_URL}/product`, data, {
             headers: {
                 'Authorization': token
             }
@@ -50,7 +49,6 @@ export const addProduct = (data, token,avenue) => async (dispatch) => {
             type: PRODUCT_REQUEST_SUCCESS
         })
     } catch (error) {
-        console.log(error.response, "fallo")
         const {msg} = error.response.data
         dispatch({
             type: PRODUCT_REQUEST_FAIL,

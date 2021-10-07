@@ -89,10 +89,14 @@ const Product = () => {
             form.append("available",true)
             form.append("category_id",data.category_id)
             form.append("unit_price",data.unit_price)
-            form.append("promotion",data.promotion)
-           
+        
+                    
         if (modal.insert === true) {
+            if(data.promotion !== "" ){
+                form.append("promotion",data.promotion)
+            }
             form.append("image",data.upload_image[0])
+
             dispatch(addProduct(form, currentUser.Authorization)).then(response => {
 
                 setModal({remove: false, edit: false, insert: false})
@@ -103,6 +107,7 @@ const Product = () => {
             })
         } else {
             if (modal.edit === true) {
+                form.append("promotion",data.promotion)
                 form.append("id",data.id)
                 dispatch(editProduct(form, currentUser.Authorization,avenueSelected)).then(() => {
                     setModal({remove: false, edit: false, insert: false})
