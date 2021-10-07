@@ -4,7 +4,7 @@ import {
     CART_ADD_FAIL,
     CART_REMOVE_ITEM,
     CART_SAVE_SHIPPING_ADDRESS,
-    CART_SAVE_PAYMENT_METHOD
+    CART_SAVE_PAYMENT_METHOD, CART_EMPTY
 } from "../constants/cartConstants";
 
 const API = 'https://ricuritas.herokuapp.com/api'
@@ -30,6 +30,10 @@ export const addToCart = (productID, qty) => async (dispatch, getState) => {
 
 
 }
+export const emptyCart = () => (dispatch) => {
+    dispatch({ type: CART_EMPTY});
+    localStorage.removeItem('cartItems');
+};
 
 export const removeFromCart = (productId) => (dispatch, getState) => {
     dispatch({ type: CART_REMOVE_ITEM, payload: productId });

@@ -18,6 +18,7 @@ import Categories from "../pages/Categories";
 import SobreNosotros from "../pages/AboutUs";
 import {Cart} from "../Components/Eccomerce/Cart";
 import Checkout from "../Components/Eccomerce/Checkout/Checkout";
+import OrderScreen from "../Components/Eccomerce/Checkout/OrderScreen";
 
 const PrivateRoutesManagement = () => {
     return (
@@ -40,6 +41,7 @@ const PrivateRoutesManagement = () => {
             <Route exact path="/categories/:id?" component={Categories}/>
             <PrivateRouteManagement exact path="/cart" component={Cart}/>
             <PrivateRouteManagement exact path="/checkout" component={Checkout}/>
+            <Route exact path="/order/:id" component={OrderScreen}/>
 
             <PrivateRouteManagement exact path="/about" component={SobreNosotros}/>
 

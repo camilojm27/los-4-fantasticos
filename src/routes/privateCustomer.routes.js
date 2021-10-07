@@ -5,6 +5,7 @@ import {ProductAllScreen} from "../pages/products/ProductAllScreen";
 import SobreNosotros from "../pages/AboutUs";
 import {Cart} from "../Components/Eccomerce/Cart";
 import Checkout from "../Components/Eccomerce/Checkout/Checkout";
+import OrderScreen from "../Components/Eccomerce/Checkout/OrderScreen";
 
 const PrivateRoutesCustomer = () => {
     return (
@@ -16,6 +17,7 @@ const PrivateRoutesCustomer = () => {
             <Route exact path="/about" component={SobreNosotros}/>
             <Route exact path="/cart" component={Cart}/>
             <Route exact path="/checkout" component={Checkout}/>
+            <Route exact path="/order/:id" component={OrderScreen}/>
 
 
             <Redirect path="/**" to="/products"/>

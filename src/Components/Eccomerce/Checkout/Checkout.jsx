@@ -23,6 +23,7 @@ import PrimaryAppBar from "../PrimaryAppBar";
 import {useDispatch, useSelector} from "react-redux";
 import SignInModal from "../../MainPage/SignInModal";
 import creditCardType from "credit-card-type";
+import SendOrder from "./SendOrder";
 
 const steps = ['Dirección de Recogida', 'Detalles de Pago', 'Revisa tu orden'];
 
@@ -39,12 +40,55 @@ export default function Checkout() {
     const [cc_number, setCCnumber] = useState('');
     const [cc_exp, setCCexp] = useState('');
     const [cc_cvv, setCCcvv] = useState('');
+
+    const [order, setOrder] = useState({});
     let payments = null
 
-    console.log(cart)
+    const handleNext = async () => {
+        let entity = ''
+        let newOrder = {}
 
-    const handleNext = () => {
+        if (activeStep === 2){
+
+            try {
+                entity = creditCardType(cc_number)[0].type
+
+                let products_list = cartItems.map(
+                    obj => {
+                        return {
+                            "id" : obj.product,
+                            "quantity":obj.qty,
+                            "name":obj.name,
+                            "uprice": obj.price,
+                            "amount": obj.price
+                        }
+                    }
+                );
+
+                newOrder = {
+                    restaurant_id: 1,
+                    user_id: Number.parseInt(user.user.doc_num),
+                    nit: 12345,
+                    subtotal: cart.totalPrice,
+                    total: cart.totalPrice,
+                    quotas: 1,
+                    cart_num: cc_number,
+                    entity,
+                    iva: 19,
+                    method: "Tarjeta de credito",
+                    products_list ,
+                }
+            } catch (e) {
+                alert('Ingresa una tarjeta valida')
+            }
+
+
+            setOrder(newOrder)
+
+        }
+
         setActiveStep(activeStep + 1);
+
     };
 
     const handleBack = () => {
@@ -218,6 +262,9 @@ export default function Checkout() {
                                     variant="standard"
                                     value={cc_number}
                                     onChange={(e) => setCCnumber(e.target.value)}
+                                    type="number"
+                                    inputProps={{ maxLength: 16 }}
+
 
                                 />
                             </Grid>
@@ -231,7 +278,7 @@ export default function Checkout() {
                                     variant="standard"
                                     value={cc_exp}
                                     onChange={(e) => setCCexp(e.target.value)}
-
+                                    type="month"
                                 />
                             </Grid>
                             <Grid item xs={12} md={6}>
@@ -245,6 +292,8 @@ export default function Checkout() {
                                     variant="standard"
                                     value={cc_cvv}
                                     onChange={(e) => setCCcvv(e.target.value)}
+                                    type="number"
+                                    inputProps={{ maxLength: 4 }}
                                 />
                             </Grid>
                             {/*<Grid item xs={12}>*/}
@@ -372,15 +421,7 @@ export default function Checkout() {
                             </Stepper>
                             <React.Fragment>
                                 {activeStep === steps.length ? (
-                                    <React.Fragment>
-                                        <Typography variant="h5" gutterBottom>
-                                            Gracias por realizar tu compra
-                                        </Typography>
-                                        <Typography variant="subtitle1">
-                                            Tu numero de orden es #2001539. Te hemos enviado una
-                                            confirmación al correo, te llamaremos cuando despachemos tu pedido.
-                                        </Typography>
-                                    </React.Fragment>
+                                    <SendOrder token={user.Authorization} orderData={order}/>
                                 ) : (
                                     <React.Fragment>
                                         {getStepContent(activeStep)}
