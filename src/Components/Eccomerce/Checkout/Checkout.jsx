@@ -25,7 +25,7 @@ import SignInModal from "../../MainPage/SignInModal";
 import creditCardType from "credit-card-type";
 import SendOrder from "./SendOrder";
 
-const steps = ['Dirección de Recogida', 'Detalles de Pago', 'Revisa tu orden'];
+const steps = ['Dirección de Recogida', 'Tipo de Pago', 'Detalles de Pago', 'Revisa tu orden'];
 
 
 const theme = createTheme();
@@ -48,7 +48,7 @@ export default function Checkout() {
         let entity = ''
         let newOrder = {}
 
-        if(activeStep === 1){
+        if(activeStep === 2){
             try {
                 const cardSize = cc_number.length;
                 const {niceType} = creditCardType(cc_number)[0]
@@ -91,7 +91,7 @@ export default function Checkout() {
             }
         }
 
-        if (activeStep === 2){
+        if (activeStep === 3){
 
             console.log(cc_exp)
 
@@ -262,7 +262,12 @@ export default function Checkout() {
                         </Grid>
                     </Grid>
                 </React.Fragment>)
-            case 1:
+            case 1: return (<div>
+                <Typography variant="h6" gutterBottom>
+                    Método de Pago
+                </Typography>
+            </div>)
+            case 2:
                 // PAYMENT FORM
                 return (
                     <React.Fragment>
@@ -337,7 +342,7 @@ export default function Checkout() {
                     </React.Fragment>
                 )
 
-            case 2:
+            case 3:
                 // REVIEW
                 return (<React.Fragment>
                         <Typography variant="h6" gutterBottom>

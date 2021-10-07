@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {
     H1Header,
     H2Header,
@@ -10,9 +10,10 @@ import {
     PHeader
 } from './HeaderSectionElements'
 import { useSelector } from "react-redux";
-
+import {Bar} from 'react-chartjs-2'
 
 import styled from 'styled-components';
+import axios from "axios";
 
 const RegisterGridInput = styled.div`
   display:grid;
@@ -105,10 +106,193 @@ const Btn = styled.button`
 
 `
 
+
+const types = ['Top 20 productos mas vendidos', 'Top 20 Productos menos vendidos', 'Sede de restaurante con mas ventas',
+    'Sede de restaurante con menos ventas', 'Cumpleaños el proximo mes']
+
 function HeaderSection() {
 
     const { user: currentUser } = useSelector((state) => state.auth);
+    const {Authorization} = currentUser
+    const API = 'https://ricuritas.herokuapp.com/api'
 
+
+    function SingleProductChart() {
+        const [productData, setProductData] = useState(null);
+        const [productID, setProductID] = useState(null);
+
+        const handlePetition = () => {
+            axios.get(API + '/order/monthly-sales/'+ productID, {headers: {Authorization}}).then((data)=>setProductData(data.data))
+        }
+
+        return(
+            <HeaderMessage>
+                <H1Header>
+                    Generar reporte del producto
+                </H1Header>
+
+                <Btn onClick={handlePetition}>Numero de ventas del producto</Btn>
+
+                <InputProduct type='number' placeholder="id del producto" onChange={(e)=> setProductID(e.target.value)}/>
+
+                {
+                    productData && <Bar data={{
+                        labels: productData.months,
+                        datasets: [{
+                            label: 'Reporte últimos 6 meses',
+                            data: productData.quantities,
+                        }]
+                    }}/>
+                }
+
+            </HeaderMessage>
+        )
+
+    }  function DateChart() {
+        const [productData, setProductID] = useState(null);
+        const [startDate, setStartDate] = useState(null);
+        const [endDate, setEndDate] = useState(null);
+
+        const handlePetition = () => {
+            if (startDate === null){return}
+            if (endDate === null){return}
+
+            axios.get(API + `/order/sales/${startDate}/${endDate}`, {headers: {Authorization}}).then((data)=>setProductID(data.data))
+
+        }
+
+
+        return(
+            <HeaderMessage>
+                <H1Header style={{ margin: "-60px 0px 10px 0px" }}>
+                    Reporte de
+                </H1Header>
+                <Btn onClick={handlePetition}>Ventas por fecha</Btn>
+                <form>
+                    <RegisterGridInput>
+                        <H2Header>Fecha inicial</H2Header>
+                        <RegisterInput>
+
+                            <Input type="date" onChange={(e)=> {
+                                setStartDate(e.target.value)
+                                handlePetition()
+                            }}/>
+                        </RegisterInput>
+
+                        <H2Header>Fecha final</H2Header>
+
+                        <RegisterInput>
+
+                            <Input type="date" onChange={(e)=> {
+                                setEndDate(e.target.value)
+                                handlePetition()
+                            }}/>
+
+                        </RegisterInput>
+
+                        {
+                            productData && <Bar data={{
+                                labels: productData.dates,
+                                datasets: [{
+                                    label: 'Reporte POR Fechas',
+                                    data: productData.totals,
+                                }]
+                            }}/>
+                        }
+                    </RegisterGridInput>
+                </form>
+                <HeaderTitle>
+
+
+                </HeaderTitle>
+            </HeaderMessage>
+
+
+        )
+
+    }
+
+    function TabGroup() {
+        const [active, setActive] = useState(types[0]);
+        const [topSelling, setTopSelling] = useState(null);
+        const [lessSelling, setLessSelling] = useState(null);
+        const [bestSellingRes, setBestSellingRes] = useState(null);
+        const [worstSellingRes, setWorstSellingRes] = useState(null);
+        const [birthday, setBirthday] = useState(null);
+
+
+        useEffect(()=> {
+            axios.get(API + '/product/top-selling/20', {headers: {Authorization}}).then((data)=>setTopSelling(data.data))
+            axios.get(API + '/product/less-selling/20', {headers: {Authorization}}).then((data)=>setLessSelling(data.data))
+            axios.get(API + '/restaurant/best/selling', {headers: {Authorization}}).then((data)=>setBestSellingRes(data.data))
+            axios.get(API + '/restaurant/worst/selling', {headers: {Authorization}}).then((data)=>setWorstSellingRes(data.data))
+            axios.get(API + '/user/upcoming-birthdays', {headers: {Authorization}}).then((data)=>setBirthday(data.data))
+        }, [])
+        return (
+            <section style={{marginTop: '10'}}>
+                <div>
+                    {types.map((type) => (
+                        <Btn
+                            key={type}
+                            active={active === type}
+                            onClick={() => setActive(type)}
+                        >
+                            {type}
+                        </Btn>
+                    ))}
+                </div>
+                {
+                    active === types[0] && topSelling && <Bar data={{
+                        labels: topSelling.products,
+                        datasets: [{
+                            label: types[0],
+                            data: topSelling.totals,
+                        }]
+                    }}/>
+                }
+
+                {
+                    active === types[1] && lessSelling && <Bar data={{
+                        labels: lessSelling.products,
+                        datasets: [{
+                            label: types[1],
+                            data: lessSelling.totals,
+                        }]
+                    }}/>
+                }
+
+                {
+                    active === types[2] && bestSellingRes && <Bar data={{
+                        labels: bestSellingRes.restaurants,
+                        datasets: [{
+                            label: types[2],
+                            data: bestSellingRes.totals,
+                        }]
+                    }}/>
+                }
+                {
+                    active === types[3] && worstSellingRes && <Bar data={{
+                        labels: worstSellingRes.restaurants,
+                        datasets: [{
+                            label: types[3],
+                            data: worstSellingRes.totals,
+                        }]
+                    }}/>
+                }
+                {
+                    active === types[4] && birthday &&
+                        <div>
+                            <a href={birthday.doc} target='_blank' rel='noreferrer'>
+                                <br/>
+                                <h3>CUMPLEAÑOS</h3>
+                            </a>
+                        </div>
+
+                }
+
+            </section>
+        );
+    }
     return (
         <HeaderContainer>
             <HeaderWrapper>
@@ -135,27 +319,7 @@ function HeaderSection() {
                         Generar
                     </H1Header>
 
-                    <Btn>Top 20 productos mas vendidos</Btn>
-                    
-                    <Btn>Top 20 Productos menos vendidos</Btn>
-                    <Btn>Sede de restaurante con mas ventas</Btn>
-                    <Btn>Sede de restaurante con menos ventas</Btn>
-                    <Btn>Cumpleaños el proximo mes</Btn>
-
-                    <HeaderTitle>
-
-                 
-                    </HeaderTitle>
-                </HeaderMessage>
-
-                <HeaderMessage>
-                    <H1Header>
-                        Generar reporte del producto
-                    </H1Header>
-
-                    <Btn>Numero de ventas del producto</Btn>
-
-                    <InputProduct placeholder="id del producto" />
+                    <TabGroup/>
 
                     <HeaderTitle>
 
@@ -163,32 +327,10 @@ function HeaderSection() {
                     </HeaderTitle>
                 </HeaderMessage>
 
-                <HeaderMessage>
-                    <H1Header style={{ margin: "-60px 0px 10px 0px" }}>
-                        Reporte de
-                    </H1Header>
-                    <Btn>Ventas por fecha</Btn>
-                    <form>
-                        <RegisterGridInput>
-                            <H2Header>Fecha inicial</H2Header>
-                            <RegisterInput>
+                <SingleProductChart/>
 
-                                <Input type="date" />
-                            </RegisterInput>
+                        <DateChart/>
 
-                            <H2Header>Fecha final</H2Header>
-
-                            <RegisterInput>
-
-                                <Input type="date" />
-                            </RegisterInput>
-                        </RegisterGridInput>
-                    </form>
-                    <HeaderTitle>
-
-
-                    </HeaderTitle>
-                </HeaderMessage>
 
 
 
