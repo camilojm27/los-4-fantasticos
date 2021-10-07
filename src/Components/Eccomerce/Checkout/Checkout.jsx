@@ -42,16 +42,64 @@ export default function Checkout() {
     const [cc_cvv, setCCcvv] = useState('');
 
     const [order, setOrder] = useState({});
-    let payments = null
+    const [payments, setPayments] = useState(null)
 
     const handleNext = async () => {
         let entity = ''
         let newOrder = {}
 
+        if(activeStep === 1){
+            try {
+                const cardSize = cc_number.length;
+                const {niceType} = creditCardType(cc_number)[0]
+
+                if (cc_number.length !== 16) {
+                    alert('La tarjeta debe tener 16 Dígitos')
+                    return
+                }
+                if (cc_cvv.length > 4 || cc_cvv.length < 3){
+                    alert('Ingresa una código cvv de 3 o 4 dígitos')
+                    return
+                }
+
+                if (ccname.length < 6){
+                    alert('Ingresa un Nombre de Titular Valido')
+                    return
+                }
+
+                if (cc_exp <= new Date()){
+                    alert('Ingresa un fecha de expiracion valida')
+                    return
+                }
+
+                const newPayments = [
+                    {name: 'Tipo de tarjeta', detail: niceType},
+                    {name: 'Titular', detail: ccname},
+                    {
+                        name: 'Numero de Tarjeta', detail: 'xxxx-xxxx-xxxx-' + cc_number[cardSize - 4]
+                            + cc_number[cardSize - 3]
+                            + cc_number[cardSize - 2]
+                            + cc_number[cardSize - 1]
+                    },
+                    {name: 'Fecha de Expiración', detail: cc_exp},
+
+                ]
+                setPayments(newPayments)
+            }catch (e) {
+                alert('Ingresa una tarjeta VALIDA')
+                return
+            }
+        }
+
         if (activeStep === 2){
+
+            console.log(cc_exp)
+
+
 
             try {
                 entity = creditCardType(cc_number)[0].type
+
 
                 let products_list = cartItems.map(
                     obj => {
@@ -107,24 +155,6 @@ export default function Checkout() {
     //     dispatch(createOrderAction({ ...cart, orderItems: cart.cartItems }));
     // };
 
-    function onPrepare() {
-        const cardSize = cc_number.length;
-        const {niceType} = creditCardType(cc_number)[0]
-        console.log(creditCardType(cc_number))
-        payments = [
-            {name: 'Tipo de tarjeta', detail: niceType},
-            {name: 'Titular', detail: ccname},
-            {
-                name: 'Numero de Tarjeta', detail: 'xxxx-xxxx-xxxx-' + cc_number[cardSize - 4]
-                    + cc_number[cardSize - 3]
-                    + cc_number[cardSize - 2]
-                    + cc_number[cardSize - 1]
-            },
-            {name: 'Fecha de Expiración', detail: cc_exp},
-
-        ]
-        return payments
-    }
 
     function getStepContent(step) {
         switch (step) {
@@ -279,6 +309,7 @@ export default function Checkout() {
                                     value={cc_exp}
                                     onChange={(e) => setCCexp(e.target.value)}
                                     type="month"
+                                    inputProps={{min: "2021-10", max: "2027-12"} }
                                 />
                             </Grid>
                             <Grid item xs={12} md={6}>
@@ -308,7 +339,6 @@ export default function Checkout() {
 
             case 2:
                 // REVIEW
-                const payments = onPrepare();
                 return (<React.Fragment>
                         <Typography variant="h6" gutterBottom>
                             Order summary
@@ -370,18 +400,23 @@ export default function Checkout() {
                                 <Typography variant="h6" gutterBottom sx={{mt: 2}}>
                                     Payment details
                                 </Typography>
-                                <Grid container>
-                                    {payments.map((payment) => (
-                                        <React.Fragment key={payment.name}>
-                                            <Grid item xs={6}>
-                                                <Typography gutterBottom>{payment.name}</Typography>
-                                            </Grid>
-                                            <Grid item xs={6}>
-                                                <Typography gutterBottom>{payment.detail}</Typography>
-                                            </Grid>
-                                        </React.Fragment>
-                                    ))}
-                                </Grid>
+                                {
+                                    payments &&
+                                    <Grid container>
+
+                                        {payments.map((payment) => (
+                                            <React.Fragment key={payment.name}>
+                                                <Grid item xs={6}>
+                                                    <Typography gutterBottom>{payment.name}</Typography>
+                                                </Grid>
+                                                <Grid item xs={6}>
+                                                    <Typography gutterBottom>{payment.detail}</Typography>
+                                                </Grid>
+                                            </React.Fragment>
+                                        ))}
+                                    </Grid>
+                                }
+
                             </Grid>
                         </Grid>
                     </React.Fragment>
