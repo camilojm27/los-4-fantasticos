@@ -3,12 +3,12 @@ import React, {useState} from 'react';
 import {
     Box,
     Checkbox,
-    FormControlLabel,
+    FormControlLabel, FormLabel,
     Grid,
     List,
     ListItem,
     ListItemText,
-    Paper,
+    Paper, Radio, RadioGroup,
     Step,
     StepLabel,
     Stepper,
@@ -24,6 +24,7 @@ import {useDispatch, useSelector} from "react-redux";
 import SignInModal from "../../MainPage/SignInModal";
 import creditCardType from "credit-card-type";
 import SendOrder from "./SendOrder";
+import FormControl from "@material-ui/core/FormControl";
 
 const steps = ['Dirección de Recogida', 'Tipo de Pago', 'Detalles de Pago', 'Revisa tu orden'];
 
@@ -43,6 +44,11 @@ export default function Checkout() {
 
     const [order, setOrder] = useState({});
     const [payments, setPayments] = useState(null)
+    const [value, setValue] = React.useState('Tarjeta de credito');
+
+    const handleChange = (event) => {
+        setValue(event.target.value);
+    };
 
     const handleNext = async () => {
         let entity = ''
@@ -123,7 +129,7 @@ export default function Checkout() {
                     cart_num: cc_number,
                     entity,
                     iva: 19,
-                    method: "Tarjeta de credito",
+                    method: value,
                     products_list ,
                 }
             } catch (e) {
@@ -265,6 +271,18 @@ export default function Checkout() {
             case 1: return (<div>
                 <Typography variant="h6" gutterBottom>
                     Método de Pago
+
+                    <FormControl component="fieldset">
+                        <RadioGroup
+                            aria-label="gender"
+                            name="controlled-radio-buttons-group"
+                            value={value}
+                            onChange={handleChange}
+                        >
+                            <FormControlLabel value="Tarjeta de credito" control={<Radio />} label="Tarjeta de credito" />
+                            <FormControlLabel value="Efectivo" control={<Radio />} label="Efectivo" />
+                        </RadioGroup>
+                    </FormControl>
                 </Typography>
             </div>)
             case 2:

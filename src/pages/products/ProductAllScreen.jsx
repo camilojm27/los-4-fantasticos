@@ -11,10 +11,6 @@ export const ProductAllScreen = (props) => {
             <PrimaryAppBar/>
             <HeroProducts>
                 <TitleHero>¿Que deseas comer hoy?</TitleHero>
-                <SearchBar>
-                    <SearchInput type="text" placeholder="Search..."/>
-                    <SearchIconP/>
-                </SearchBar>
             </HeroProducts>
             <Categories id={catId}/>
         </ProductSection>

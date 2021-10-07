@@ -110,6 +110,29 @@ const Btn = styled.button`
 const types = ['Top 20 productos mas vendidos', 'Top 20 Productos menos vendidos', 'Sede de restaurante con mas ventas',
     'Sede de restaurante con menos ventas', 'Cumpleaños el proximo mes']
 
+const backgroundColor = [
+        "#800000",
+        "#9A6324",
+        "#808000",
+        "#469990",
+        "#000075",
+        "#000000",
+        "#e6194B",
+        "#f58231",
+        "#ffe119",
+        "#bfef45",
+        "#3cb44b",
+        "#42d4f4",
+        "#4363d8",
+        "#911eb4",
+        "#f032e6",
+        "#a9a9a9",
+        "#fabed4",
+        "#ffd8b1",
+        "#fffac8",
+        "#aaffc3",
+    ]
+
 function HeaderSection() {
 
     const { user: currentUser } = useSelector((state) => state.auth);
@@ -141,6 +164,7 @@ function HeaderSection() {
                         datasets: [{
                             label: 'Reporte últimos 6 meses',
                             data: productData.quantities,
+                            backgroundColor,
                         }]
                     }}/>
                 }
@@ -196,6 +220,7 @@ function HeaderSection() {
                                 datasets: [{
                                     label: 'Reporte POR Fechas',
                                     data: productData.totals,
+                                    backgroundColor,
                                 }]
                             }}/>
                         }
@@ -247,6 +272,7 @@ function HeaderSection() {
                         datasets: [{
                             label: types[0],
                             data: topSelling.totals,
+                            backgroundColor,
                         }]
                     }}/>
                 }
@@ -257,6 +283,7 @@ function HeaderSection() {
                         datasets: [{
                             label: types[1],
                             data: lessSelling.totals,
+                            backgroundColor,
                         }]
                     }}/>
                 }
@@ -267,6 +294,7 @@ function HeaderSection() {
                         datasets: [{
                             label: types[2],
                             data: bestSellingRes.totals,
+                            backgroundColor,
                         }]
                     }}/>
                 }
@@ -276,6 +304,7 @@ function HeaderSection() {
                         datasets: [{
                             label: types[3],
                             data: worstSellingRes.totals,
+                            backgroundColor,
                         }]
                     }}/>
                 }
